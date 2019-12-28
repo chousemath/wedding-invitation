@@ -4604,23 +4604,20 @@ var author$project$Main$view = function (model) {
 							[
 								elm$html$Html$Attributes$id('container-flower-text')
 							]),
-						_List_fromArray(
-							[
-								author$project$Main$renderName('최성필'),
+						A2(
+							elm$core$List$cons,
+							author$project$Main$renderName('최성필'),
+							A2(
+								elm$core$List$cons,
 								author$project$Main$renderNameSpacer('그리고'),
-								author$project$Main$renderName('최수강'),
 								A2(
-								elm$html$Html$div,
-								_List_fromArray(
-									[
-										elm$html$Html$Attributes$id('container-subtitle')
-									]),
-								A2(
-									elm$core$List$map,
-									author$project$Main$renderSubtitle,
-									_List_fromArray(
-										['2020.04.19 SUN AM 11:00', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])))
-							]))
+									elm$core$List$cons,
+									author$project$Main$renderName('최수강'),
+									A2(
+										elm$core$List$map,
+										author$project$Main$renderSubtitle,
+										_List_fromArray(
+											['2020.04.19 SUN AM 11:00', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)']))))))
 					])),
 				A2(
 				elm$html$Html$div,

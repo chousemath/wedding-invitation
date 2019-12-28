@@ -23,18 +23,16 @@ view model =
             [ img [ id "flower-border", src "https://i.imgur.com/IcVqiOb.png" ] []
             , div
                 [ id "container-flower-text" ]
-                [ renderName "최성필"
-                , renderNameSpacer "그리고"
-                , renderName "최수강"
-                , div [ id "container-subtitle" ]
-                    (List.map
+                (renderName "최성필"
+                    :: renderNameSpacer "그리고"
+                    :: renderName "최수강"
+                    :: List.map
                         renderSubtitle
                         [ "2020.04.19 SUN AM 11:00"
                         , "서울특별시 종로구 종로1길 50 (중학동)"
                         , "더케이트윈타워 A동 LL층 (지하2층)"
                         ]
-                    )
-                ]
+                )
             ]
         , div [ id "container-thumbnails" ] (List.map makeThumbnail model.gallery)
         ]
