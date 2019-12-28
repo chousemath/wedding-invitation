@@ -8,6 +8,10 @@
     background: transparent;
     font-family: 'Nanum Myeongjo', serif;
 }
+#container-main {
+    width: 100vw;
+    height: 100vh;
+}
 #container-flower {
     width: 100%;
     position: relative;
@@ -40,6 +44,10 @@
     align-items: center;
     height: 30px;
 }
+#container-subtitle {
+    width: 100%;
+    margin-top: 35px;
+}
 .subtitle {
     width: 100%;
     display: flex;
@@ -47,4 +55,17 @@
     align-items: center;
     font-size: 12px;
     height: 30px;
+}
+#container-thumbnails {
+    margin-top: 16px;
+    padding-right: calc(5vw - 6px);
+    padding-left: calc(5vw - 6px);
+}
+.thumbnail {
+    width: 30vw;
+    height: 30vw;
+    background-color: green;
+    float: left;
+    margin-bottom: 8px;
+    margin-left: 4px;
 }
