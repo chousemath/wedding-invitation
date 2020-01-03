@@ -66,10 +66,17 @@
         .thumbnail {
             width: 30vw;
             height: 30vw;
-            background-color: green;
             float: left;
             margin-bottom: 8px;
             margin-left: 4px;
+        }
+        .thumbnail-selected {
+            width: 30vw;
+            height: 30vw;
+            float: left;
+            margin-bottom: 8px;
+            margin-left: 4px;
+            outline: 2px outset pink;
         }
     }
     #container-selected {

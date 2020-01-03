@@ -6,18 +6,30 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 
 
+type alias Comment =
+    { author : String, createdAt : String, content : String }
+
+
+type alias Selection =
+    { desc : String, data : String }
+
+
+renderName : String -> Html msg
 renderName str =
     div [ class "name" ] [ h4 [] [ text str ] ]
 
 
+renderNameSpacer : String -> Html msg
 renderNameSpacer str =
     div [ id "name-spacer" ] [ h4 [] [ text str ] ]
 
 
+renderSubtitle : String -> Html msg
 renderSubtitle str =
     div [ class "subtitle" ] [ h4 [] [ text str ] ]
 
 
+introText : List (Html msg)
 introText =
     [ renderName "최성필"
     , renderNameSpacer "그리고"
@@ -31,6 +43,7 @@ introText =
             ]
 
 
+galleryImages : List String
 galleryImages =
     [ "DSC00897_Resize.jpg"
     , "DSC00314_Resize.jpg"
@@ -44,6 +57,7 @@ galleryImages =
     ]
 
 
+genLink : String -> String
 genLink fname =
     let
         bucket =
@@ -68,27 +82,38 @@ genComment comment =
         ]
 
 
-makeThumbnail link =
+makeThumbnail : String -> String -> Html Selection
+makeThumbnail selected link =
     div
-        [ class "thumbnail"
+        [ class
+            (if selected == link then
+                "thumbnail-selected"
+
+             else
+                "thumbnail"
+            )
         , style "background" ("url(" ++ link ++ ") no-repeat center")
         , onClick { desc = "image-selected", data = link }
         ]
         []
 
 
+defaultComments : List Comment
 defaultComments =
     [ { author = "Mom", createdAt = "2020-01-15", content = "Hi I am a mom" }
     , { author = "Dad", createdAt = "2020-01-15", content = "Hi I am a dad" }
     ]
 
 
+links : List String
 links =
     List.map genLink galleryImages
 
 
+initialModel : { gallery : List String, comments : List Comment, selectedImage : String }
 initialModel =
     { gallery = links
+    , comments = defaultComments
     , selectedImage =
         case List.head links of
             Nothing ->
@@ -106,7 +131,7 @@ view model =
             [ img [ id "flower-border", src "https://i.imgur.com/IcVqiOb.png" ] []
             , div [ id "container-flower-text" ] introText
             ]
-        , div [ id "container-thumbnails" ] (List.map makeThumbnail model.gallery)
+        , div [ id "container-thumbnails" ] (List.map (makeThumbnail model.selectedImage) model.gallery)
         , div
             [ id "container-selected"
             , style "background" ("url(" ++ model.selectedImage ++ ") no-repeat center")

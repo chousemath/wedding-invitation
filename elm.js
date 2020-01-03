@@ -4435,6 +4435,11 @@ var elm$core$Set$toList = function (_n0) {
 	var dict = _n0.a;
 	return elm$core$Dict$keys(dict);
 };
+var author$project$Main$defaultComments = _List_fromArray(
+	[
+		{author: 'Mom', content: 'Hi I am a mom', createdAt: '2020-01-15'},
+		{author: 'Dad', content: 'Hi I am a dad', createdAt: '2020-01-15'}
+	]);
 var author$project$Main$galleryImages = _List_fromArray(
 	['DSC00897_Resize.jpg', 'DSC00314_Resize.jpg', 'DSC00746_Resize.jpg', 'DSC00421_Resize.jpg', 'DSC00886_Resize.jpg', 'DSC00900_Resize.jpg', 'DSC00446_Resize.jpg', 'DSC00873_Resize.jpg', 'DSC00297_Resize.jpg']);
 var elm$core$Basics$append = _Utils_append;
@@ -4551,6 +4556,7 @@ var elm$core$List$head = function (list) {
 	}
 };
 var author$project$Main$initialModel = {
+	comments: author$project$Main$defaultComments,
 	gallery: author$project$Main$links,
 	selectedImage: function () {
 		var _n0 = elm$core$List$head(author$project$Main$links);
@@ -5056,18 +5062,20 @@ var elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		elm$json$Json$Decode$succeed(msg));
 };
-var author$project$Main$makeThumbnail = function (link) {
-	return A2(
-		elm$html$Html$div,
-		_List_fromArray(
-			[
-				elm$html$Html$Attributes$class('thumbnail'),
-				A2(elm$html$Html$Attributes$style, 'background', 'url(' + (link + ') no-repeat center')),
-				elm$html$Html$Events$onClick(
-				{data: link, desc: 'image-selected'})
-			]),
-		_List_Nil);
-};
+var author$project$Main$makeThumbnail = F2(
+	function (selected, link) {
+		return A2(
+			elm$html$Html$div,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$class(
+					_Utils_eq(selected, link) ? 'thumbnail-selected' : 'thumbnail'),
+					A2(elm$html$Html$Attributes$style, 'background', 'url(' + (link + ') no-repeat center')),
+					elm$html$Html$Events$onClick(
+					{data: link, desc: 'image-selected'})
+				]),
+			_List_Nil);
+	});
 var elm$html$Html$img = _VirtualDom_node('img');
 var elm$html$Html$Attributes$src = function (url) {
 	return A2(
@@ -5114,7 +5122,10 @@ var author$project$Main$view = function (model) {
 					[
 						elm$html$Html$Attributes$id('container-thumbnails')
 					]),
-				A2(elm$core$List$map, author$project$Main$makeThumbnail, model.gallery)),
+				A2(
+					elm$core$List$map,
+					author$project$Main$makeThumbnail(model.selectedImage),
+					model.gallery)),
 				A2(
 				elm$html$Html$div,
 				_List_fromArray(
