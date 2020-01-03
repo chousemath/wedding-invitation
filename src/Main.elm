@@ -1,5 +1,6 @@
 module Main exposing (main)
 
+import Array exposing (Array)
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -10,8 +11,16 @@ type alias Comment =
     { author : String, createdAt : String, content : String }
 
 
-type alias Selection =
+type alias Comments =
+    List Comment
+
+
+type alias Msg =
     { desc : String, data : String }
+
+
+type alias Model =
+    { gallery : List String, comments : Comments, selectedImage : String }
 
 
 renderName : String -> Html msg
@@ -69,6 +78,7 @@ genLink fname =
     "https://" ++ bucket ++ ".s3." ++ region ++ ".amazonaws.com/" ++ fname
 
 
+genComment : Comment -> Html msg
 genComment comment =
     div
         [ class "container-comment" ]
@@ -78,11 +88,11 @@ genComment comment =
             ]
         , div
             [ class "container-comment-btm" ]
-            [ comment.content ]
+            [ text comment.content ]
         ]
 
 
-makeThumbnail : String -> String -> Html Selection
+makeThumbnail : String -> String -> Html Msg
 makeThumbnail selected link =
     div
         [ class
@@ -110,7 +120,7 @@ links =
     List.map genLink galleryImages
 
 
-initialModel : { gallery : List String, comments : List Comment, selectedImage : String }
+initialModel : Model
 initialModel =
     { gallery = links
     , comments = defaultComments
@@ -124,6 +134,7 @@ initialModel =
     }
 
 
+view : Model -> Html Msg
 view model =
     div [ id "container-main" ]
         [ div
@@ -137,6 +148,9 @@ view model =
             , style "background" ("url(" ++ model.selectedImage ++ ") no-repeat center")
             ]
             []
+        , div
+            [ id "container-comments" ]
+            (List.map genComment model.comments)
         ]
 
 

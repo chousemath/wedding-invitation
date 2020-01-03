@@ -4964,7 +4964,6 @@ var elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 	}
 };
 var elm$html$Html$div = _VirtualDom_node('div');
-var elm$html$Html$h4 = _VirtualDom_node('h4');
 var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var elm$html$Html$text = elm$virtual_dom$VirtualDom$text;
 var elm$json$Json$Encode$string = _Json_wrap;
@@ -4976,6 +4975,57 @@ var elm$html$Html$Attributes$stringProperty = F2(
 			elm$json$Json$Encode$string(string));
 	});
 var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
+var author$project$Main$genComment = function (comment) {
+	return A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('container-comment')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('container-comment-top')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('container-comment-author')
+							]),
+						_List_fromArray(
+							[
+								elm$html$Html$text(comment.author)
+							])),
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('container-comment-created-at')
+							]),
+						_List_fromArray(
+							[
+								elm$html$Html$text(comment.createdAt)
+							]))
+					])),
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('container-comment-btm')
+					]),
+				_List_fromArray(
+					[
+						elm$html$Html$text(comment.content)
+					]))
+			]));
+};
+var elm$html$Html$h4 = _VirtualDom_node('h4');
 var author$project$Main$renderName = function (str) {
 	return A2(
 		elm$html$Html$div,
@@ -5133,7 +5183,14 @@ var author$project$Main$view = function (model) {
 						elm$html$Html$Attributes$id('container-selected'),
 						A2(elm$html$Html$Attributes$style, 'background', 'url(' + (model.selectedImage + ') no-repeat center'))
 					]),
-				_List_Nil)
+				_List_Nil),
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$id('container-comments')
+					]),
+				A2(elm$core$List$map, author$project$Main$genComment, model.comments))
 			]));
 };
 var elm$core$Platform$Cmd$batch = _Platform_batch;
