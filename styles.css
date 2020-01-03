@@ -1,71 +1,77 @@
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    font-size: 100%;
-    vertical-align: baseline;
-    background: transparent;
-    font-family: 'Nanum Myeongjo', serif;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  font-family: "Nanum Myeongjo", serif;
 }
+
 #container-main {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
-#container-flower {
-    width: 100%;
-    position: relative;
-    text-align: center;
-    background-color: #EADEC8;
-    padding: 16px 0 16px 0;
+#container-main #container-flower {
+  width: 100%;
+  position: relative;
+  text-align: center;
+  background-color: #EADEC8;
+  padding: 16px 0 16px 0;
 }
-#flower-border {
-    width: calc(100% - 32px);
+#container-main #container-flower #flower-border {
+  width: calc(100% - 32px);
 }
-#container-flower-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
+#container-main #container-flower #container-flower-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
 }
-.name {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    font-size: 18px;
+#container-main #container-flower #container-flower-text .name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
 }
-#name-spacer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 30px;
+#container-main #container-flower #container-flower-text #name-spacer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30px;
 }
-#container-subtitle {
-    width: 100%;
-    margin-top: 35px;
+#container-main #container-flower #container-flower-text .subtitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 12px;
+  height: 30px;
 }
-.subtitle {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    height: 30px;
+#container-main #container-thumbnails {
+  margin-top: 16px;
+  padding-right: calc(5vw - 6px);
+  padding-left: calc(5vw - 6px);
 }
-#container-thumbnails {
-    margin-top: 16px;
-    padding-right: calc(5vw - 6px);
-    padding-left: calc(5vw - 6px);
+#container-main #container-thumbnails .thumbnail {
+  width: 30vw;
+  height: 30vw;
+  background-color: green;
+  float: left;
+  margin-bottom: 8px;
+  margin-left: 4px;
 }
-.thumbnail {
-    width: 30vw;
-    height: 30vw;
-    background-color: green;
-    float: left;
-    margin-bottom: 8px;
-    margin-left: 4px;
+#container-main #container-selected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50vh;
 }
+
+/*# sourceMappingURL=styles.css.map */
