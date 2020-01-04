@@ -124,4 +124,10 @@
             background-color: azure;
         }
     }
+    #container-selected-comment {
+        padding: 16px;
+        #selected-comment-content {
+            width: 100%;
+        }
+    }
 }

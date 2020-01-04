@@ -11,16 +11,25 @@ type alias Comment =
     { author : String, createdAt : String, content : String }
 
 
+emptyComment : Comment
+emptyComment =
+    { author = ""
+    , createdAt = ""
+    , content = ""
+    }
+
+
 type alias Comments =
     List Comment
 
 
-type alias Msg =
-    { desc : String, data : String }
+type Msg
+    = CommentSelected Comment
+    | ImageSelected String
 
 
 type alias Model =
-    { gallery : List String, comments : Comments, selectedImage : String, selectedComment : String }
+    { gallery : List String, comments : Comments, selectedImage : String, selectedComment : Comment }
 
 
 renderName : String -> Html msg
@@ -86,7 +95,7 @@ stringifyComment comment =
 genComment : Comment -> Html Msg
 genComment comment =
     div
-        [ class "container-comment", onClick { desc = "comment-clicked", data = stringifyComment comment } ]
+        [ class "container-comment", onClick (CommentSelected comment) ]
         [ div [ class "container-comment-top" ]
             [ div [ class "container-comment-author" ] [ span [ class "text-author" ] [ text comment.author ] ]
             , div [ class "container-comment-created-at" ] [ text comment.createdAt ]
@@ -108,7 +117,7 @@ makeThumbnail selected link =
                 "thumbnail"
             )
         , style "background" ("url(" ++ link ++ ") no-repeat center")
-        , onClick { desc = "image-selected", data = link }
+        , onClick (ImageSelected link)
         ]
         []
 
@@ -120,6 +129,15 @@ defaultComments =
     ]
 
 
+displayComment : Comment -> List (Html Msg)
+displayComment c =
+    if c.author /= "" then
+        [ div [ id "selected-comment-content", onClick (CommentSelected emptyComment) ] [ text c.author ] ]
+
+    else
+        []
+
+
 links : List String
 links =
     List.map genLink galleryImages
@@ -129,7 +147,7 @@ initialModel : Model
 initialModel =
     { gallery = links
     , comments = defaultComments
-    , selectedComment = ""
+    , selectedComment = emptyComment
     , selectedImage =
         case List.head links of
             Nothing ->
@@ -158,21 +176,21 @@ view model =
             [ id "container-comments" ]
             (List.map genComment model.comments)
         , div
+            [ id "container-selected-comment" ]
+            (displayComment model.selectedComment)
+        , div
             [ id "container-map" ]
             [ div [ id "map" ] [] ]
         ]
 
 
 update msg model =
-    case msg.desc of
-        "image-selected" ->
-            { model | selectedImage = msg.data }
+    case msg of
+        ImageSelected url ->
+            { model | selectedImage = url }
 
-        "comment-clicked" ->
-            { model | selectedImage = msg.data }
-
-        _ ->
-            model
+        CommentSelected c ->
+            { model | selectedComment = c }
 
 
 main =

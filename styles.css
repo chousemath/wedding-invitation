@@ -125,5 +125,11 @@
   height: 400px;
   background-color: azure;
 }
+#container-main #container-selected-comment {
+  padding: 16px;
+}
+#container-main #container-selected-comment #selected-comment-content {
+  width: 100%;
+}
 
 /*# sourceMappingURL=styles.css.map */
