@@ -98,11 +98,30 @@
                 @include flex-row;
                 .container-comment-author {
                     @include flex-start;
+                    .text-author {
+                        font-weight: bold;
+                        font-size: 18px;
+                    }
                 }
                 .container-comment-created-at {
                     @include flex-start;
+                    .text-created-at {
+                        font-weight: lighter;
+                        font-size: 18px;
+                    }
                 }
             }
+        }
+    }
+    #container-map {
+        @include flex-center;
+        height: 300px;
+        padding: 16px;
+        overflow: hidden;
+        #map {
+            width: 100%;
+            height: 400px;
+            background-color: azure;
         }
     }
 }

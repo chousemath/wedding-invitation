@@ -853,53 +853,6 @@ var _Basics_xor = F2(function(a, b) { return a !== b; });
 
 
 
-function _Char_toCode(char)
-{
-	var code = char.charCodeAt(0);
-	if (0xD800 <= code && code <= 0xDBFF)
-	{
-		return (code - 0xD800) * 0x400 + char.charCodeAt(1) - 0xDC00 + 0x10000
-	}
-	return code;
-}
-
-function _Char_fromCode(code)
-{
-	return _Utils_chr(
-		(code < 0 || 0x10FFFF < code)
-			? '\uFFFD'
-			:
-		(code <= 0xFFFF)
-			? String.fromCharCode(code)
-			:
-		(code -= 0x10000,
-			String.fromCharCode(Math.floor(code / 0x400) + 0xD800, code % 0x400 + 0xDC00)
-		)
-	);
-}
-
-function _Char_toUpper(char)
-{
-	return _Utils_chr(char.toUpperCase());
-}
-
-function _Char_toLower(char)
-{
-	return _Utils_chr(char.toLowerCase());
-}
-
-function _Char_toLocaleUpper(char)
-{
-	return _Utils_chr(char.toLocaleUpperCase());
-}
-
-function _Char_toLocaleLower(char)
-{
-	return _Utils_chr(char.toLocaleLowerCase());
-}
-
-
-
 var _String_cons = F2(function(chr, str)
 {
 	return chr + str;
@@ -1209,6 +1162,53 @@ function _String_fromList(chars)
 	return _List_toArray(chars).join('');
 }
 
+
+
+
+function _Char_toCode(char)
+{
+	var code = char.charCodeAt(0);
+	if (0xD800 <= code && code <= 0xDBFF)
+	{
+		return (code - 0xD800) * 0x400 + char.charCodeAt(1) - 0xDC00 + 0x10000
+	}
+	return code;
+}
+
+function _Char_fromCode(code)
+{
+	return _Utils_chr(
+		(code < 0 || 0x10FFFF < code)
+			? '\uFFFD'
+			:
+		(code <= 0xFFFF)
+			? String.fromCharCode(code)
+			:
+		(code -= 0x10000,
+			String.fromCharCode(Math.floor(code / 0x400) + 0xD800, code % 0x400 + 0xDC00)
+		)
+	);
+}
+
+function _Char_toUpper(char)
+{
+	return _Utils_chr(char.toUpperCase());
+}
+
+function _Char_toLower(char)
+{
+	return _Utils_chr(char.toLowerCase());
+}
+
+function _Char_toLocaleUpper(char)
+{
+	return _Utils_chr(char.toLocaleUpperCase());
+}
+
+function _Char_toLocaleLower(char)
+{
+	return _Utils_chr(char.toLocaleLowerCase());
+}
 
 
 
@@ -4558,6 +4558,7 @@ var elm$core$List$head = function (list) {
 var author$project$Main$initialModel = {
 	comments: author$project$Main$defaultComments,
 	gallery: author$project$Main$links,
+	selectedComment: '',
 	selectedImage: function () {
 		var _n0 = elm$core$List$head(author$project$Main$links);
 		if (_n0.$ === 'Nothing') {
@@ -4571,14 +4572,33 @@ var author$project$Main$initialModel = {
 var author$project$Main$update = F2(
 	function (msg, model) {
 		var _n0 = msg.desc;
-		if (_n0 === 'image-selected') {
-			return _Utils_update(
-				model,
-				{selectedImage: msg.data});
-		} else {
-			return model;
+		switch (_n0) {
+			case 'image-selected':
+				return _Utils_update(
+					model,
+					{selectedImage: msg.data});
+			case 'comment-clicked':
+				return _Utils_update(
+					model,
+					{selectedImage: msg.data});
+			default:
+				return model;
 		}
 	});
+var elm$core$String$join = F2(
+	function (sep, chunks) {
+		return A2(
+			_String_join,
+			sep,
+			_List_toArray(chunks));
+	});
+var author$project$Main$stringifyComment = function (comment) {
+	return A2(
+		elm$core$String$join,
+		'/////',
+		_List_fromArray(
+			[comment.author, comment.createdAt, comment.content]));
+};
 var elm$core$Basics$identity = function (x) {
 	return x;
 };
@@ -4825,13 +4845,6 @@ var elm$core$List$indexedMap = F2(
 	});
 var elm$core$String$all = _String_all;
 var elm$core$String$fromInt = _String_fromNumber;
-var elm$core$String$join = F2(
-	function (sep, chunks) {
-		return A2(
-			_String_join,
-			sep,
-			_List_toArray(chunks));
-	});
 var elm$core$String$uncons = _String_uncons;
 var elm$core$String$split = F2(
 	function (sep, string) {
@@ -4964,6 +4977,7 @@ var elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 	}
 };
 var elm$html$Html$div = _VirtualDom_node('div');
+var elm$html$Html$span = _VirtualDom_node('span');
 var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var elm$html$Html$text = elm$virtual_dom$VirtualDom$text;
 var elm$json$Json$Encode$string = _Json_wrap;
@@ -4975,12 +4989,34 @@ var elm$html$Html$Attributes$stringProperty = F2(
 			elm$json$Json$Encode$string(string));
 	});
 var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
+var elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
+};
+var elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			elm$virtual_dom$VirtualDom$on,
+			event,
+			elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var elm$html$Html$Events$onClick = function (msg) {
+	return A2(
+		elm$html$Html$Events$on,
+		'click',
+		elm$json$Json$Decode$succeed(msg));
+};
 var author$project$Main$genComment = function (comment) {
 	return A2(
 		elm$html$Html$div,
 		_List_fromArray(
 			[
-				elm$html$Html$Attributes$class('container-comment')
+				elm$html$Html$Attributes$class('container-comment'),
+				elm$html$Html$Events$onClick(
+				{
+					data: author$project$Main$stringifyComment(comment),
+					desc: 'comment-clicked'
+				})
 			]),
 		_List_fromArray(
 			[
@@ -5000,7 +5036,16 @@ var author$project$Main$genComment = function (comment) {
 							]),
 						_List_fromArray(
 							[
-								elm$html$Html$text(comment.author)
+								A2(
+								elm$html$Html$span,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('text-author')
+									]),
+								_List_fromArray(
+									[
+										elm$html$Html$text(comment.author)
+									]))
 							])),
 						A2(
 						elm$html$Html$div,
@@ -5095,23 +5140,6 @@ var author$project$Main$introText = _Utils_ap(
 			['2020.04.19 SUN AM 11:00', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])));
 var elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var elm$html$Html$Attributes$style = elm$virtual_dom$VirtualDom$style;
-var elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
-};
-var elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
-var elm$html$Html$Events$on = F2(
-	function (event, decoder) {
-		return A2(
-			elm$virtual_dom$VirtualDom$on,
-			event,
-			elm$virtual_dom$VirtualDom$Normal(decoder));
-	});
-var elm$html$Html$Events$onClick = function (msg) {
-	return A2(
-		elm$html$Html$Events$on,
-		'click',
-		elm$json$Json$Decode$succeed(msg));
-};
 var author$project$Main$makeThumbnail = F2(
 	function (selected, link) {
 		return A2(
@@ -5190,7 +5218,23 @@ var author$project$Main$view = function (model) {
 					[
 						elm$html$Html$Attributes$id('container-comments')
 					]),
-				A2(elm$core$List$map, author$project$Main$genComment, model.comments))
+				A2(elm$core$List$map, author$project$Main$genComment, model.comments)),
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$id('container-map')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$id('map')
+							]),
+						_List_Nil)
+					]))
 			]));
 };
 var elm$core$Platform$Cmd$batch = _Platform_batch;

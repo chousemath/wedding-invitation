@@ -98,11 +98,32 @@
   justify-content: flex-start;
   align-items: center;
 }
+#container-main #container-comments .container-comment .container-comment-top .container-comment-author .text-author {
+  font-weight: bold;
+  font-size: 18px;
+}
 #container-main #container-comments .container-comment .container-comment-top .container-comment-created-at {
   display: flex;
   flex: 1;
   justify-content: flex-start;
   align-items: center;
+}
+#container-main #container-comments .container-comment .container-comment-top .container-comment-created-at .text-created-at {
+  font-weight: lighter;
+  font-size: 18px;
+}
+#container-main #container-map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  padding: 16px;
+  overflow: hidden;
+}
+#container-main #container-map #map {
+  width: 100%;
+  height: 400px;
+  background-color: azure;
 }
 
 /*# sourceMappingURL=styles.css.map */

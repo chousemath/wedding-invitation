@@ -20,7 +20,7 @@ type alias Msg =
 
 
 type alias Model =
-    { gallery : List String, comments : Comments, selectedImage : String }
+    { gallery : List String, comments : Comments, selectedImage : String, selectedComment : String }
 
 
 renderName : String -> Html msg
@@ -78,12 +78,17 @@ genLink fname =
     "https://" ++ bucket ++ ".s3." ++ region ++ ".amazonaws.com/" ++ fname
 
 
-genComment : Comment -> Html msg
+stringifyComment : Comment -> String
+stringifyComment comment =
+    String.join "/////" [ comment.author, comment.createdAt, comment.content ]
+
+
+genComment : Comment -> Html Msg
 genComment comment =
     div
-        [ class "container-comment" ]
+        [ class "container-comment", onClick { desc = "comment-clicked", data = stringifyComment comment } ]
         [ div [ class "container-comment-top" ]
-            [ div [ class "container-comment-author" ] [ text comment.author ]
+            [ div [ class "container-comment-author" ] [ span [ class "text-author" ] [ text comment.author ] ]
             , div [ class "container-comment-created-at" ] [ text comment.createdAt ]
             ]
         , div
@@ -124,6 +129,7 @@ initialModel : Model
 initialModel =
     { gallery = links
     , comments = defaultComments
+    , selectedComment = ""
     , selectedImage =
         case List.head links of
             Nothing ->
@@ -151,12 +157,18 @@ view model =
         , div
             [ id "container-comments" ]
             (List.map genComment model.comments)
+        , div
+            [ id "container-map" ]
+            [ div [ id "map" ] [] ]
         ]
 
 
 update msg model =
     case msg.desc of
         "image-selected" ->
+            { model | selectedImage = msg.data }
+
+        "comment-clicked" ->
             { model | selectedImage = msg.data }
 
         _ ->
