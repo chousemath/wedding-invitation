@@ -219,21 +219,30 @@ view model =
         ]
 
 
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ImageSelected url ->
-            { model | selectedImage = url }
+            ( { model | selectedImage = url }
+            , Cmd.none
+            )
 
         CommentSelected c ->
-            { model | selectedComment = c }
+            ( { model | selectedComment = c }
+            , Cmd.none
+            )
 
         Social platform ->
-            model
+            ( model
+            , Cmd.none
+            )
 
 
+main : Program () Model Msg
 main =
-    Browser.sandbox
-        { init = initialModel
+    Browser.element
+        { init = \flags -> ( initialModel, Cmd.none )
         , view = view
         , update = update
+        , subscriptions = \model -> Sub.none
         }

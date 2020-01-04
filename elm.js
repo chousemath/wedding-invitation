@@ -4570,31 +4570,6 @@ var author$project$Main$initialModel = {
 		}
 	}()
 };
-var author$project$Main$update = F2(
-	function (msg, model) {
-		switch (msg.$) {
-			case 'ImageSelected':
-				var url = msg.a;
-				return _Utils_update(
-					model,
-					{selectedImage: url});
-			case 'CommentSelected':
-				var c = msg.a;
-				return _Utils_update(
-					model,
-					{selectedComment: c});
-			default:
-				var platform = msg.a;
-				return model;
-		}
-	});
-var author$project$Main$CommentSelected = function (a) {
-	return {$: 'CommentSelected', a: a};
-};
-var elm$core$Basics$neq = _Utils_notEqual;
-var elm$core$Basics$identity = function (x) {
-	return x;
-};
 var elm$core$Basics$False = {$: 'False'};
 var elm$core$Basics$True = {$: 'True'};
 var elm$core$Result$isOk = function (result) {
@@ -4961,6 +4936,37 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 			}
 		}
 	});
+var elm$core$Platform$Cmd$batch = _Platform_batch;
+var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
+var author$project$Main$update = F2(
+	function (msg, model) {
+		switch (msg.$) {
+			case 'ImageSelected':
+				var url = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{selectedImage: url}),
+					elm$core$Platform$Cmd$none);
+			case 'CommentSelected':
+				var c = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{selectedComment: c}),
+					elm$core$Platform$Cmd$none);
+			default:
+				var platform = msg.a;
+				return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
+		}
+	});
+var author$project$Main$CommentSelected = function (a) {
+	return {$: 'CommentSelected', a: a};
+};
+var elm$core$Basics$neq = _Utils_notEqual;
+var elm$core$Basics$identity = function (x) {
+	return x;
+};
 var elm$json$Json$Decode$map = _Json_map1;
 var elm$json$Json$Decode$map2 = _Json_map2;
 var elm$json$Json$Decode$succeed = _Json_succeed;
@@ -5295,10 +5301,6 @@ var author$project$Main$view = function (model) {
 				A2(elm$core$List$map, author$project$Main$displaySocial, author$project$Main$socialPlatforms))
 			]));
 };
-var elm$core$Platform$Cmd$batch = _Platform_batch;
-var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
-var elm$core$Platform$Sub$batch = _Platform_batch;
-var elm$core$Platform$Sub$none = elm$core$Platform$Sub$batch(_List_Nil);
 var elm$browser$Browser$External = function (a) {
 	return {$: 'External', a: a};
 };
@@ -5525,25 +5527,19 @@ var elm$url$Url$fromString = function (str) {
 		elm$url$Url$Https,
 		A2(elm$core$String$dropLeft, 8, str)) : elm$core$Maybe$Nothing);
 };
-var elm$browser$Browser$sandbox = function (impl) {
-	return _Browser_element(
-		{
-			init: function (_n0) {
-				return _Utils_Tuple2(impl.init, elm$core$Platform$Cmd$none);
-			},
-			subscriptions: function (_n1) {
-				return elm$core$Platform$Sub$none;
-			},
-			update: F2(
-				function (msg, model) {
-					return _Utils_Tuple2(
-						A2(impl.update, msg, model),
-						elm$core$Platform$Cmd$none);
-				}),
-			view: impl.view
-		});
-};
-var author$project$Main$main = elm$browser$Browser$sandbox(
-	{init: author$project$Main$initialModel, update: author$project$Main$update, view: author$project$Main$view});
+var elm$browser$Browser$element = _Browser_element;
+var elm$core$Platform$Sub$batch = _Platform_batch;
+var elm$core$Platform$Sub$none = elm$core$Platform$Sub$batch(_List_Nil);
+var author$project$Main$main = elm$browser$Browser$element(
+	{
+		init: function (flags) {
+			return _Utils_Tuple2(author$project$Main$initialModel, elm$core$Platform$Cmd$none);
+		},
+		subscriptions: function (model) {
+			return elm$core$Platform$Sub$none;
+		},
+		update: author$project$Main$update,
+		view: author$project$Main$view
+	});
 _Platform_export({'Main':{'init':author$project$Main$main(
 	elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
