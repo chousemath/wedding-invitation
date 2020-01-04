@@ -5,6 +5,7 @@ import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
+import Http
 
 
 type Status
@@ -26,6 +27,7 @@ type Msg
     = CommentSelected Comment
     | ImageSelected String
     | Social SocialMedia
+    | GotPhotos (Result Http.Error String)
 
 
 type alias Comment =
@@ -106,11 +108,6 @@ genLink fname =
             "ap-northeast-2"
     in
     "https://" ++ bucket ++ ".s3." ++ region ++ ".amazonaws.com/" ++ fname
-
-
-stringifyComment : Comment -> String
-stringifyComment comment =
-    String.join "/////" [ comment.author, comment.createdAt, comment.content ]
 
 
 genComment : Comment -> Html Msg
@@ -194,6 +191,14 @@ loader =
     ]
 
 
+initialCmd : Cmd Msg
+initialCmd =
+    Http.get
+        { url = ""
+        , expect = Http.expectString GotPhotos
+        }
+
+
 initialModel : Model
 initialModel =
     { status = Loading
@@ -220,21 +225,23 @@ view model =
                     loader
 
                 Errored err ->
-                    [ div [] [ text err ]
-                    ]
+                    [ div [] [ text err ] ]
         , displaySelectedImage model.selectedImage
         , div
             [ id "container-comments" ]
-            (List.map genComment model.comments)
+          <|
+            List.map genComment model.comments
         , div
             [ id "container-selected-comment" ]
-            (displayComment model.selectedComment)
+          <|
+            displayComment model.selectedComment
         , div
             [ id "container-map" ]
             [ div [ id "map" ] [] ]
         , div
             [ id "container-socials" ]
-            (List.map displaySocial socialPlatforms)
+          <|
+            List.map displaySocial socialPlatforms
         ]
 
 
@@ -255,6 +262,19 @@ update msg model =
             ( model
             , Cmd.none
             )
+
+        GotPhotos (Ok responseStr) ->
+            let
+                urls =
+                    String.split "," responseStr
+
+                photos =
+                    List.map genLink urls
+            in
+            ( { model | status = Loaded photos }, Cmd.none )
+
+        GotPhotos (Err httpError) ->
+            ( { model | status = Errored "Internal Server Error" }, Cmd.none )
 
 
 main : Program () Model Msg
