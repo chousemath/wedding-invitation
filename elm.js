@@ -4355,6 +4355,7 @@ function _Browser_load(url)
 		}
 	}));
 }
+var author$project$Main$Loading = {$: 'Loading'};
 var elm$core$Basics$EQ = {$: 'EQ'};
 var elm$core$Basics$LT = {$: 'LT'};
 var elm$core$Elm$JsArray$foldr = _JsArray_foldr;
@@ -4441,135 +4442,7 @@ var author$project$Main$defaultComments = _List_fromArray(
 		{author: 'Dad', content: 'Hi I am a dad', createdAt: '2020-01-15'}
 	]);
 var author$project$Main$emptyComment = {author: '', content: '', createdAt: ''};
-var author$project$Main$galleryImages = _List_fromArray(
-	['DSC00897_Resize.jpg', 'DSC00314_Resize.jpg', 'DSC00746_Resize.jpg', 'DSC00421_Resize.jpg', 'DSC00886_Resize.jpg', 'DSC00900_Resize.jpg', 'DSC00446_Resize.jpg', 'DSC00873_Resize.jpg', 'DSC00297_Resize.jpg']);
-var elm$core$Basics$append = _Utils_append;
-var author$project$Main$genLink = function (fname) {
-	var region = 'ap-northeast-2';
-	var bucket = 'choi-choi';
-	return 'https://' + (bucket + ('.s3.' + (region + ('.amazonaws.com/' + fname))));
-};
-var elm$core$Basics$add = _Basics_add;
-var elm$core$Basics$gt = _Utils_gt;
-var elm$core$List$foldl = F3(
-	function (func, acc, list) {
-		foldl:
-		while (true) {
-			if (!list.b) {
-				return acc;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				var $temp$func = func,
-					$temp$acc = A2(func, x, acc),
-					$temp$list = xs;
-				func = $temp$func;
-				acc = $temp$acc;
-				list = $temp$list;
-				continue foldl;
-			}
-		}
-	});
-var elm$core$List$reverse = function (list) {
-	return A3(elm$core$List$foldl, elm$core$List$cons, _List_Nil, list);
-};
-var elm$core$List$foldrHelper = F4(
-	function (fn, acc, ctr, ls) {
-		if (!ls.b) {
-			return acc;
-		} else {
-			var a = ls.a;
-			var r1 = ls.b;
-			if (!r1.b) {
-				return A2(fn, a, acc);
-			} else {
-				var b = r1.a;
-				var r2 = r1.b;
-				if (!r2.b) {
-					return A2(
-						fn,
-						a,
-						A2(fn, b, acc));
-				} else {
-					var c = r2.a;
-					var r3 = r2.b;
-					if (!r3.b) {
-						return A2(
-							fn,
-							a,
-							A2(
-								fn,
-								b,
-								A2(fn, c, acc)));
-					} else {
-						var d = r3.a;
-						var r4 = r3.b;
-						var res = (ctr > 500) ? A3(
-							elm$core$List$foldl,
-							fn,
-							acc,
-							elm$core$List$reverse(r4)) : A4(elm$core$List$foldrHelper, fn, acc, ctr + 1, r4);
-						return A2(
-							fn,
-							a,
-							A2(
-								fn,
-								b,
-								A2(
-									fn,
-									c,
-									A2(fn, d, res))));
-					}
-				}
-			}
-		}
-	});
-var elm$core$List$foldr = F3(
-	function (fn, acc, ls) {
-		return A4(elm$core$List$foldrHelper, fn, acc, 0, ls);
-	});
-var elm$core$List$map = F2(
-	function (f, xs) {
-		return A3(
-			elm$core$List$foldr,
-			F2(
-				function (x, acc) {
-					return A2(
-						elm$core$List$cons,
-						f(x),
-						acc);
-				}),
-			_List_Nil,
-			xs);
-	});
-var author$project$Main$links = A2(elm$core$List$map, author$project$Main$genLink, author$project$Main$galleryImages);
-var elm$core$Maybe$Just = function (a) {
-	return {$: 'Just', a: a};
-};
-var elm$core$Maybe$Nothing = {$: 'Nothing'};
-var elm$core$List$head = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return elm$core$Maybe$Just(x);
-	} else {
-		return elm$core$Maybe$Nothing;
-	}
-};
-var author$project$Main$initialModel = {
-	comments: author$project$Main$defaultComments,
-	gallery: author$project$Main$links,
-	selectedComment: author$project$Main$emptyComment,
-	selectedImage: function () {
-		var _n0 = elm$core$List$head(author$project$Main$links);
-		if (_n0.$ === 'Nothing') {
-			return '';
-		} else {
-			var val = _n0.a;
-			return val;
-		}
-	}()
-};
+var author$project$Main$initialModel = {comments: author$project$Main$defaultComments, selectedComment: author$project$Main$emptyComment, selectedImage: '', status: author$project$Main$Loading};
 var elm$core$Basics$False = {$: 'False'};
 var elm$core$Basics$True = {$: 'True'};
 var elm$core$Result$isOk = function (result) {
@@ -4602,6 +4475,28 @@ var elm$core$Array$SubTree = function (a) {
 	return {$: 'SubTree', a: a};
 };
 var elm$core$Elm$JsArray$initializeFromList = _JsArray_initializeFromList;
+var elm$core$List$foldl = F3(
+	function (func, acc, list) {
+		foldl:
+		while (true) {
+			if (!list.b) {
+				return acc;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				var $temp$func = func,
+					$temp$acc = A2(func, x, acc),
+					$temp$list = xs;
+				func = $temp$func;
+				acc = $temp$acc;
+				list = $temp$list;
+				continue foldl;
+			}
+		}
+	});
+var elm$core$List$reverse = function (list) {
+	return A3(elm$core$List$foldl, elm$core$List$cons, _List_Nil, list);
+};
 var elm$core$Array$compressNodes = F2(
 	function (nodes, acc) {
 		compressNodes:
@@ -4649,11 +4544,13 @@ var elm$core$Array$treeFromBuilder = F2(
 			}
 		}
 	});
+var elm$core$Basics$add = _Basics_add;
 var elm$core$Basics$apL = F2(
 	function (f, x) {
 		return f(x);
 	});
 var elm$core$Basics$floor = _Basics_floor;
+var elm$core$Basics$gt = _Utils_gt;
 var elm$core$Basics$max = F2(
 	function (x, y) {
 		return (_Utils_cmp(x, y) > 0) ? x : y;
@@ -4726,6 +4623,10 @@ var elm$core$Array$initialize = F2(
 			return A5(elm$core$Array$initializeHelp, fn, initialFromIndex, len, _List_Nil, tail);
 		}
 	});
+var elm$core$Maybe$Just = function (a) {
+	return {$: 'Just', a: a};
+};
+var elm$core$Maybe$Nothing = {$: 'Nothing'};
 var elm$core$Result$Err = function (a) {
 	return {$: 'Err', a: a};
 };
@@ -4748,6 +4649,7 @@ var elm$json$Json$Decode$OneOf = function (a) {
 	return {$: 'OneOf', a: a};
 };
 var elm$core$Basics$and = _Basics_and;
+var elm$core$Basics$append = _Utils_append;
 var elm$core$Basics$or = _Basics_or;
 var elm$core$Char$toCode = _Char_toCode;
 var elm$core$Char$isLower = function (_char) {
@@ -5028,6 +4930,18 @@ var author$project$Main$displayComment = function (c) {
 				]))
 		]) : _List_Nil;
 };
+var elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var elm$html$Html$Attributes$style = elm$virtual_dom$VirtualDom$style;
+var author$project$Main$displaySelectedImage = function (url) {
+	return (url === '') ? A2(elm$html$Html$div, _List_Nil, _List_Nil) : A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$id('container-selected'),
+				A2(elm$html$Html$Attributes$style, 'background', 'url(' + (url + ') no-repeat center'))
+			]),
+		_List_Nil);
+};
 var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
 var author$project$Main$displaySocial = function (s) {
 	return A2(
@@ -5158,6 +5072,75 @@ var author$project$Main$renderSubtitle = function (str) {
 					]))
 			]));
 };
+var elm$core$List$foldrHelper = F4(
+	function (fn, acc, ctr, ls) {
+		if (!ls.b) {
+			return acc;
+		} else {
+			var a = ls.a;
+			var r1 = ls.b;
+			if (!r1.b) {
+				return A2(fn, a, acc);
+			} else {
+				var b = r1.a;
+				var r2 = r1.b;
+				if (!r2.b) {
+					return A2(
+						fn,
+						a,
+						A2(fn, b, acc));
+				} else {
+					var c = r2.a;
+					var r3 = r2.b;
+					if (!r3.b) {
+						return A2(
+							fn,
+							a,
+							A2(
+								fn,
+								b,
+								A2(fn, c, acc)));
+					} else {
+						var d = r3.a;
+						var r4 = r3.b;
+						var res = (ctr > 500) ? A3(
+							elm$core$List$foldl,
+							fn,
+							acc,
+							elm$core$List$reverse(r4)) : A4(elm$core$List$foldrHelper, fn, acc, ctr + 1, r4);
+						return A2(
+							fn,
+							a,
+							A2(
+								fn,
+								b,
+								A2(
+									fn,
+									c,
+									A2(fn, d, res))));
+					}
+				}
+			}
+		}
+	});
+var elm$core$List$foldr = F3(
+	function (fn, acc, ls) {
+		return A4(elm$core$List$foldrHelper, fn, acc, 0, ls);
+	});
+var elm$core$List$map = F2(
+	function (f, xs) {
+		return A3(
+			elm$core$List$foldr,
+			F2(
+				function (x, acc) {
+					return A2(
+						elm$core$List$cons,
+						f(x),
+						acc);
+				}),
+			_List_Nil,
+			xs);
+	});
 var author$project$Main$introText = _Utils_ap(
 	_List_fromArray(
 		[
@@ -5170,25 +5153,33 @@ var author$project$Main$introText = _Utils_ap(
 		author$project$Main$renderSubtitle,
 		_List_fromArray(
 			['2020.04.19 SUN AM 11:00', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])));
-var author$project$Main$ImageSelected = function (a) {
-	return {$: 'ImageSelected', a: a};
+var elm$html$Html$img = _VirtualDom_node('img');
+var elm$html$Html$Attributes$src = function (url) {
+	return A2(
+		elm$html$Html$Attributes$stringProperty,
+		'src',
+		_VirtualDom_noJavaScriptOrHtmlUri(url));
 };
-var elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var elm$html$Html$Attributes$style = elm$virtual_dom$VirtualDom$style;
-var author$project$Main$makeThumbnail = F2(
-	function (selected, link) {
-		return A2(
-			elm$html$Html$div,
-			_List_fromArray(
-				[
-					elm$html$Html$Attributes$class(
-					_Utils_eq(selected, link) ? 'thumbnail-selected' : 'thumbnail'),
-					A2(elm$html$Html$Attributes$style, 'background', 'url(' + (link + ') no-repeat center')),
-					elm$html$Html$Events$onClick(
-					author$project$Main$ImageSelected(link))
-				]),
-			_List_Nil);
-	});
+var author$project$Main$loader = _List_fromArray(
+	[
+		A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('container-loader')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$img,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$src('./images/loader.gif'),
+						elm$html$Html$Attributes$class('loader')
+					]),
+				_List_Nil)
+			]))
+	]);
 var author$project$Main$Facebook = {$: 'Facebook'};
 var author$project$Main$GooglePlus = {$: 'GooglePlus'};
 var author$project$Main$Instagram = {$: 'Instagram'};
@@ -5204,12 +5195,37 @@ var author$project$Main$socialPlatforms = _List_fromArray(
 		{company: author$project$Main$Instagram, icon: './images/Instagram.png', text: 'instagram'},
 		{company: author$project$Main$LinkedIn, icon: './images/LinkedIn.png', text: 'linkedin'}
 	]);
-var elm$html$Html$img = _VirtualDom_node('img');
-var elm$html$Html$Attributes$src = function (url) {
-	return A2(
-		elm$html$Html$Attributes$stringProperty,
-		'src',
-		_VirtualDom_noJavaScriptOrHtmlUri(url));
+var author$project$Main$ImageSelected = function (a) {
+	return {$: 'ImageSelected', a: a};
+};
+var author$project$Main$makeThumbnail = F2(
+	function (selected, link) {
+		return A2(
+			elm$html$Html$div,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$class(
+					_Utils_eq(selected, link) ? 'thumbnail-selected' : 'thumbnail'),
+					A2(elm$html$Html$Attributes$style, 'background', 'url(' + (link + ') no-repeat center')),
+					elm$html$Html$Events$onClick(
+					author$project$Main$ImageSelected(link))
+				]),
+			_List_Nil);
+	});
+var author$project$Main$viewLoaded = function (gallery) {
+	return _List_fromArray(
+		[
+			A2(
+			elm$html$Html$div,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$id('container-thumbnails')
+				]),
+			A2(
+				elm$core$List$map,
+				author$project$Main$makeThumbnail(''),
+				gallery))
+		]);
 };
 var author$project$Main$view = function (model) {
 	return A2(
@@ -5248,20 +5264,31 @@ var author$project$Main$view = function (model) {
 				elm$html$Html$div,
 				_List_fromArray(
 					[
-						elm$html$Html$Attributes$id('container-thumbnails')
+						elm$html$Html$Attributes$class('container-loaded')
 					]),
-				A2(
-					elm$core$List$map,
-					author$project$Main$makeThumbnail(model.selectedImage),
-					model.gallery)),
-				A2(
-				elm$html$Html$div,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$id('container-selected'),
-						A2(elm$html$Html$Attributes$style, 'background', 'url(' + (model.selectedImage + ') no-repeat center'))
-					]),
-				_List_Nil),
+				function () {
+					var _n0 = model.status;
+					switch (_n0.$) {
+						case 'Loaded':
+							var gallery = _n0.a;
+							return author$project$Main$viewLoaded(gallery);
+						case 'Loading':
+							return author$project$Main$loader;
+						default:
+							var err = _n0.a;
+							return _List_fromArray(
+								[
+									A2(
+									elm$html$Html$div,
+									_List_Nil,
+									_List_fromArray(
+										[
+											elm$html$Html$text(err)
+										]))
+								]);
+					}
+				}()),
+				author$project$Main$displaySelectedImage(model.selectedImage),
 				A2(
 				elm$html$Html$div,
 				_List_fromArray(

@@ -130,4 +130,11 @@
             width: 100%;
         }
     }
+    .container-loader {
+        @include flex-center;
+        width: 100%;
+        .loader {
+            max-height: 150px;
+        }
+    }
 }

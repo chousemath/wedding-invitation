@@ -7,6 +7,12 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 
 
+type Status
+    = Loading
+    | Loaded (List String)
+    | Errored String
+
+
 type SocialMedia
     = KakaoStory
     | Facebook
@@ -31,7 +37,11 @@ type alias Comments =
 
 
 type alias Model =
-    { gallery : List String, comments : Comments, selectedImage : String, selectedComment : Comment }
+    { status : Status
+    , comments : Comments
+    , selectedImage : String
+    , selectedComment : Comment
+    }
 
 
 type alias SocialPlatform =
@@ -84,20 +94,6 @@ introText =
             , "서울특별시 종로구 종로1길 50 (중학동)"
             , "더케이트윈타워 A동 LL층 (지하2층)"
             ]
-
-
-galleryImages : List String
-galleryImages =
-    [ "DSC00897_Resize.jpg"
-    , "DSC00314_Resize.jpg"
-    , "DSC00746_Resize.jpg"
-    , "DSC00421_Resize.jpg"
-    , "DSC00886_Resize.jpg"
-    , "DSC00900_Resize.jpg"
-    , "DSC00446_Resize.jpg"
-    , "DSC00873_Resize.jpg"
-    , "DSC00297_Resize.jpg"
-    ]
 
 
 genLink : String -> String
@@ -170,23 +166,40 @@ displaySocial s =
         [ text s.text ]
 
 
-links : List String
-links =
-    List.map genLink galleryImages
+viewLoaded : List String -> List (Html Msg)
+viewLoaded gallery =
+    [ div
+        [ id "container-thumbnails" ]
+        (List.map (makeThumbnail "") gallery)
+    ]
+
+
+displaySelectedImage : String -> Html msg
+displaySelectedImage url =
+    if url == "" then
+        div [] []
+
+    else
+        div
+            [ id "container-selected"
+            , style "background" ("url(" ++ url ++ ") no-repeat center")
+            ]
+            []
+
+
+loader =
+    [ div
+        [ class "container-loader" ]
+        [ img [ src "./images/loader.gif", class "loader" ] [] ]
+    ]
 
 
 initialModel : Model
 initialModel =
-    { gallery = links
+    { status = Loading
     , comments = defaultComments
     , selectedComment = emptyComment
-    , selectedImage =
-        case List.head links of
-            Nothing ->
-                ""
-
-            Just val ->
-                val
+    , selectedImage = ""
     }
 
 
@@ -198,12 +211,18 @@ view model =
             [ img [ id "flower-border", src "https://i.imgur.com/IcVqiOb.png" ] []
             , div [ id "container-flower-text" ] introText
             ]
-        , div [ id "container-thumbnails" ] (List.map (makeThumbnail model.selectedImage) model.gallery)
-        , div
-            [ id "container-selected"
-            , style "background" ("url(" ++ model.selectedImage ++ ") no-repeat center")
-            ]
-            []
+        , div [ class "container-loaded" ] <|
+            case model.status of
+                Loaded gallery ->
+                    viewLoaded gallery
+
+                Loading ->
+                    loader
+
+                Errored err ->
+                    [ div [] [ text err ]
+                    ]
+        , displaySelectedImage model.selectedImage
         , div
             [ id "container-comments" ]
             (List.map genComment model.comments)

@@ -131,5 +131,14 @@
 #container-main #container-selected-comment #selected-comment-content {
   width: 100%;
 }
+#container-main .container-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+#container-main .container-loader .loader {
+  max-height: 150px;
+}
 
 /*# sourceMappingURL=styles.css.map */
