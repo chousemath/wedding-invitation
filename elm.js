@@ -4572,16 +4572,20 @@ var author$project$Main$initialModel = {
 };
 var author$project$Main$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'ImageSelected') {
-			var url = msg.a;
-			return _Utils_update(
-				model,
-				{selectedImage: url});
-		} else {
-			var c = msg.a;
-			return _Utils_update(
-				model,
-				{selectedComment: c});
+		switch (msg.$) {
+			case 'ImageSelected':
+				var url = msg.a;
+				return _Utils_update(
+					model,
+					{selectedImage: url});
+			case 'CommentSelected':
+				var c = msg.a;
+				return _Utils_update(
+					model,
+					{selectedComment: c});
+			default:
+				var platform = msg.a;
+				return model;
 		}
 	});
 var author$project$Main$CommentSelected = function (a) {
@@ -5018,8 +5022,20 @@ var author$project$Main$displayComment = function (c) {
 				]))
 		]) : _List_Nil;
 };
-var elm$html$Html$span = _VirtualDom_node('span');
 var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
+var author$project$Main$displaySocial = function (s) {
+	return A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('container-social')
+			]),
+		_List_fromArray(
+			[
+				elm$html$Html$text(s.text)
+			]));
+};
+var elm$html$Html$span = _VirtualDom_node('span');
 var author$project$Main$genComment = function (comment) {
 	return A2(
 		elm$html$Html$div,
@@ -5167,6 +5183,21 @@ var author$project$Main$makeThumbnail = F2(
 				]),
 			_List_Nil);
 	});
+var author$project$Main$Facebook = {$: 'Facebook'};
+var author$project$Main$GooglePlus = {$: 'GooglePlus'};
+var author$project$Main$Instagram = {$: 'Instagram'};
+var author$project$Main$KakaoStory = {$: 'KakaoStory'};
+var author$project$Main$LinkedIn = {$: 'LinkedIn'};
+var author$project$Main$Twitter = {$: 'Twitter'};
+var author$project$Main$socialPlatforms = _List_fromArray(
+	[
+		{company: author$project$Main$KakaoStory, icon: './images/KakaoStory.png', text: 'kakao story'},
+		{company: author$project$Main$Facebook, icon: './images/Facebook.png', text: 'facebook'},
+		{company: author$project$Main$Twitter, icon: './images/Twitter.png', text: 'twitter'},
+		{company: author$project$Main$GooglePlus, icon: './images/GooglePlus.png', text: 'google plus'},
+		{company: author$project$Main$Instagram, icon: './images/Instagram.png', text: 'instagram'},
+		{company: author$project$Main$LinkedIn, icon: './images/LinkedIn.png', text: 'linkedin'}
+	]);
 var elm$html$Html$img = _VirtualDom_node('img');
 var elm$html$Html$Attributes$src = function (url) {
 	return A2(
@@ -5254,7 +5285,14 @@ var author$project$Main$view = function (model) {
 								elm$html$Html$Attributes$id('map')
 							]),
 						_List_Nil)
-					]))
+					])),
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$id('container-socials')
+					]),
+				A2(elm$core$List$map, author$project$Main$displaySocial, author$project$Main$socialPlatforms))
 			]));
 };
 var elm$core$Platform$Cmd$batch = _Platform_batch;

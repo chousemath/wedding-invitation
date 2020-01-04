@@ -7,8 +7,46 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 
 
+type SocialMedia
+    = KakaoStory
+    | Facebook
+    | Twitter
+    | GooglePlus
+    | Instagram
+    | LinkedIn
+
+
+type Msg
+    = CommentSelected Comment
+    | ImageSelected String
+    | Social SocialMedia
+
+
 type alias Comment =
     { author : String, createdAt : String, content : String }
+
+
+type alias Comments =
+    List Comment
+
+
+type alias Model =
+    { gallery : List String, comments : Comments, selectedImage : String, selectedComment : Comment }
+
+
+type alias SocialPlatform =
+    { company : SocialMedia, text : String, icon : String }
+
+
+socialPlatforms : List SocialPlatform
+socialPlatforms =
+    [ { company = KakaoStory, text = "kakao story", icon = "./images/KakaoStory.png" }
+    , { company = Facebook, text = "facebook", icon = "./images/Facebook.png" }
+    , { company = Twitter, text = "twitter", icon = "./images/Twitter.png" }
+    , { company = GooglePlus, text = "google plus", icon = "./images/GooglePlus.png" }
+    , { company = Instagram, text = "instagram", icon = "./images/Instagram.png" }
+    , { company = LinkedIn, text = "linkedin", icon = "./images/LinkedIn.png" }
+    ]
 
 
 emptyComment : Comment
@@ -17,19 +55,6 @@ emptyComment =
     , createdAt = ""
     , content = ""
     }
-
-
-type alias Comments =
-    List Comment
-
-
-type Msg
-    = CommentSelected Comment
-    | ImageSelected String
-
-
-type alias Model =
-    { gallery : List String, comments : Comments, selectedImage : String, selectedComment : Comment }
 
 
 renderName : String -> Html msg
@@ -138,6 +163,13 @@ displayComment c =
         []
 
 
+displaySocial : SocialPlatform -> Html Msg
+displaySocial s =
+    div
+        [ class "container-social" ]
+        [ text s.text ]
+
+
 links : List String
 links =
     List.map genLink galleryImages
@@ -181,6 +213,9 @@ view model =
         , div
             [ id "container-map" ]
             [ div [ id "map" ] [] ]
+        , div
+            [ id "container-socials" ]
+            (List.map displaySocial socialPlatforms)
         ]
 
 
@@ -191,6 +226,9 @@ update msg model =
 
         CommentSelected c ->
             { model | selectedComment = c }
+
+        Social platform ->
+            model
 
 
 main =
