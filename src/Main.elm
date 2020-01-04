@@ -6,6 +6,12 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 import Http
+import Json.Decode exposing (Decoder, int, list, string, succeed)
+import Json.Decode.Pipeline exposing (optional, required)
+
+
+
+-- custom types and type aliases go here
 
 
 type Status
@@ -38,6 +44,12 @@ type alias Comments =
     List Comment
 
 
+type alias InitialData =
+    { comments : List String
+    , images : List String
+    }
+
+
 type alias Model =
     { status : Status
     , comments : Comments
@@ -48,6 +60,26 @@ type alias Model =
 
 type alias SocialPlatform =
     { company : SocialMedia, text : String, icon : String }
+
+
+
+-- json decoders go here
+
+
+initialDataDecoder : Decoder InitialData
+initialDataDecoder =
+    succeed buildInitialData
+        |> required "comments" (list string)
+        |> required "images" (list string)
+
+
+buildInitialData : List String -> List String -> InitialData
+buildInitialData comments images =
+    { comments = comments, images = images }
+
+
+
+-- default data goes here
 
 
 socialPlatforms : List SocialPlatform
@@ -67,6 +99,10 @@ emptyComment =
     , createdAt = ""
     , content = ""
     }
+
+
+
+-- helper functions go here
 
 
 renderName : String -> Html msg
