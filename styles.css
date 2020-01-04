@@ -53,26 +53,6 @@
   font-size: 12px;
   height: 30px;
 }
-#container-main #container-thumbnails {
-  margin-top: 16px;
-  padding-right: calc(5vw - 6px);
-  padding-left: calc(5vw - 6px);
-}
-#container-main #container-thumbnails .thumbnail {
-  width: 30vw;
-  height: 30vw;
-  float: left;
-  margin-bottom: 8px;
-  margin-left: 4px;
-}
-#container-main #container-thumbnails .thumbnail-selected {
-  width: 30vw;
-  height: 30vw;
-  float: left;
-  margin-bottom: 8px;
-  margin-left: 4px;
-  outline: 2px outset pink;
-}
 #container-main #container-selected {
   display: flex;
   justify-content: center;
@@ -81,6 +61,8 @@
   height: 50vh;
 }
 #container-main #container-comments {
+  width: 100%;
+  float: left;
   display: flex;
   flex-direction: column;
 }
@@ -139,6 +121,30 @@
 }
 #container-main .container-loader .loader {
   max-height: 150px;
+}
+#container-main .container-loaded {
+  width: 100%;
+  float: left;
+}
+#container-main .container-loaded #container-thumbnails {
+  margin-top: 16px;
+  padding-right: calc(5vw - 6px);
+  padding-left: calc(5vw - 6px);
+}
+#container-main .container-loaded #container-thumbnails .thumbnail {
+  width: 30vw;
+  height: 30vw;
+  float: left;
+  margin-bottom: 8px;
+  margin-left: 4px;
+}
+#container-main .container-loaded #container-thumbnails .thumbnail-selected {
+  width: 30vw;
+  height: 30vw;
+  float: left;
+  margin-bottom: 8px;
+  margin-left: 4px;
+  outline: 2px outset pink;
 }
 
 /*# sourceMappingURL=styles.css.map */

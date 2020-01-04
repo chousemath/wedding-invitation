@@ -171,7 +171,7 @@ viewLoaded gallery =
     ]
 
 
-displaySelectedImage : String -> Html msg
+displaySelectedImage : String -> Html Msg
 displaySelectedImage url =
     if url == "" then
         div [] []
@@ -180,6 +180,7 @@ displaySelectedImage url =
         div
             [ id "container-selected"
             , style "background" ("url(" ++ url ++ ") no-repeat center")
+            , onClick (ImageSelected "")
             ]
             []
 
@@ -194,7 +195,7 @@ loader =
 initialCmd : Cmd Msg
 initialCmd =
     Http.get
-        { url = ""
+        { url = "https://raw.githubusercontent.com/chousemath/wedding-invitation/master/test-images.txt"
         , expect = Http.expectString GotPhotos
         }
 
@@ -280,7 +281,7 @@ update msg model =
 main : Program () Model Msg
 main =
     Browser.element
-        { init = \flags -> ( initialModel, Cmd.none )
+        { init = \flags -> ( initialModel, initialCmd )
         , view = view
         , update = update
         , subscriptions = \model -> Sub.none
