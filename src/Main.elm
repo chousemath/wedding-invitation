@@ -438,7 +438,11 @@ view model =
                 , padding4 (px 16) (px 0) (px 16) (px 0)
                 ]
             ]
-            [ img [ css [ width (calc (pct 100) minus (px 32)) ], src "https://i.imgur.com/IcVqiOb.png" ] []
+            [ img
+                [ css [ width (calc (pct 100) minus (px 32)) ]
+                , src "https://i.imgur.com/IcVqiOb.png"
+                ]
+                []
             , div
                 [ css
                     [ position absolute
