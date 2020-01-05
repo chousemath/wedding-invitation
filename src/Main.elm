@@ -34,6 +34,7 @@ type Msg
     = CommentSelected Comment
     | ImageSelected String
     | Social SocialMedia
+    | SocialSelected String
     | GotPhotos (Result Http.Error InitialData)
 
 
@@ -242,6 +243,13 @@ viewLoaded gallery =
     ]
 
 
+displayOpt : String -> SocialPlatform -> Html Msg
+displayOpt url social =
+    div
+        [ class "cont-opt", onClick (SocialSelected url) ]
+        [ img [ src social.icon, class "cont-opt-icon" ] [] ]
+
+
 displaySelectedImage : String -> Html Msg
 displaySelectedImage url =
     if url == "" then
@@ -251,9 +259,16 @@ displaySelectedImage url =
         div
             [ id "cont-selected"
             , style "background" ("url(" ++ url ++ ") no-repeat center")
-            , onClick (ImageSelected "")
             ]
-            []
+            [ div
+                [ id "cont-selected-close" ]
+                [ div
+                    [ id "cont-selected-close-in", onClick (ImageSelected "") ]
+                    [ img [ src "./images/close.png", class "cont-selected-close-icon" ] [] ]
+                ]
+            , div [ id "options-spacer" ] []
+            , div [ id "options-bar" ] <| List.map (displayOpt url) socialPlatforms
+            ]
 
 
 loader =
@@ -340,6 +355,9 @@ update msg model =
             ( model
             , Cmd.none
             )
+
+        SocialSelected url ->
+            ( model, Cmd.none )
 
         GotPhotos (Ok initialData) ->
             let

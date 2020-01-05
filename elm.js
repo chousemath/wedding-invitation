@@ -6107,6 +6107,9 @@ var author$project$Main$update = F2(
 			case 'Social':
 				var platform = msg.a;
 				return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
+			case 'SocialSelected':
+				var url = msg.a;
+				return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 			default:
 				if (msg.a.$ === 'Ok') {
 					var initialData = msg.a.a;
@@ -6198,6 +6201,54 @@ var author$project$Main$displayComment = function (c) {
 var author$project$Main$ImageSelected = function (a) {
 	return {$: 'ImageSelected', a: a};
 };
+var author$project$Main$SocialSelected = function (a) {
+	return {$: 'SocialSelected', a: a};
+};
+var elm$html$Html$img = _VirtualDom_node('img');
+var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
+var elm$html$Html$Attributes$src = function (url) {
+	return A2(
+		elm$html$Html$Attributes$stringProperty,
+		'src',
+		_VirtualDom_noJavaScriptOrHtmlUri(url));
+};
+var author$project$Main$displayOpt = F2(
+	function (url, social) {
+		return A2(
+			elm$html$Html$div,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$class('cont-opt'),
+					elm$html$Html$Events$onClick(
+					author$project$Main$SocialSelected(url))
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$html$Html$img,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$src(social.icon),
+							elm$html$Html$Attributes$class('cont-opt-icon')
+						]),
+					_List_Nil)
+				]));
+	});
+var author$project$Main$Facebook = {$: 'Facebook'};
+var author$project$Main$GooglePlus = {$: 'GooglePlus'};
+var author$project$Main$Instagram = {$: 'Instagram'};
+var author$project$Main$KakaoStory = {$: 'KakaoStory'};
+var author$project$Main$LinkedIn = {$: 'LinkedIn'};
+var author$project$Main$Twitter = {$: 'Twitter'};
+var author$project$Main$socialPlatforms = _List_fromArray(
+	[
+		{company: author$project$Main$KakaoStory, icon: './images/KakaoStory.png', text: 'kakao story'},
+		{company: author$project$Main$Facebook, icon: './images/Facebook.png', text: 'facebook'},
+		{company: author$project$Main$Twitter, icon: './images/Twitter.png', text: 'twitter'},
+		{company: author$project$Main$GooglePlus, icon: './images/GooglePlus.png', text: 'google plus'},
+		{company: author$project$Main$Instagram, icon: './images/Instagram.png', text: 'instagram'},
+		{company: author$project$Main$LinkedIn, icon: './images/LinkedIn.png', text: 'linkedin'}
+	]);
 var elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var elm$html$Html$Attributes$style = elm$virtual_dom$VirtualDom$style;
 var author$project$Main$displaySelectedImage = function (url) {
@@ -6206,13 +6257,57 @@ var author$project$Main$displaySelectedImage = function (url) {
 		_List_fromArray(
 			[
 				elm$html$Html$Attributes$id('cont-selected'),
-				A2(elm$html$Html$Attributes$style, 'background', 'url(' + (url + ') no-repeat center')),
-				elm$html$Html$Events$onClick(
-				author$project$Main$ImageSelected(''))
+				A2(elm$html$Html$Attributes$style, 'background', 'url(' + (url + ') no-repeat center'))
 			]),
-		_List_Nil);
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$id('cont-selected-close')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$id('cont-selected-close-in'),
+								elm$html$Html$Events$onClick(
+								author$project$Main$ImageSelected(''))
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$img,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$src('./images/close.png'),
+										elm$html$Html$Attributes$class('cont-selected-close-icon')
+									]),
+								_List_Nil)
+							]))
+					])),
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$id('options-spacer')
+					]),
+				_List_Nil),
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$id('options-bar')
+					]),
+				A2(
+					elm$core$List$map,
+					author$project$Main$displayOpt(url),
+					author$project$Main$socialPlatforms))
+			]));
 };
-var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
 var author$project$Main$displaySocial = function (s) {
 	return A2(
 		elm$html$Html$div,
@@ -6292,13 +6387,6 @@ var author$project$Main$introText = _Utils_ap(
 		author$project$Main$renderSubtitle,
 		_List_fromArray(
 			['2020.04.19 SUN AM 11:00', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])));
-var elm$html$Html$img = _VirtualDom_node('img');
-var elm$html$Html$Attributes$src = function (url) {
-	return A2(
-		elm$html$Html$Attributes$stringProperty,
-		'src',
-		_VirtualDom_noJavaScriptOrHtmlUri(url));
-};
 var author$project$Main$loader = _List_fromArray(
 	[
 		A2(
@@ -6480,21 +6568,6 @@ var author$project$Main$renderGallery = function (status) {
 				]);
 	}
 };
-var author$project$Main$Facebook = {$: 'Facebook'};
-var author$project$Main$GooglePlus = {$: 'GooglePlus'};
-var author$project$Main$Instagram = {$: 'Instagram'};
-var author$project$Main$KakaoStory = {$: 'KakaoStory'};
-var author$project$Main$LinkedIn = {$: 'LinkedIn'};
-var author$project$Main$Twitter = {$: 'Twitter'};
-var author$project$Main$socialPlatforms = _List_fromArray(
-	[
-		{company: author$project$Main$KakaoStory, icon: './images/KakaoStory.png', text: 'kakao story'},
-		{company: author$project$Main$Facebook, icon: './images/Facebook.png', text: 'facebook'},
-		{company: author$project$Main$Twitter, icon: './images/Twitter.png', text: 'twitter'},
-		{company: author$project$Main$GooglePlus, icon: './images/GooglePlus.png', text: 'google plus'},
-		{company: author$project$Main$Instagram, icon: './images/Instagram.png', text: 'instagram'},
-		{company: author$project$Main$LinkedIn, icon: './images/LinkedIn.png', text: 'linkedin'}
-	]);
 var author$project$Main$view = function (model) {
 	return A2(
 		elm$html$Html$div,
