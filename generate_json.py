@@ -18,7 +18,8 @@ words = words.split(' ')
 now = datetime.now() # current date and time
 gen_dt = lambda: (now - timedelta(days=randint(1, 100))).strftime('%Y-%m-%d')
 rand_words = lambda x: norm(' '.join([choice(words) for _ in range(0, x)]))
-gen_comment = lambda: {'author': rand_words(1), 'content': rand_words(7), 'createdAt': gen_dt()}
+#gen_comment = lambda: {'author': rand_words(1), 'content': rand_words(7), 'createdAt': gen_dt()}
+gen_comment = lambda: '/////'.join([rand_words(1), rand_words(7), gen_dt()])
 comments = [gen_comment() for _ in range(0, 10)]
 
 photos = [
@@ -34,8 +35,10 @@ photos = [
         ]
 shuffle(photos)
 data = {'comments': comments, 'photos': photos}
-response = {'ok': True, 'data': data}
-
 with io.open('response.json', 'w', encoding='utf-8') as f:
-    f.write(json.dumps(response, ensure_ascii=False, indent=4))
+    f.write(json.dumps(data, ensure_ascii=False, indent=4))
+#response = {'ok': True, 'data': data}
+#
+#with io.open('response.json', 'w', encoding='utf-8') as f:
+#    f.write(json.dumps(response, ensure_ascii=False, indent=4))
 

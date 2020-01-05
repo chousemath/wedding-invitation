@@ -33,7 +33,7 @@ type Msg
     = CommentSelected Comment
     | ImageSelected String
     | Social SocialMedia
-    | GotPhotos (Result Http.Error String)
+    | GotPhotos (Result Http.Error InitialData)
 
 
 type alias Comment =
@@ -46,7 +46,7 @@ type alias Comments =
 
 type alias InitialData =
     { comments : List String
-    , images : List String
+    , photos : List String
     }
 
 
@@ -70,12 +70,12 @@ initialDataDecoder : Decoder InitialData
 initialDataDecoder =
     succeed buildInitialData
         |> required "comments" (list string)
-        |> required "images" (list string)
+        |> required "photos" (list string)
 
 
 buildInitialData : List String -> List String -> InitialData
-buildInitialData comments images =
-    { comments = comments, images = images }
+buildInitialData comments photos =
+    { comments = comments, photos = photos }
 
 
 
@@ -103,6 +103,39 @@ emptyComment =
 
 
 -- helper functions go here
+
+
+extractComment : String -> Comment
+extractComment com =
+    let
+        arr =
+            Array.fromList (String.split "/////" com)
+
+        author =
+            case Array.get 0 arr of
+                Just v ->
+                    v
+
+                Nothing ->
+                    ""
+
+        content =
+            case Array.get 1 arr of
+                Just v ->
+                    v
+
+                Nothing ->
+                    ""
+
+        createdAt =
+            case Array.get 2 arr of
+                Just v ->
+                    v
+
+                Nothing ->
+                    ""
+    in
+    { author = author, content = "", createdAt = "" }
 
 
 renderName : String -> Html msg
@@ -231,8 +264,8 @@ loader =
 initialCmd : Cmd Msg
 initialCmd =
     Http.get
-        { url = "https://raw.githubusercontent.com/chousemath/wedding-invitation/master/test-images.txt"
-        , expect = Http.expectString GotPhotos
+        { url = "https://raw.githubusercontent.com/chousemath/wedding-invitation/master/repsonse.json"
+        , expect = Http.expectJson GotPhotos initialDataDecoder
         }
 
 
@@ -300,13 +333,13 @@ update msg model =
             , Cmd.none
             )
 
-        GotPhotos (Ok responseStr) ->
+        GotPhotos (Ok initialData) ->
             let
-                urls =
-                    String.split "," responseStr
+                comments =
+                    List.map extractComment initialData.comments
 
                 photos =
-                    List.map genLink urls
+                    List.map genLink initialData.photos
             in
             ( { model | status = Loaded photos }, Cmd.none )
 
