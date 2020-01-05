@@ -76,8 +76,11 @@
         @include flex-col;
         .container-comment {
             @include flex-col;
+            margin-bottom: 16px;
+            padding: 0 16px 0 16px;
             .container-comment-top {
                 @include flex-row;
+                margin-bottom: 8px;
                 .container-comment-author {
                     @include flex-start;
                     .text-author {
@@ -123,19 +126,22 @@
         width: 100%;
         float: left;
         #container-thumbnails {
+            $thumb-width: 30vw;
+            $thumb-pad: calc(5vw - 6px);
+            $thumb-margin: 3px;
             margin-top: 16px;
-            padding-right: calc(5vw - 6px);
-            padding-left: calc(5vw - 6px);
+            padding-right: $thumb-pad;
+            padding-left: $thumb-pad;
             .thumbnail {
-                width: 30vw;
-                height: 30vw;
+                width: $thumb-width;
+                height: $thumb-width;
                 float: left;
-                margin-bottom: 8px;
-                margin-left: 4px;
+                margin-bottom: $thumb-margin;
+                margin-left: $thumb-margin;
             }
             .thumbnail-selected {
-                width: 30vw;
-                height: 30vw;
+                width: $thumb-width;
+                height: $thumb-width;
                 float: left;
                 margin-bottom: 8px;
                 margin-left: 4px;

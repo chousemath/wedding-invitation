@@ -69,10 +69,13 @@
 #container-main #container-comments .container-comment {
   display: flex;
   flex-direction: column;
+  margin-bottom: 16px;
+  padding: 0 16px 0 16px;
 }
 #container-main #container-comments .container-comment .container-comment-top {
   display: flex;
   flex-direction: row;
+  margin-bottom: 8px;
 }
 #container-main #container-comments .container-comment .container-comment-top .container-comment-author {
   display: flex;
@@ -135,8 +138,8 @@
   width: 30vw;
   height: 30vw;
   float: left;
-  margin-bottom: 8px;
-  margin-left: 4px;
+  margin-bottom: 3px;
+  margin-left: 3px;
 }
 #container-main .container-loaded #container-thumbnails .thumbnail-selected {
   width: 30vw;

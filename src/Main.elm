@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Array exposing (Array)
 import Browser
+import Debug exposing (log)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
@@ -16,7 +17,7 @@ import Json.Decode.Pipeline exposing (optional, required)
 
 type Status
     = Loading
-    | Loaded (List String)
+    | Loaded ( List String, Comments )
     | Errored String
 
 
@@ -105,6 +106,16 @@ emptyComment =
 -- helper functions go here
 
 
+safeGetStr : Int -> Array String -> String
+safeGetStr idx arr =
+    case Array.get idx arr of
+        Just v ->
+            v
+
+        Nothing ->
+            ""
+
+
 extractComment : String -> Comment
 extractComment com =
     let
@@ -112,30 +123,15 @@ extractComment com =
             Array.fromList (String.split "/////" com)
 
         author =
-            case Array.get 0 arr of
-                Just v ->
-                    v
-
-                Nothing ->
-                    ""
+            safeGetStr 0 arr
 
         content =
-            case Array.get 1 arr of
-                Just v ->
-                    v
-
-                Nothing ->
-                    ""
+            safeGetStr 1 arr
 
         createdAt =
-            case Array.get 2 arr of
-                Just v ->
-                    v
-
-                Nothing ->
-                    ""
+            safeGetStr 2 arr
     in
-    { author = author, content = "", createdAt = "" }
+    { author = author, content = content, createdAt = createdAt }
 
 
 renderName : String -> Html msg
@@ -264,7 +260,7 @@ loader =
 initialCmd : Cmd Msg
 initialCmd =
     Http.get
-        { url = "https://raw.githubusercontent.com/chousemath/wedding-invitation/master/repsonse.json"
+        { url = "https://raw.githubusercontent.com/chousemath/wedding-invitation/master/response.json"
         , expect = Http.expectJson GotPhotos initialDataDecoder
         }
 
@@ -278,6 +274,32 @@ initialModel =
     }
 
 
+renderGallery : Status -> List (Html Msg)
+renderGallery status =
+    case status of
+        Loaded ( gallery, _ ) ->
+            viewLoaded gallery
+
+        Loading ->
+            loader
+
+        Errored err ->
+            [ div [] [ text err ] ]
+
+
+renderComments : Status -> List (Html Msg)
+renderComments status =
+    case status of
+        Loaded ( _, comments ) ->
+            List.map genComment comments
+
+        Loading ->
+            loader
+
+        Errored err ->
+            [ div [] [ text err ] ]
+
+
 view : Model -> Html Msg
 view model =
     div [ id "container-main" ]
@@ -286,21 +308,9 @@ view model =
             [ img [ id "flower-border", src "https://i.imgur.com/IcVqiOb.png" ] []
             , div [ id "container-flower-text" ] introText
             ]
-        , div [ class "container-loaded" ] <|
-            case model.status of
-                Loaded gallery ->
-                    viewLoaded gallery
-
-                Loading ->
-                    loader
-
-                Errored err ->
-                    [ div [] [ text err ] ]
+        , div [ class "container-loaded" ] <| renderGallery model.status
         , displaySelectedImage model.selectedImage
-        , div
-            [ id "container-comments" ]
-          <|
-            List.map genComment model.comments
+        , div [ id "container-comments" ] <| renderComments model.status
         , div
             [ id "container-selected-comment" ]
           <|
@@ -341,7 +351,7 @@ update msg model =
                 photos =
                     List.map genLink initialData.photos
             in
-            ( { model | status = Loaded photos }, Cmd.none )
+            ( { model | status = Loaded ( photos, comments ) }, Cmd.none )
 
         GotPhotos (Err httpError) ->
             ( { model | status = Errored "Internal Server Error" }, Cmd.none )

@@ -5955,7 +5955,7 @@ var elm$http$Http$get = function (r) {
 var author$project$Main$initialCmd = elm$http$Http$get(
 	{
 		expect: A2(elm$http$Http$expectJson, author$project$Main$GotPhotos, author$project$Main$initialDataDecoder),
-		url: 'https://raw.githubusercontent.com/chousemath/wedding-invitation/master/repsonse.json'
+		url: 'https://raw.githubusercontent.com/chousemath/wedding-invitation/master/response.json'
 	});
 var author$project$Main$Loading = {$: 'Loading'};
 var author$project$Main$defaultComments = _List_fromArray(
@@ -5970,41 +5970,6 @@ var author$project$Main$Errored = function (a) {
 };
 var author$project$Main$Loaded = function (a) {
 	return {$: 'Loaded', a: a};
-};
-var elm$core$Array$fromListHelp = F3(
-	function (list, nodeList, nodeListSize) {
-		fromListHelp:
-		while (true) {
-			var _n0 = A2(elm$core$Elm$JsArray$initializeFromList, elm$core$Array$branchFactor, list);
-			var jsArray = _n0.a;
-			var remainingItems = _n0.b;
-			if (_Utils_cmp(
-				elm$core$Elm$JsArray$length(jsArray),
-				elm$core$Array$branchFactor) < 0) {
-				return A2(
-					elm$core$Array$builderToArray,
-					true,
-					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
-			} else {
-				var $temp$list = remainingItems,
-					$temp$nodeList = A2(
-					elm$core$List$cons,
-					elm$core$Array$Leaf(jsArray),
-					nodeList),
-					$temp$nodeListSize = nodeListSize + 1;
-				list = $temp$list;
-				nodeList = $temp$nodeList;
-				nodeListSize = $temp$nodeListSize;
-				continue fromListHelp;
-			}
-		}
-	});
-var elm$core$Array$fromList = function (list) {
-	if (!list.b) {
-		return elm$core$Array$empty;
-	} else {
-		return A3(elm$core$Array$fromListHelp, list, _List_Nil, 0);
-	}
 };
 var elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
 var elm$core$Array$bitMask = 4294967295 >>> (32 - elm$core$Array$shiftStep);
@@ -6048,37 +6013,58 @@ var elm$core$Array$get = F2(
 			A2(elm$core$Elm$JsArray$unsafeGet, elm$core$Array$bitMask & index, tail)) : elm$core$Maybe$Just(
 			A3(elm$core$Array$getHelp, startShift, index, tree)));
 	});
-var author$project$Main$extractComment = function (com) {
-	var arr = elm$core$Array$fromList(
-		A2(elm$core$String$split, '/////', com));
-	var author = function () {
-		var _n2 = A2(elm$core$Array$get, 0, arr);
-		if (_n2.$ === 'Just') {
-			var v = _n2.a;
-			return v;
-		} else {
-			return '';
-		}
-	}();
-	var content = function () {
-		var _n1 = A2(elm$core$Array$get, 1, arr);
-		if (_n1.$ === 'Just') {
-			var v = _n1.a;
-			return v;
-		} else {
-			return '';
-		}
-	}();
-	var createdAt = function () {
-		var _n0 = A2(elm$core$Array$get, 2, arr);
+var author$project$Main$safeGetStr = F2(
+	function (idx, arr) {
+		var _n0 = A2(elm$core$Array$get, idx, arr);
 		if (_n0.$ === 'Just') {
 			var v = _n0.a;
 			return v;
 		} else {
 			return '';
 		}
-	}();
-	return {author: author, content: '', createdAt: ''};
+	});
+var elm$core$Array$fromListHelp = F3(
+	function (list, nodeList, nodeListSize) {
+		fromListHelp:
+		while (true) {
+			var _n0 = A2(elm$core$Elm$JsArray$initializeFromList, elm$core$Array$branchFactor, list);
+			var jsArray = _n0.a;
+			var remainingItems = _n0.b;
+			if (_Utils_cmp(
+				elm$core$Elm$JsArray$length(jsArray),
+				elm$core$Array$branchFactor) < 0) {
+				return A2(
+					elm$core$Array$builderToArray,
+					true,
+					{nodeList: nodeList, nodeListSize: nodeListSize, tail: jsArray});
+			} else {
+				var $temp$list = remainingItems,
+					$temp$nodeList = A2(
+					elm$core$List$cons,
+					elm$core$Array$Leaf(jsArray),
+					nodeList),
+					$temp$nodeListSize = nodeListSize + 1;
+				list = $temp$list;
+				nodeList = $temp$nodeList;
+				nodeListSize = $temp$nodeListSize;
+				continue fromListHelp;
+			}
+		}
+	});
+var elm$core$Array$fromList = function (list) {
+	if (!list.b) {
+		return elm$core$Array$empty;
+	} else {
+		return A3(elm$core$Array$fromListHelp, list, _List_Nil, 0);
+	}
+};
+var author$project$Main$extractComment = function (com) {
+	var arr = elm$core$Array$fromList(
+		A2(elm$core$String$split, '/////', com));
+	var author = A2(author$project$Main$safeGetStr, 0, arr);
+	var content = A2(author$project$Main$safeGetStr, 1, arr);
+	var createdAt = A2(author$project$Main$safeGetStr, 2, arr);
+	return {author: author, content: content, createdAt: createdAt};
 };
 var author$project$Main$genLink = function (fname) {
 	var region = 'ap-northeast-2';
@@ -6130,7 +6116,8 @@ var author$project$Main$update = F2(
 						_Utils_update(
 							model,
 							{
-								status: author$project$Main$Loaded(photos)
+								status: author$project$Main$Loaded(
+									_Utils_Tuple2(photos, comments))
 							}),
 						elm$core$Platform$Cmd$none);
 				} else {
@@ -6238,68 +6225,6 @@ var author$project$Main$displaySocial = function (s) {
 				elm$html$Html$text(s.text)
 			]));
 };
-var elm$html$Html$span = _VirtualDom_node('span');
-var author$project$Main$genComment = function (comment) {
-	return A2(
-		elm$html$Html$div,
-		_List_fromArray(
-			[
-				elm$html$Html$Attributes$class('container-comment'),
-				elm$html$Html$Events$onClick(
-				author$project$Main$CommentSelected(comment))
-			]),
-		_List_fromArray(
-			[
-				A2(
-				elm$html$Html$div,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('container-comment-top')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$div,
-						_List_fromArray(
-							[
-								elm$html$Html$Attributes$class('container-comment-author')
-							]),
-						_List_fromArray(
-							[
-								A2(
-								elm$html$Html$span,
-								_List_fromArray(
-									[
-										elm$html$Html$Attributes$class('text-author')
-									]),
-								_List_fromArray(
-									[
-										elm$html$Html$text(comment.author)
-									]))
-							])),
-						A2(
-						elm$html$Html$div,
-						_List_fromArray(
-							[
-								elm$html$Html$Attributes$class('container-comment-created-at')
-							]),
-						_List_fromArray(
-							[
-								elm$html$Html$text(comment.createdAt)
-							]))
-					])),
-				A2(
-				elm$html$Html$div,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('container-comment-btm')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(comment.content)
-					]))
-			]));
-};
 var elm$html$Html$h4 = _VirtualDom_node('h4');
 var author$project$Main$renderName = function (str) {
 	return A2(
@@ -6367,6 +6292,68 @@ var author$project$Main$introText = _Utils_ap(
 		author$project$Main$renderSubtitle,
 		_List_fromArray(
 			['2020.04.19 SUN AM 11:00', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])));
+var elm$html$Html$span = _VirtualDom_node('span');
+var author$project$Main$genComment = function (comment) {
+	return A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('container-comment'),
+				elm$html$Html$Events$onClick(
+				author$project$Main$CommentSelected(comment))
+			]),
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('container-comment-top')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('container-comment-author')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$span,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('text-author')
+									]),
+								_List_fromArray(
+									[
+										elm$html$Html$text(comment.author)
+									]))
+							])),
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('container-comment-created-at')
+							]),
+						_List_fromArray(
+							[
+								elm$html$Html$text(comment.createdAt)
+							]))
+					])),
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('container-comment-btm')
+					]),
+				_List_fromArray(
+					[
+						elm$html$Html$text(comment.content)
+					]))
+			]));
+};
 var elm$html$Html$img = _VirtualDom_node('img');
 var elm$html$Html$Attributes$src = function (url) {
 	return A2(
@@ -6394,21 +6381,28 @@ var author$project$Main$loader = _List_fromArray(
 				_List_Nil)
 			]))
 	]);
-var author$project$Main$Facebook = {$: 'Facebook'};
-var author$project$Main$GooglePlus = {$: 'GooglePlus'};
-var author$project$Main$Instagram = {$: 'Instagram'};
-var author$project$Main$KakaoStory = {$: 'KakaoStory'};
-var author$project$Main$LinkedIn = {$: 'LinkedIn'};
-var author$project$Main$Twitter = {$: 'Twitter'};
-var author$project$Main$socialPlatforms = _List_fromArray(
-	[
-		{company: author$project$Main$KakaoStory, icon: './images/KakaoStory.png', text: 'kakao story'},
-		{company: author$project$Main$Facebook, icon: './images/Facebook.png', text: 'facebook'},
-		{company: author$project$Main$Twitter, icon: './images/Twitter.png', text: 'twitter'},
-		{company: author$project$Main$GooglePlus, icon: './images/GooglePlus.png', text: 'google plus'},
-		{company: author$project$Main$Instagram, icon: './images/Instagram.png', text: 'instagram'},
-		{company: author$project$Main$LinkedIn, icon: './images/LinkedIn.png', text: 'linkedin'}
-	]);
+var author$project$Main$renderComments = function (status) {
+	switch (status.$) {
+		case 'Loaded':
+			var _n1 = status.a;
+			var comments = _n1.b;
+			return A2(elm$core$List$map, author$project$Main$genComment, comments);
+		case 'Loading':
+			return author$project$Main$loader;
+		default:
+			var err = status.a;
+			return _List_fromArray(
+				[
+					A2(
+					elm$html$Html$div,
+					_List_Nil,
+					_List_fromArray(
+						[
+							elm$html$Html$text(err)
+						]))
+				]);
+	}
+};
 var author$project$Main$makeThumbnail = F2(
 	function (selected, link) {
 		return A2(
@@ -6438,6 +6432,43 @@ var author$project$Main$viewLoaded = function (gallery) {
 				gallery))
 		]);
 };
+var author$project$Main$renderGallery = function (status) {
+	switch (status.$) {
+		case 'Loaded':
+			var _n1 = status.a;
+			var gallery = _n1.a;
+			return author$project$Main$viewLoaded(gallery);
+		case 'Loading':
+			return author$project$Main$loader;
+		default:
+			var err = status.a;
+			return _List_fromArray(
+				[
+					A2(
+					elm$html$Html$div,
+					_List_Nil,
+					_List_fromArray(
+						[
+							elm$html$Html$text(err)
+						]))
+				]);
+	}
+};
+var author$project$Main$Facebook = {$: 'Facebook'};
+var author$project$Main$GooglePlus = {$: 'GooglePlus'};
+var author$project$Main$Instagram = {$: 'Instagram'};
+var author$project$Main$KakaoStory = {$: 'KakaoStory'};
+var author$project$Main$LinkedIn = {$: 'LinkedIn'};
+var author$project$Main$Twitter = {$: 'Twitter'};
+var author$project$Main$socialPlatforms = _List_fromArray(
+	[
+		{company: author$project$Main$KakaoStory, icon: './images/KakaoStory.png', text: 'kakao story'},
+		{company: author$project$Main$Facebook, icon: './images/Facebook.png', text: 'facebook'},
+		{company: author$project$Main$Twitter, icon: './images/Twitter.png', text: 'twitter'},
+		{company: author$project$Main$GooglePlus, icon: './images/GooglePlus.png', text: 'google plus'},
+		{company: author$project$Main$Instagram, icon: './images/Instagram.png', text: 'instagram'},
+		{company: author$project$Main$LinkedIn, icon: './images/LinkedIn.png', text: 'linkedin'}
+	]);
 var author$project$Main$view = function (model) {
 	return A2(
 		elm$html$Html$div,
@@ -6477,28 +6508,7 @@ var author$project$Main$view = function (model) {
 					[
 						elm$html$Html$Attributes$class('container-loaded')
 					]),
-				function () {
-					var _n0 = model.status;
-					switch (_n0.$) {
-						case 'Loaded':
-							var gallery = _n0.a;
-							return author$project$Main$viewLoaded(gallery);
-						case 'Loading':
-							return author$project$Main$loader;
-						default:
-							var err = _n0.a;
-							return _List_fromArray(
-								[
-									A2(
-									elm$html$Html$div,
-									_List_Nil,
-									_List_fromArray(
-										[
-											elm$html$Html$text(err)
-										]))
-								]);
-					}
-				}()),
+				author$project$Main$renderGallery(model.status)),
 				author$project$Main$displaySelectedImage(model.selectedImage),
 				A2(
 				elm$html$Html$div,
@@ -6506,7 +6516,7 @@ var author$project$Main$view = function (model) {
 					[
 						elm$html$Html$Attributes$id('container-comments')
 					]),
-				A2(elm$core$List$map, author$project$Main$genComment, model.comments)),
+				author$project$Main$renderComments(model.status)),
 				A2(
 				elm$html$Html$div,
 				_List_fromArray(
