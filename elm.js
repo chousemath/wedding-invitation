@@ -6066,10 +6066,10 @@ var author$project$Main$extractComment = function (com) {
 	var createdAt = A2(author$project$Main$safeGetStr, 2, arr);
 	return {author: author, content: content, createdAt: createdAt};
 };
+var author$project$Main$bucket = 'https://choi-choi';
+var author$project$Main$region = 'ap-northeast-2.amazonaws.com/';
 var author$project$Main$genLink = function (fname) {
-	var region = 'ap-northeast-2';
-	var bucket = 'choi-choi';
-	return 'https://' + (bucket + ('.s3.' + (region + ('.amazonaws.com/' + fname))));
+	return author$project$Main$bucket + ('.s3.' + (author$project$Main$region + fname));
 };
 var elm$core$List$map = F2(
 	function (f, xs) {
@@ -6185,7 +6185,7 @@ var author$project$Main$displayComment = function (c) {
 			elm$html$Html$div,
 			_List_fromArray(
 				[
-					elm$html$Html$Attributes$id('selected-comment-content'),
+					elm$html$Html$Attributes$id('selected-cmt-content'),
 					elm$html$Html$Events$onClick(
 					author$project$Main$CommentSelected(author$project$Main$emptyComment))
 				]),
@@ -6205,7 +6205,7 @@ var author$project$Main$displaySelectedImage = function (url) {
 		elm$html$Html$div,
 		_List_fromArray(
 			[
-				elm$html$Html$Attributes$id('container-selected'),
+				elm$html$Html$Attributes$id('cont-selected'),
 				A2(elm$html$Html$Attributes$style, 'background', 'url(' + (url + ') no-repeat center')),
 				elm$html$Html$Events$onClick(
 				author$project$Main$ImageSelected(''))
@@ -6218,7 +6218,7 @@ var author$project$Main$displaySocial = function (s) {
 		elm$html$Html$div,
 		_List_fromArray(
 			[
-				elm$html$Html$Attributes$class('container-social')
+				elm$html$Html$Attributes$class('cont-social')
 			]),
 		_List_fromArray(
 			[
@@ -6292,68 +6292,6 @@ var author$project$Main$introText = _Utils_ap(
 		author$project$Main$renderSubtitle,
 		_List_fromArray(
 			['2020.04.19 SUN AM 11:00', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])));
-var elm$html$Html$span = _VirtualDom_node('span');
-var author$project$Main$genComment = function (comment) {
-	return A2(
-		elm$html$Html$div,
-		_List_fromArray(
-			[
-				elm$html$Html$Attributes$class('container-comment'),
-				elm$html$Html$Events$onClick(
-				author$project$Main$CommentSelected(comment))
-			]),
-		_List_fromArray(
-			[
-				A2(
-				elm$html$Html$div,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('container-comment-top')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						elm$html$Html$div,
-						_List_fromArray(
-							[
-								elm$html$Html$Attributes$class('container-comment-author')
-							]),
-						_List_fromArray(
-							[
-								A2(
-								elm$html$Html$span,
-								_List_fromArray(
-									[
-										elm$html$Html$Attributes$class('text-author')
-									]),
-								_List_fromArray(
-									[
-										elm$html$Html$text(comment.author)
-									]))
-							])),
-						A2(
-						elm$html$Html$div,
-						_List_fromArray(
-							[
-								elm$html$Html$Attributes$class('container-comment-created-at')
-							]),
-						_List_fromArray(
-							[
-								elm$html$Html$text(comment.createdAt)
-							]))
-					])),
-				A2(
-				elm$html$Html$div,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('container-comment-btm')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text(comment.content)
-					]))
-			]));
-};
 var elm$html$Html$img = _VirtualDom_node('img');
 var elm$html$Html$Attributes$src = function (url) {
 	return A2(
@@ -6367,7 +6305,7 @@ var author$project$Main$loader = _List_fromArray(
 		elm$html$Html$div,
 		_List_fromArray(
 			[
-				elm$html$Html$Attributes$class('container-loader')
+				elm$html$Html$Attributes$class('cont-loader')
 			]),
 		_List_fromArray(
 			[
@@ -6381,12 +6319,100 @@ var author$project$Main$loader = _List_fromArray(
 				_List_Nil)
 			]))
 	]);
+var elm$html$Html$span = _VirtualDom_node('span');
+var author$project$Main$renderComment = function (cmt) {
+	return A2(
+		elm$html$Html$div,
+		_List_fromArray(
+			[
+				elm$html$Html$Attributes$class('cont-comment'),
+				elm$html$Html$Events$onClick(
+				author$project$Main$CommentSelected(cmt))
+			]),
+		_List_fromArray(
+			[
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('cont-cmt-top')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('cont-cmt-author')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$span,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('text-author')
+									]),
+								_List_fromArray(
+									[
+										elm$html$Html$text(cmt.author)
+									]))
+							])),
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('cont-cmt-created-at')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$span,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$class('text-created-at')
+									]),
+								_List_fromArray(
+									[
+										elm$html$Html$text(cmt.createdAt)
+									]))
+							])),
+						A2(
+						elm$html$Html$div,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('cont-cmt-delete')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								elm$html$Html$img,
+								_List_fromArray(
+									[
+										elm$html$Html$Attributes$src('./images/close.png'),
+										elm$html$Html$Attributes$class('icon-delete')
+									]),
+								_List_Nil)
+							]))
+					])),
+				A2(
+				elm$html$Html$div,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('cont-cmt-btm')
+					]),
+				_List_fromArray(
+					[
+						elm$html$Html$text(cmt.content)
+					]))
+			]));
+};
 var author$project$Main$renderComments = function (status) {
 	switch (status.$) {
 		case 'Loaded':
 			var _n1 = status.a;
 			var comments = _n1.b;
-			return A2(elm$core$List$map, author$project$Main$genComment, comments);
+			return A2(elm$core$List$map, author$project$Main$renderComment, comments);
 		case 'Loading':
 			return author$project$Main$loader;
 		default:
@@ -6424,7 +6450,7 @@ var author$project$Main$viewLoaded = function (gallery) {
 			elm$html$Html$div,
 			_List_fromArray(
 				[
-					elm$html$Html$Attributes$id('container-thumbnails')
+					elm$html$Html$Attributes$id('cont-thumbnails')
 				]),
 			A2(
 				elm$core$List$map,
@@ -6474,7 +6500,7 @@ var author$project$Main$view = function (model) {
 		elm$html$Html$div,
 		_List_fromArray(
 			[
-				elm$html$Html$Attributes$id('container-main')
+				elm$html$Html$Attributes$id('cont-main')
 			]),
 		_List_fromArray(
 			[
@@ -6482,7 +6508,7 @@ var author$project$Main$view = function (model) {
 				elm$html$Html$div,
 				_List_fromArray(
 					[
-						elm$html$Html$Attributes$id('container-flower')
+						elm$html$Html$Attributes$id('cont-flower')
 					]),
 				_List_fromArray(
 					[
@@ -6498,7 +6524,7 @@ var author$project$Main$view = function (model) {
 						elm$html$Html$div,
 						_List_fromArray(
 							[
-								elm$html$Html$Attributes$id('container-flower-text')
+								elm$html$Html$Attributes$id('cont-flower-text')
 							]),
 						author$project$Main$introText)
 					])),
@@ -6506,7 +6532,7 @@ var author$project$Main$view = function (model) {
 				elm$html$Html$div,
 				_List_fromArray(
 					[
-						elm$html$Html$Attributes$class('container-loaded')
+						elm$html$Html$Attributes$class('cont-loaded')
 					]),
 				author$project$Main$renderGallery(model.status)),
 				author$project$Main$displaySelectedImage(model.selectedImage),
@@ -6514,21 +6540,21 @@ var author$project$Main$view = function (model) {
 				elm$html$Html$div,
 				_List_fromArray(
 					[
-						elm$html$Html$Attributes$id('container-comments')
+						elm$html$Html$Attributes$id('cont-comments')
 					]),
 				author$project$Main$renderComments(model.status)),
 				A2(
 				elm$html$Html$div,
 				_List_fromArray(
 					[
-						elm$html$Html$Attributes$id('container-selected-comment')
+						elm$html$Html$Attributes$id('cont-selected-comment')
 					]),
 				author$project$Main$displayComment(model.selectedComment)),
 				A2(
 				elm$html$Html$div,
 				_List_fromArray(
 					[
-						elm$html$Html$Attributes$id('container-map')
+						elm$html$Html$Attributes$id('cont-map')
 					]),
 				_List_fromArray(
 					[
@@ -6544,7 +6570,7 @@ var author$project$Main$view = function (model) {
 				elm$html$Html$div,
 				_List_fromArray(
 					[
-						elm$html$Html$Attributes$id('container-socials')
+						elm$html$Html$Attributes$id('cont-socials')
 					]),
 				A2(elm$core$List$map, author$project$Main$displaySocial, author$project$Main$socialPlatforms))
 			]));

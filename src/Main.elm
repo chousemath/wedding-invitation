@@ -120,7 +120,7 @@ extractComment : String -> Comment
 extractComment com =
     let
         arr =
-            Array.fromList (String.split "/////" com)
+            com |> String.split "/////" |> Array.fromList
 
         author =
             safeGetStr 0 arr
@@ -163,29 +163,35 @@ introText =
             ]
 
 
+bucket =
+    "https://choi-choi"
+
+
+region =
+    "ap-northeast-2.amazonaws.com/"
+
+
 genLink : String -> String
 genLink fname =
-    let
-        bucket =
-            "choi-choi"
-
-        region =
-            "ap-northeast-2"
-    in
-    "https://" ++ bucket ++ ".s3." ++ region ++ ".amazonaws.com/" ++ fname
+    bucket ++ ".s3." ++ region ++ fname
 
 
-genComment : Comment -> Html Msg
-genComment comment =
+renderComment : Comment -> Html Msg
+renderComment cmt =
     div
-        [ class "container-comment", onClick (CommentSelected comment) ]
-        [ div [ class "container-comment-top" ]
-            [ div [ class "container-comment-author" ] [ span [ class "text-author" ] [ text comment.author ] ]
-            , div [ class "container-comment-created-at" ] [ text comment.createdAt ]
+        [ class "cont-comment", onClick (CommentSelected cmt) ]
+        [ div [ class "cont-cmt-top" ]
+            [ div [ class "cont-cmt-author" ] [ span [ class "text-author" ] [ text cmt.author ] ]
+            , div
+                [ class "cont-cmt-created-at" ]
+                [ span [ class "text-created-at" ] [ text cmt.createdAt ] ]
+            , div
+                [ class "cont-cmt-delete" ]
+                [ img [ src "./images/close.png", class "icon-delete" ] [] ]
             ]
         , div
-            [ class "container-comment-btm" ]
-            [ text comment.content ]
+            [ class "cont-cmt-btm" ]
+            [ text cmt.content ]
         ]
 
 
@@ -215,7 +221,7 @@ defaultComments =
 displayComment : Comment -> List (Html Msg)
 displayComment c =
     if c.author /= "" then
-        [ div [ id "selected-comment-content", onClick (CommentSelected emptyComment) ] [ text c.author ] ]
+        [ div [ id "selected-cmt-content", onClick (CommentSelected emptyComment) ] [ text c.author ] ]
 
     else
         []
@@ -224,14 +230,14 @@ displayComment c =
 displaySocial : SocialPlatform -> Html Msg
 displaySocial s =
     div
-        [ class "container-social" ]
+        [ class "cont-social" ]
         [ text s.text ]
 
 
 viewLoaded : List String -> List (Html Msg)
 viewLoaded gallery =
     [ div
-        [ id "container-thumbnails" ]
+        [ id "cont-thumbnails" ]
         (List.map (makeThumbnail "") gallery)
     ]
 
@@ -243,7 +249,7 @@ displaySelectedImage url =
 
     else
         div
-            [ id "container-selected"
+            [ id "cont-selected"
             , style "background" ("url(" ++ url ++ ") no-repeat center")
             , onClick (ImageSelected "")
             ]
@@ -252,7 +258,7 @@ displaySelectedImage url =
 
 loader =
     [ div
-        [ class "container-loader" ]
+        [ class "cont-loader" ]
         [ img [ src "./images/loader.gif", class "loader" ] [] ]
     ]
 
@@ -291,7 +297,7 @@ renderComments : Status -> List (Html Msg)
 renderComments status =
     case status of
         Loaded ( _, comments ) ->
-            List.map genComment comments
+            List.map renderComment comments
 
         Loading ->
             loader
@@ -302,26 +308,18 @@ renderComments status =
 
 view : Model -> Html Msg
 view model =
-    div [ id "container-main" ]
+    div [ id "cont-main" ]
         [ div
-            [ id "container-flower" ]
+            [ id "cont-flower" ]
             [ img [ id "flower-border", src "https://i.imgur.com/IcVqiOb.png" ] []
-            , div [ id "container-flower-text" ] introText
+            , div [ id "cont-flower-text" ] introText
             ]
-        , div [ class "container-loaded" ] <| renderGallery model.status
+        , div [ class "cont-loaded" ] <| renderGallery model.status
         , displaySelectedImage model.selectedImage
-        , div [ id "container-comments" ] <| renderComments model.status
-        , div
-            [ id "container-selected-comment" ]
-          <|
-            displayComment model.selectedComment
-        , div
-            [ id "container-map" ]
-            [ div [ id "map" ] [] ]
-        , div
-            [ id "container-socials" ]
-          <|
-            List.map displaySocial socialPlatforms
+        , div [ id "cont-comments" ] <| renderComments model.status
+        , div [ id "cont-selected-comment" ] <| displayComment model.selectedComment
+        , div [ id "cont-map" ] [ div [ id "map" ] [] ]
+        , div [ id "cont-socials" ] <| List.map displaySocial socialPlatforms
         ]
 
 

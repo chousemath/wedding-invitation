@@ -17,6 +17,12 @@
     justify-content: flex-start;
     align-items: center;
 }
+@mixin flex-end {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+}
 
 * {
     margin: 0;
@@ -28,10 +34,13 @@
     background: transparent;
     font-family: 'Nanum Myeongjo', serif;
 }
-#container-main {
+#cont-main {
+    $icon-size: 25px;
+    .visible { display: block; }
+    .invisible { display: none; }
     width: 100vw;
     height: 100vh;
-    #container-flower {
+    #cont-flower {
         width: 100%;
         position: relative;
         text-align: center;
@@ -40,7 +49,7 @@
         #flower-border {
             width: calc(100% - 32px);
         }
-        #container-flower-text {
+        #cont-flower-text {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -65,40 +74,58 @@
             }
         }
     }
-    #container-selected {
+    #cont-selected {
         @include flex-center;
         width: 100%;
-        height: 50vh;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
     }
-    #container-comments {
+    #cont-comments {
         width: 100%;
         float: left;
         @include flex-col;
-        .container-comment {
+        .cont-comment {
             @include flex-col;
             margin-bottom: 16px;
             padding: 0 16px 0 16px;
-            .container-comment-top {
+            .cont-cmt-btm {
+                font-size: 14px;
+            }
+            .cont-cmt-top {
                 @include flex-row;
                 margin-bottom: 8px;
-                .container-comment-author {
+                .cont-cmt-author {
                     @include flex-start;
                     .text-author {
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
                         font-weight: bold;
                         font-size: 18px;
                     }
                 }
-                .container-comment-created-at {
+                .cont-cmt-created-at {
                     @include flex-start;
                     .text-created-at {
                         font-weight: lighter;
-                        font-size: 18px;
+                        font-size: 14px;
+                        color: #bbded6;
+                    }
+                }
+                .cont-cmt-delete {
+                    @include flex-end;
+                    width: $icon-size;
+                    .icon-delete {
+                        width: $icon-size;
+                        height: $icon-size;
+                        cursor: pointer;
                     }
                 }
             }
         }
     }
-    #container-map {
+    #cont-map {
         @include flex-center;
         height: 300px;
         padding: 16px;
@@ -109,23 +136,23 @@
             background-color: azure;
         }
     }
-    #container-selected-comment {
+    #cont-selected-comment {
         padding: 16px;
-        #selected-comment-content {
+        #selected-cmt-content {
             width: 100%;
         }
     }
-    .container-loader {
+    .cont-loader {
         @include flex-center;
         width: 100%;
         .loader {
             max-height: 150px;
         }
     }
-    .container-loaded {
+    .cont-loaded {
         width: 100%;
         float: left;
-        #container-thumbnails {
+        #cont-thumbnails {
             $thumb-width: 30vw;
             $thumb-pad: calc(5vw - 6px);
             $thumb-margin: 3px;

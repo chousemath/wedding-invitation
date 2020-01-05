@@ -9,28 +9,34 @@
   font-family: "Nanum Myeongjo", serif;
 }
 
-#container-main {
+#cont-main {
   width: 100vw;
   height: 100vh;
 }
-#container-main #container-flower {
+#cont-main .visible {
+  display: block;
+}
+#cont-main .invisible {
+  display: none;
+}
+#cont-main #cont-flower {
   width: 100%;
   position: relative;
   text-align: center;
   background-color: #EADEC8;
   padding: 16px 0 16px 0;
 }
-#container-main #container-flower #flower-border {
+#cont-main #cont-flower #flower-border {
   width: calc(100% - 32px);
 }
-#container-main #container-flower #container-flower-text {
+#cont-main #cont-flower #cont-flower-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
 }
-#container-main #container-flower #container-flower-text .name {
+#cont-main #cont-flower #cont-flower-text .name {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,14 +44,14 @@
   height: 50px;
   font-size: 18px;
 }
-#container-main #container-flower #container-flower-text #name-spacer {
+#cont-main #cont-flower #cont-flower-text #name-spacer {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 30px;
 }
-#container-main #container-flower #container-flower-text .subtitle {
+#cont-main #cont-flower #cont-flower-text .subtitle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,51 +59,72 @@
   font-size: 12px;
   height: 30px;
 }
-#container-main #container-selected {
+#cont-main #cont-selected {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 50vh;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
-#container-main #container-comments {
+#cont-main #cont-comments {
   width: 100%;
   float: left;
   display: flex;
   flex-direction: column;
 }
-#container-main #container-comments .container-comment {
+#cont-main #cont-comments .cont-comment {
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
   padding: 0 16px 0 16px;
 }
-#container-main #container-comments .container-comment .container-comment-top {
+#cont-main #cont-comments .cont-comment .cont-cmt-btm {
+  font-size: 14px;
+}
+#cont-main #cont-comments .cont-comment .cont-cmt-top {
   display: flex;
   flex-direction: row;
   margin-bottom: 8px;
 }
-#container-main #container-comments .container-comment .container-comment-top .container-comment-author {
+#cont-main #cont-comments .cont-comment .cont-cmt-top .cont-cmt-author {
   display: flex;
   flex: 1;
   justify-content: flex-start;
   align-items: center;
 }
-#container-main #container-comments .container-comment .container-comment-top .container-comment-author .text-author {
+#cont-main #cont-comments .cont-comment .cont-cmt-top .cont-cmt-author .text-author {
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-weight: bold;
   font-size: 18px;
 }
-#container-main #container-comments .container-comment .container-comment-top .container-comment-created-at {
+#cont-main #cont-comments .cont-comment .cont-cmt-top .cont-cmt-created-at {
   display: flex;
   flex: 1;
   justify-content: flex-start;
   align-items: center;
 }
-#container-main #container-comments .container-comment .container-comment-top .container-comment-created-at .text-created-at {
+#cont-main #cont-comments .cont-comment .cont-cmt-top .cont-cmt-created-at .text-created-at {
   font-weight: lighter;
-  font-size: 18px;
+  font-size: 14px;
+  color: #bbded6;
 }
-#container-main #container-map {
+#cont-main #cont-comments .cont-comment .cont-cmt-top .cont-cmt-delete {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+  width: 25px;
+}
+#cont-main #cont-comments .cont-comment .cont-cmt-top .cont-cmt-delete .icon-delete {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+#cont-main #cont-map {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -105,43 +132,43 @@
   padding: 16px;
   overflow: hidden;
 }
-#container-main #container-map #map {
+#cont-main #cont-map #map {
   width: 100%;
   height: 400px;
   background-color: azure;
 }
-#container-main #container-selected-comment {
+#cont-main #cont-selected-comment {
   padding: 16px;
 }
-#container-main #container-selected-comment #selected-comment-content {
+#cont-main #cont-selected-comment #selected-cmt-content {
   width: 100%;
 }
-#container-main .container-loader {
+#cont-main .cont-loader {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
-#container-main .container-loader .loader {
+#cont-main .cont-loader .loader {
   max-height: 150px;
 }
-#container-main .container-loaded {
+#cont-main .cont-loaded {
   width: 100%;
   float: left;
 }
-#container-main .container-loaded #container-thumbnails {
+#cont-main .cont-loaded #cont-thumbnails {
   margin-top: 16px;
   padding-right: calc(5vw - 6px);
   padding-left: calc(5vw - 6px);
 }
-#container-main .container-loaded #container-thumbnails .thumbnail {
+#cont-main .cont-loaded #cont-thumbnails .thumbnail {
   width: 30vw;
   height: 30vw;
   float: left;
   margin-bottom: 3px;
   margin-left: 3px;
 }
-#container-main .container-loaded #container-thumbnails .thumbnail-selected {
+#cont-main .cont-loaded #cont-thumbnails .thumbnail-selected {
   width: 30vw;
   height: 30vw;
   float: left;
