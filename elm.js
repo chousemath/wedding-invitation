@@ -9235,6 +9235,14 @@ var rtfeldman$elm_css$Css$Subtraction = {$: 'Subtraction'};
 var rtfeldman$elm_css$Css$minus = rtfeldman$elm_css$Css$Subtraction;
 var rtfeldman$elm_css$Css$overflow = rtfeldman$elm_css$Css$prop1('overflow');
 var rtfeldman$elm_css$Css$padding = rtfeldman$elm_css$Css$prop1('padding');
+var rtfeldman$elm_css$Css$relative = {position: rtfeldman$elm_css$Css$Structure$Compatible, value: 'relative'};
+var rtfeldman$elm_css$Css$textAlign = function (fn) {
+	return A3(
+		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
+		'textAlign',
+		'text-align',
+		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
+};
 var rtfeldman$elm_css$Css$valuesOrNone = function (list) {
 	return elm$core$List$isEmpty(list) ? {value: 'none'} : {
 		value: A2(
@@ -9274,7 +9282,14 @@ var author$project$Main$view = function (model) {
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$id('cont-main')
+				rtfeldman$elm_css$Html$Styled$Attributes$css(
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Css$width(
+						rtfeldman$elm_css$Css$vw(100)),
+						rtfeldman$elm_css$Css$height(
+						rtfeldman$elm_css$Css$vh(100))
+					]))
 			]),
 		_List_fromArray(
 			[
@@ -9282,7 +9297,22 @@ var author$project$Main$view = function (model) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$id('cont-flower')
+						rtfeldman$elm_css$Html$Styled$Attributes$css(
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Css$width(
+								rtfeldman$elm_css$Css$pct(100)),
+								rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$relative),
+								rtfeldman$elm_css$Css$textAlign(rtfeldman$elm_css$Css$center),
+								rtfeldman$elm_css$Css$backgroundColor(
+								rtfeldman$elm_css$Css$hex('EADEC8')),
+								A4(
+								rtfeldman$elm_css$Css$padding4,
+								rtfeldman$elm_css$Css$px(16),
+								rtfeldman$elm_css$Css$px(0),
+								rtfeldman$elm_css$Css$px(16),
+								rtfeldman$elm_css$Css$px(0))
+							]))
 					]),
 				_List_fromArray(
 					[

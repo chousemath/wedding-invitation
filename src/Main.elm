@@ -423,9 +423,21 @@ renderComments status =
 
 view : Model -> Html Msg
 view model =
-    div [ id "cont-main" ]
+    div
+        [ css
+            [ width (vw 100)
+            , height (vh 100)
+            ]
+        ]
         [ div
-            [ id "cont-flower" ]
+            [ css
+                [ width (pct 100)
+                , position relative
+                , textAlign center
+                , backgroundColor (hex "EADEC8")
+                , padding4 (px 16) (px 0) (px 16) (px 0)
+                ]
+            ]
             [ img [ css [ width (calc (pct 100) minus (px 32)) ], src "https://i.imgur.com/IcVqiOb.png" ] []
             , div
                 [ css
