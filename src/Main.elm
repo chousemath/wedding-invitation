@@ -2,10 +2,12 @@ module Main exposing (main)
 
 import Array exposing (Array)
 import Browser
+import Css exposing (..)
 import Debug exposing (log)
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
+import Html
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (class, css, href, id, src, style)
+import Html.Styled.Events exposing (onClick)
 import Http
 import Json.Decode exposing (Decoder, int, list, string, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
@@ -104,6 +106,30 @@ emptyComment =
 
 
 
+-- commonly used styles go here
+
+
+flexCenterX =
+    [ displayFlex, justifyContent center, alignItems center ]
+
+
+flexColX =
+    [ displayFlex, flexDirection column, flex (num 1) ]
+
+
+flexEndX =
+    [ displayFlex, flex (num 1), justifyContent flexEnd, alignItems center ]
+
+
+flexRowX =
+    [ displayFlex, flexDirection row ]
+
+
+flexStartX =
+    [ displayFlex, flex (num 1), justifyContent flexStart, alignItems center ]
+
+
+
 -- helper functions go here
 
 
@@ -137,17 +163,35 @@ extractComment com =
 
 renderName : String -> Html msg
 renderName str =
-    div [ class "name" ] [ h4 [] [ text str ] ]
+    div
+        [ css
+            (flexCenterX
+                ++ [ width (pct 100)
+                   , height (px 50)
+                   , fontSize (px 18)
+                   ]
+            )
+        ]
+        [ h4 [] [ text str ] ]
 
 
 renderNameSpacer : String -> Html msg
 renderNameSpacer str =
-    div [ id "name-spacer" ] [ h4 [] [ text str ] ]
+    div [ css (flexCenterX ++ [ width (pct 100), height (px 30) ]) ] [ h4 [] [ text str ] ]
 
 
 renderSubtitle : String -> Html msg
 renderSubtitle str =
-    div [ class "subtitle" ] [ h4 [] [ text str ] ]
+    div
+        [ css
+            (flexCenterX
+                ++ [ width (pct 100)
+                   , fontSize (px 12)
+                   , height (px 30)
+                   ]
+            )
+        ]
+        [ h4 [] [ text str ] ]
 
 
 introText : List (Html msg)
@@ -180,33 +224,53 @@ genLink fname =
 renderComment : Comment -> Html Msg
 renderComment cmt =
     div
-        [ class "cont-comment", onClick (CommentSelected cmt) ]
-        [ div [ class "cont-cmt-top" ]
-            [ div [ class "cont-cmt-author" ] [ span [ class "text-author" ] [ text cmt.author ] ]
+        [ css
+            (flexColX
+                ++ [ marginBottom (px 16)
+                   , padding4 (px 0) (px 16) (px 0) (px 16)
+                   ]
+            )
+        , onClick (CommentSelected cmt)
+        ]
+        [ div [ css (flexRowX ++ [ marginBottom (px 8) ]) ]
+            [ div
+                [ css flexStartX ]
+                [ span
+                    [ css
+                        [ whiteSpace noWrap
+                        , textOverflow ellipsis
+                        , fontWeight bold
+                        , fontSize (px 18)
+                        ]
+                    ]
+                    [ text cmt.author ]
+                ]
             , div
-                [ class "cont-cmt-created-at" ]
-                [ span [ class "text-created-at" ] [ text cmt.createdAt ] ]
+                [ css flexStartX ]
+                [ span [ css [ fontWeight lighter, fontSize (px 14), color (hex "bbded6") ] ] [ text cmt.createdAt ] ]
             , div
-                [ class "cont-cmt-delete" ]
-                [ img [ src "./images/close.png", class "icon-delete" ] [] ]
+                [ css (flexEndX ++ [ width (px 30) ]) ]
+                [ img [ src "./images/close.png", css [ width (px 25), height (px 25) ] ] [] ]
             ]
         , div
-            [ class "cont-cmt-btm" ]
+            [ css [ fontSize (px 14) ] ]
             [ text cmt.content ]
         ]
 
 
-makeThumbnail : String -> String -> Html Msg
-makeThumbnail selected link =
+makeThumbnail : String -> Html Msg
+makeThumbnail link =
     div
-        [ class
-            (if selected == link then
-                "thumbnail-selected"
-
-             else
-                "thumbnail"
-            )
-        , style "background" ("url(" ++ link ++ ") no-repeat center")
+        [ css
+            [ width (vw 31)
+            , height (vw 31)
+            , float left
+            , marginBottom (vw 2)
+            , marginLeft (vw 2)
+            , backgroundImage (url link)
+            , backgroundPosition center
+            , backgroundRepeat noRepeat
+            ]
         , onClick (ImageSelected link)
         ]
         []
@@ -222,7 +286,7 @@ defaultComments =
 displayComment : Comment -> List (Html Msg)
 displayComment c =
     if c.author /= "" then
-        [ div [ id "selected-cmt-content", onClick (CommentSelected emptyComment) ] [ text c.author ] ]
+        [ div [ css [ width (pct 100) ], onClick (CommentSelected emptyComment) ] [ text c.author ] ]
 
     else
         []
@@ -238,16 +302,16 @@ displaySocial s =
 viewLoaded : List String -> List (Html Msg)
 viewLoaded gallery =
     [ div
-        [ id "cont-thumbnails" ]
-        (List.map (makeThumbnail "") gallery)
+        [ css [ marginTop (px 16) ] ]
+        (List.map makeThumbnail gallery)
     ]
 
 
 displayOpt : String -> SocialPlatform -> Html Msg
 displayOpt url social =
     div
-        [ class "cont-opt", onClick (SocialSelected url) ]
-        [ img [ src social.icon, class "cont-opt-icon" ] [] ]
+        [ css (flexCenterX ++ [ flex (num 1) ]), onClick (SocialSelected url) ]
+        [ img [ src social.icon, css [ width (px 30), height (px 30) ] ] [] ]
 
 
 displaySelectedImage : String -> Html Msg
@@ -257,24 +321,60 @@ displaySelectedImage url =
 
     else
         div
-            [ id "cont-selected"
+            [ css
+                (flexColX
+                    ++ [ width (pct 100)
+                       , height (vh 100)
+                       , position fixed
+                       , top (px 0)
+                       , left (px 0)
+                       ]
+                )
             , style "background" ("url(" ++ url ++ ") no-repeat center")
             ]
             [ div
-                [ id "cont-selected-close" ]
-                [ div
-                    [ id "cont-selected-close-in", onClick (ImageSelected "") ]
-                    [ img [ src "./images/close.png", class "cont-selected-close-icon" ] [] ]
+                [ css
+                    [ displayFlex
+                    , justifyContent flexEnd
+                    , alignItems center
+                    , width (pct 100)
+                    , height (px 50)
+                    ]
                 ]
-            , div [ id "options-spacer" ] []
-            , div [ id "options-bar" ] <| List.map (displayOpt url) socialPlatforms
+                [ div
+                    [ css
+                        (flexCenterX
+                            ++ [ marginTop (px 16)
+                               , marginRight (px 8)
+                               , width (px 50)
+                               , height (px 50)
+                               , borderRadius (pct 50)
+                               , backgroundColor (rgba 241 241 246 0.8)
+                               ]
+                        )
+                    , onClick (ImageSelected "")
+                    ]
+                    [ img [ src "./images/close.png", css [ width (px 30), height (px 30) ] ] [] ]
+                ]
+            , div [ css [ flexGrow (num 1) ] ] []
+            , div
+                [ css
+                    (flexRowX
+                        ++ [ width (pct 100)
+                           , height (px 75)
+                           , backgroundColor (rgba 0 0 0 0.8)
+                           ]
+                    )
+                ]
+              <|
+                List.map (displayOpt url) socialPlatforms
             ]
 
 
 loader =
     [ div
-        [ class "cont-loader" ]
-        [ img [ src "./images/loader.gif", class "loader" ] [] ]
+        [ css (flexCenterX ++ [ width (pct 100) ]) ]
+        [ img [ src "./images/loader.gif", css [ maxHeight (px 150) ] ] [] ]
     ]
 
 
@@ -326,14 +426,25 @@ view model =
     div [ id "cont-main" ]
         [ div
             [ id "cont-flower" ]
-            [ img [ id "flower-border", src "https://i.imgur.com/IcVqiOb.png" ] []
-            , div [ id "cont-flower-text" ] introText
+            [ img [ css [ width (calc (pct 100) minus (px 32)) ], src "https://i.imgur.com/IcVqiOb.png" ] []
+            , div
+                [ css
+                    [ position absolute
+                    , top (pct 50)
+                    , left (pct 50)
+                    , transform (translate2 (pct -50) (pct -50))
+                    , width (pct 100)
+                    ]
+                ]
+                introText
             ]
-        , div [ class "cont-loaded" ] <| renderGallery model.status
+        , div [ css [ width (pct 100), float left ] ] <| renderGallery model.status
         , displaySelectedImage model.selectedImage
-        , div [ id "cont-comments" ] <| renderComments model.status
-        , div [ id "cont-selected-comment" ] <| displayComment model.selectedComment
-        , div [ id "cont-map" ] [ div [ id "map" ] [] ]
+        , div [ css (flexColX ++ [ width (pct 100), float left ]) ] <| renderComments model.status
+        , div [ css [ padding (px 16) ] ] <| displayComment model.selectedComment
+        , div
+            [ css (flexCenterX ++ [ height (px 300), padding (px 16), overflow hidden ]) ]
+            [ div [ id "map", css [ width (pct 100), height (px 400) ] ] [] ]
         , div [ id "cont-socials" ] <| List.map displaySocial socialPlatforms
         ]
 
@@ -377,7 +488,7 @@ main : Program () Model Msg
 main =
     Browser.element
         { init = \flags -> ( initialModel, initialCmd )
-        , view = view
+        , view = view >> toUnstyled
         , update = update
         , subscriptions = \model -> Sub.none
         }
