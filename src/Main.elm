@@ -11,6 +11,7 @@ import Html.Styled.Events exposing (onClick)
 import Http
 import Json.Decode exposing (Decoder, int, list, string, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
+import MyStyles exposing (myStyles)
 
 
 
@@ -107,29 +108,6 @@ emptyComment =
 
 
 -- commonly used styles go here
-
-
-flexCenterX =
-    [ displayFlex, justifyContent center, alignItems center ]
-
-
-flexColX =
-    [ displayFlex, flexDirection column, flex (num 1) ]
-
-
-flexEndX =
-    [ displayFlex, flex (num 1), justifyContent flexEnd, alignItems center ]
-
-
-flexRowX =
-    [ displayFlex, flexDirection row ]
-
-
-flexStartX =
-    [ displayFlex, flex (num 1), justifyContent flexStart, alignItems center ]
-
-
-
 -- helper functions go here
 
 
@@ -164,33 +142,21 @@ extractComment com =
 renderName : String -> Html msg
 renderName str =
     div
-        [ css
-            (flexCenterX
-                ++ [ width (pct 100)
-                   , height (px 50)
-                   , fontSize (px 18)
-                   ]
-            )
-        ]
+        [ css myStyles.contName ]
         [ h4 [] [ text str ] ]
 
 
 renderNameSpacer : String -> Html msg
 renderNameSpacer str =
-    div [ css (flexCenterX ++ [ width (pct 100), height (px 30) ]) ] [ h4 [] [ text str ] ]
+    div
+        [ css myStyles.contNameSpacer ]
+        [ h4 [] [ text str ] ]
 
 
 renderSubtitle : String -> Html msg
 renderSubtitle str =
     div
-        [ css
-            (flexCenterX
-                ++ [ width (pct 100)
-                   , fontSize (px 12)
-                   , height (px 30)
-                   ]
-            )
-        ]
+        [ css myStyles.contSubtitle ]
         [ h4 [] [ text str ] ]
 
 
@@ -224,53 +190,28 @@ genLink fname =
 renderComment : Comment -> Html Msg
 renderComment cmt =
     div
-        [ css
-            (flexColX
-                ++ [ marginBottom (px 16)
-                   , padding4 (px 0) (px 16) (px 0) (px 16)
-                   ]
-            )
-        , onClick (CommentSelected cmt)
-        ]
-        [ div [ css (flexRowX ++ [ marginBottom (px 8) ]) ]
+        [ css myStyles.contComment, onClick (CommentSelected cmt) ]
+        [ div
+            [ css myStyles.commentInner ]
             [ div
-                [ css flexStartX ]
-                [ span
-                    [ css
-                        [ whiteSpace noWrap
-                        , textOverflow ellipsis
-                        , fontWeight bold
-                        , fontSize (px 18)
-                        ]
-                    ]
-                    [ text cmt.author ]
+                [ css myStyles.flexStart ]
+                [ span [ css myStyles.textAuthor ] [ text cmt.author ]
                 ]
             , div
-                [ css flexStartX ]
-                [ span [ css [ fontWeight lighter, fontSize (px 14), color (hex "bbded6") ] ] [ text cmt.createdAt ] ]
+                [ css myStyles.flexStart ]
+                [ span [ css myStyles.contAuthor ] [ text cmt.createdAt ] ]
             , div
-                [ css (flexEndX ++ [ width (px 30) ]) ]
-                [ img [ src "./images/close.png", css [ width (px 25), height (px 25) ] ] [] ]
+                [ css myStyles.contClose ]
+                [ img [ src "./images/close.png", css myStyles.iconClose ] [] ]
             ]
-        , div
-            [ css [ fontSize (px 14) ] ]
-            [ text cmt.content ]
+        , div [ css myStyles.textContent ] [ text cmt.content ]
         ]
 
 
 makeThumbnail : String -> Html Msg
 makeThumbnail link =
     div
-        [ css
-            [ width (vw 31)
-            , height (vw 31)
-            , float left
-            , marginBottom (vw 2)
-            , marginLeft (vw 2)
-            , backgroundImage (url link)
-            , backgroundPosition center
-            , backgroundRepeat noRepeat
-            ]
+        [ css (backgroundImage (url link) :: myStyles.thumbnail)
         , onClick (ImageSelected link)
         ]
         []
@@ -286,7 +227,7 @@ defaultComments =
 displayComment : Comment -> List (Html Msg)
 displayComment c =
     if c.author /= "" then
-        [ div [ css [ width (pct 100) ], onClick (CommentSelected emptyComment) ] [ text c.author ] ]
+        [ div [ css myStyles.displayComment, onClick (CommentSelected emptyComment) ] [ text c.author ] ]
 
     else
         []
@@ -294,87 +235,44 @@ displayComment c =
 
 displaySocial : SocialPlatform -> Html Msg
 displaySocial s =
-    div
-        [ class "cont-social" ]
-        [ text s.text ]
+    div [ css myStyles.contSocial ] [ text s.text ]
 
 
 viewLoaded : List String -> List (Html Msg)
 viewLoaded gallery =
-    [ div
-        [ css [ marginTop (px 16) ] ]
-        (List.map makeThumbnail gallery)
-    ]
+    [ div [ css myStyles.contLoaded ] (List.map makeThumbnail gallery) ]
 
 
 displayOpt : String -> SocialPlatform -> Html Msg
 displayOpt url social =
     div
-        [ css (flexCenterX ++ [ flex (num 1) ]), onClick (SocialSelected url) ]
-        [ img [ src social.icon, css [ width (px 30), height (px 30) ] ] [] ]
+        [ css myStyles.contOpt, onClick (SocialSelected url) ]
+        [ img [ src social.icon, css myStyles.iconSocial ] [] ]
 
 
 displaySelectedImage : String -> Html Msg
-displaySelectedImage url =
-    if url == "" then
+displaySelectedImage link =
+    if link == "" then
         div [] []
 
     else
         div
-            [ css
-                (flexColX
-                    ++ [ width (pct 100)
-                       , height (vh 100)
-                       , position fixed
-                       , top (px 0)
-                       , left (px 0)
-                       ]
-                )
-            , style "background" ("url(" ++ url ++ ") no-repeat center")
-            ]
+            [ css (backgroundImage (url link) :: myStyles.contSelectedImage) ]
             [ div
-                [ css
-                    [ displayFlex
-                    , justifyContent flexEnd
-                    , alignItems center
-                    , width (pct 100)
-                    , height (px 50)
-                    ]
-                ]
+                [ css myStyles.contOverlay ]
                 [ div
-                    [ css
-                        (flexCenterX
-                            ++ [ marginTop (px 16)
-                               , marginRight (px 8)
-                               , width (px 50)
-                               , height (px 50)
-                               , borderRadius (pct 50)
-                               , backgroundColor (rgba 241 241 246 0.8)
-                               ]
-                        )
-                    , onClick (ImageSelected "")
-                    ]
-                    [ img [ src "./images/close.png", css [ width (px 30), height (px 30) ] ] [] ]
+                    [ css myStyles.contOverlayClose, onClick (ImageSelected "") ]
+                    [ img [ src "./images/close.png", css myStyles.iconCloseOverlay ] [] ]
                 ]
-            , div [ css [ flexGrow (num 1) ] ] []
-            , div
-                [ css
-                    (flexRowX
-                        ++ [ width (pct 100)
-                           , height (px 75)
-                           , backgroundColor (rgba 0 0 0 0.8)
-                           ]
-                    )
-                ]
-              <|
-                List.map (displayOpt url) socialPlatforms
+            , div [ css myStyles.fgrow ] []
+            , div [ css myStyles.contSocialOverlay ] <| List.map (displayOpt link) socialPlatforms
             ]
 
 
 loader =
     [ div
-        [ css (flexCenterX ++ [ width (pct 100) ]) ]
-        [ img [ src "./images/loader.gif", css [ maxHeight (px 150) ] ] [] ]
+        [ css myStyles.contLoader ]
+        [ img [ src "./images/loader.gif", css myStyles.iconLoader ] [] ]
     ]
 
 
@@ -424,44 +322,20 @@ renderComments status =
 view : Model -> Html Msg
 view model =
     div
-        [ css
-            [ width (vw 100)
-            , height (vh 100)
-            ]
-        ]
+        [ css myStyles.contMain ]
         [ div
-            [ css
-                [ width (pct 100)
-                , position relative
-                , textAlign center
-                , backgroundColor (hex "EADEC8")
-                , padding4 (px 16) (px 0) (px 16) (px 0)
-                ]
+            [ css myStyles.contFlower ]
+            [ img [ css myStyles.contFlowerImage, src "https://i.imgur.com/IcVqiOb.png" ] []
+            , div [ css myStyles.contFlowerText ] introText
             ]
-            [ img
-                [ css [ width (calc (pct 100) minus (px 32)) ]
-                , src "https://i.imgur.com/IcVqiOb.png"
-                ]
-                []
-            , div
-                [ css
-                    [ position absolute
-                    , top (pct 50)
-                    , left (pct 50)
-                    , transform (translate2 (pct -50) (pct -50))
-                    , width (pct 100)
-                    ]
-                ]
-                introText
-            ]
-        , div [ css [ width (pct 100), float left ] ] <| renderGallery model.status
+        , div [ css myStyles.contGallery ] <| renderGallery model.status
         , displaySelectedImage model.selectedImage
-        , div [ css (flexColX ++ [ width (pct 100), float left ]) ] <| renderComments model.status
-        , div [ css [ padding (px 16) ] ] <| displayComment model.selectedComment
+        , div [ css myStyles.contComments ] <| renderComments model.status
+        , div [ css myStyles.contSelectedComment ] <| displayComment model.selectedComment
         , div
-            [ css (flexCenterX ++ [ height (px 300), padding (px 16), overflow hidden ]) ]
-            [ div [ id "map", css [ width (pct 100), height (px 400) ] ] [] ]
-        , div [ id "cont-socials" ] <| List.map displaySocial socialPlatforms
+            [ css myStyles.contMap ]
+            [ div [ id "map", css myStyles.map ] [] ]
+        , div [] <| List.map displaySocial socialPlatforms
         ]
 
 

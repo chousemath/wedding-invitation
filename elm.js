@@ -6138,8 +6138,91 @@ var author$project$Main$update = F2(
 var author$project$Main$CommentSelected = function (a) {
 	return {$: 'CommentSelected', a: a};
 };
-var elm$core$Basics$neq = _Utils_notEqual;
-var rtfeldman$elm_css$Css$PercentageUnits = {$: 'PercentageUnits'};
+var elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return elm$core$Maybe$Just(x);
+	} else {
+		return elm$core$Maybe$Nothing;
+	}
+};
+var elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
+var rtfeldman$elm_css$Css$Preprocess$AppendProperty = function (a) {
+	return {$: 'AppendProperty', a: a};
+};
+var rtfeldman$elm_css$Css$Internal$property = F2(
+	function (key, value) {
+		return rtfeldman$elm_css$Css$Preprocess$AppendProperty(key + (':' + value));
+	});
+var rtfeldman$elm_css$Css$Preprocess$ApplyStyles = function (a) {
+	return {$: 'ApplyStyles', a: a};
+};
+var rtfeldman$elm_css$Css$Internal$getOverloadedProperty = F3(
+	function (functionName, desiredKey, style) {
+		getOverloadedProperty:
+		while (true) {
+			switch (style.$) {
+				case 'AppendProperty':
+					var str = style.a;
+					var key = A2(
+						elm$core$Maybe$withDefault,
+						'',
+						elm$core$List$head(
+							A2(elm$core$String$split, ':', str)));
+					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, key);
+				case 'ExtendSelector':
+					var selector = style.a;
+					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-inapplicable-Style-for-selector'));
+				case 'NestSnippet':
+					var combinator = style.a;
+					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-inapplicable-Style-for-combinator'));
+				case 'WithPseudoElement':
+					var pseudoElement = style.a;
+					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-inapplicable-Style-for-pseudo-element setter'));
+				case 'WithMedia':
+					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-inapplicable-Style-for-media-query'));
+				case 'WithKeyframes':
+					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-inapplicable-Style-for-keyframes'));
+				default:
+					if (!style.a.b) {
+						return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-empty-Style'));
+					} else {
+						if (!style.a.b.b) {
+							var _n1 = style.a;
+							var only = _n1.a;
+							var $temp$functionName = functionName,
+								$temp$desiredKey = desiredKey,
+								$temp$style = only;
+							functionName = $temp$functionName;
+							desiredKey = $temp$desiredKey;
+							style = $temp$style;
+							continue getOverloadedProperty;
+						} else {
+							var _n2 = style.a;
+							var first = _n2.a;
+							var rest = _n2.b;
+							var $temp$functionName = functionName,
+								$temp$desiredKey = desiredKey,
+								$temp$style = rtfeldman$elm_css$Css$Preprocess$ApplyStyles(rest);
+							functionName = $temp$functionName;
+							desiredKey = $temp$desiredKey;
+							style = $temp$style;
+							continue getOverloadedProperty;
+						}
+					}
+			}
+		}
+	});
+var rtfeldman$elm_css$Css$Internal$IncompatibleUnits = {$: 'IncompatibleUnits'};
 var elm$core$String$fromFloat = _String_fromNumber;
 var rtfeldman$elm_css$Css$Structure$Compatible = {$: 'Compatible'};
 var rtfeldman$elm_css$Css$Internal$lengthConverter = F3(
@@ -6166,9 +6249,13 @@ var rtfeldman$elm_css$Css$Internal$lengthConverter = F3(
 				unitLabel)
 		};
 	});
-var rtfeldman$elm_css$Css$pct = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PercentageUnits, '%');
-var rtfeldman$elm_css$Css$Preprocess$AppendProperty = function (a) {
-	return {$: 'AppendProperty', a: a};
+var rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty = A3(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$Internal$IncompatibleUnits, '', 0);
+var rtfeldman$elm_css$Css$alignItems = function (fn) {
+	return A3(
+		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
+		'alignItems',
+		'align-items',
+		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
 };
 var rtfeldman$elm_css$Css$property = F2(
 	function (key, value) {
@@ -6178,7 +6265,926 @@ var rtfeldman$elm_css$Css$prop1 = F2(
 	function (key, arg) {
 		return A2(rtfeldman$elm_css$Css$property, key, arg.value);
 	});
+var rtfeldman$elm_css$Css$center = rtfeldman$elm_css$Css$prop1('center');
+var rtfeldman$elm_css$Css$displayFlex = A2(rtfeldman$elm_css$Css$property, 'display', 'flex');
+var rtfeldman$elm_css$Css$justifyContent = function (fn) {
+	return A3(
+		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
+		'justifyContent',
+		'justify-content',
+		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
+};
+var author$project$MyStyles$flexCenterX = _List_fromArray(
+	[
+		rtfeldman$elm_css$Css$displayFlex,
+		rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$center),
+		rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center)
+	]);
+var rtfeldman$elm_css$Css$row = {flexDirection: rtfeldman$elm_css$Css$Structure$Compatible, flexDirectionOrWrap: rtfeldman$elm_css$Css$Structure$Compatible, value: 'row'};
+var rtfeldman$elm_css$Css$column = _Utils_update(
+	rtfeldman$elm_css$Css$row,
+	{value: 'column'});
+var rtfeldman$elm_css$Css$flex = rtfeldman$elm_css$Css$prop1('flex');
+var rtfeldman$elm_css$Css$flexDirection = rtfeldman$elm_css$Css$prop1('flex-direction');
+var rtfeldman$elm_css$Css$UnitlessFloat = {$: 'UnitlessFloat'};
+var rtfeldman$elm_css$Css$num = function (val) {
+	return {
+		lengthOrNumber: rtfeldman$elm_css$Css$Structure$Compatible,
+		lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible,
+		number: rtfeldman$elm_css$Css$Structure$Compatible,
+		numberOrInfinite: rtfeldman$elm_css$Css$Structure$Compatible,
+		numericValue: val,
+		unitLabel: '',
+		units: rtfeldman$elm_css$Css$UnitlessFloat,
+		value: elm$core$String$fromFloat(val)
+	};
+};
+var author$project$MyStyles$flexColX = _List_fromArray(
+	[
+		rtfeldman$elm_css$Css$displayFlex,
+		rtfeldman$elm_css$Css$flexDirection(rtfeldman$elm_css$Css$column),
+		rtfeldman$elm_css$Css$flex(
+		rtfeldman$elm_css$Css$num(1))
+	]);
+var rtfeldman$elm_css$Css$flexEnd = rtfeldman$elm_css$Css$prop1('flex-end');
+var author$project$MyStyles$flexEndX = _List_fromArray(
+	[
+		rtfeldman$elm_css$Css$displayFlex,
+		rtfeldman$elm_css$Css$flex(
+		rtfeldman$elm_css$Css$num(1)),
+		rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexEnd),
+		rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center)
+	]);
+var author$project$MyStyles$flexRowX = _List_fromArray(
+	[
+		rtfeldman$elm_css$Css$displayFlex,
+		rtfeldman$elm_css$Css$flexDirection(rtfeldman$elm_css$Css$row)
+	]);
+var rtfeldman$elm_css$Css$flexStart = rtfeldman$elm_css$Css$prop1('flex-start');
+var author$project$MyStyles$flexStartX = _List_fromArray(
+	[
+		rtfeldman$elm_css$Css$displayFlex,
+		rtfeldman$elm_css$Css$flex(
+		rtfeldman$elm_css$Css$num(1)),
+		rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
+		rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center)
+	]);
+var elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var rtfeldman$elm_css$Css$absolute = {position: rtfeldman$elm_css$Css$Structure$Compatible, value: 'absolute'};
+var rtfeldman$elm_css$Css$backgroundColor = function (c) {
+	return A2(rtfeldman$elm_css$Css$property, 'background-color', c.value);
+};
+var rtfeldman$elm_css$Css$backgroundPosition = function (fn) {
+	return A3(
+		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
+		'backgroundPosition',
+		'background-position',
+		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
+};
+var rtfeldman$elm_css$Css$backgroundRepeat = rtfeldman$elm_css$Css$prop1('background-repeat');
+var rtfeldman$elm_css$Css$bold = {fontWeight: rtfeldman$elm_css$Css$Structure$Compatible, value: 'bold'};
+var rtfeldman$elm_css$Css$borderRadius = rtfeldman$elm_css$Css$prop1('border-radius');
+var elm$core$String$length = _String_length;
+var elm$core$String$slice = _String_slice;
+var elm$core$String$dropLeft = F2(
+	function (n, string) {
+		return (n < 1) ? string : A3(
+			elm$core$String$slice,
+			n,
+			elm$core$String$length(string),
+			string);
+	});
+var elm$core$String$startsWith = _String_startsWith;
+var rtfeldman$elm_css$Css$calcExpressionToString = function (expression) {
+	if (expression.$ === 'Addition') {
+		return '+';
+	} else {
+		return '-';
+	}
+};
+var rtfeldman$elm_css$Css$cssFunction = F2(
+	function (funcName, args) {
+		return funcName + ('(' + (A2(elm$core$String$join, ', ', args) + ')'));
+	});
+var rtfeldman$elm_css$Css$calc = F3(
+	function (firstExpr, expression, secondExpr) {
+		var withoutCalcStr = function (l) {
+			return A2(elm$core$String$startsWith, 'calc(', l.value) ? A2(elm$core$String$dropLeft, 4, l.value) : l.value;
+		};
+		var calcs = A2(
+			elm$core$String$join,
+			' ',
+			_List_fromArray(
+				[
+					withoutCalcStr(firstExpr),
+					rtfeldman$elm_css$Css$calcExpressionToString(expression),
+					withoutCalcStr(secondExpr)
+				]));
+		var value = A2(
+			rtfeldman$elm_css$Css$cssFunction,
+			'calc',
+			_List_fromArray(
+				[calcs]));
+		return {calc: rtfeldman$elm_css$Css$Structure$Compatible, flexBasis: rtfeldman$elm_css$Css$Structure$Compatible, fontSize: rtfeldman$elm_css$Css$Structure$Compatible, length: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrAuto: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrAutoOrCoverOrContain: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNone: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNoneOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNumber: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible, textIndent: rtfeldman$elm_css$Css$Structure$Compatible, value: value};
+	});
+var rtfeldman$elm_css$Css$color = function (c) {
+	return A2(rtfeldman$elm_css$Css$property, 'color', c.value);
+};
+var rtfeldman$elm_css$Css$ellipsis = {textOverflow: rtfeldman$elm_css$Css$Structure$Compatible, value: 'ellipsis'};
+var rtfeldman$elm_css$Css$fixed = {backgroundAttachment: rtfeldman$elm_css$Css$Structure$Compatible, position: rtfeldman$elm_css$Css$Structure$Compatible, tableLayout: rtfeldman$elm_css$Css$Structure$Compatible, value: 'fixed'};
+var rtfeldman$elm_css$Css$flexGrow = rtfeldman$elm_css$Css$prop1('flex-grow');
+var rtfeldman$elm_css$Css$float = function (fn) {
+	return A3(
+		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
+		'float',
+		'float',
+		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
+};
+var rtfeldman$elm_css$Css$fontSize = rtfeldman$elm_css$Css$prop1('font-size');
+var rtfeldman$elm_css$Css$fontWeight = function (_n0) {
+	var value = _n0.value;
+	return A2(rtfeldman$elm_css$Css$property, 'font-weight', value);
+};
+var rtfeldman$elm_css$Css$height = rtfeldman$elm_css$Css$prop1('height');
+var elm$core$String$foldr = _String_foldr;
+var elm$core$String$toList = function (string) {
+	return A3(elm$core$String$foldr, elm$core$List$cons, _List_Nil, string);
+};
+var elm$core$String$cons = _String_cons;
+var rtfeldman$elm_css$Css$withPrecedingHash = function (str) {
+	return A2(elm$core$String$startsWith, '#', str) ? str : A2(
+		elm$core$String$cons,
+		_Utils_chr('#'),
+		str);
+};
+var rtfeldman$elm_css$Css$erroneousHex = function (str) {
+	return {
+		alpha: 1,
+		blue: 0,
+		color: rtfeldman$elm_css$Css$Structure$Compatible,
+		green: 0,
+		red: 0,
+		value: rtfeldman$elm_css$Css$withPrecedingHash(str)
+	};
+};
+var elm$core$String$fromList = _String_fromList;
+var elm$core$String$toLower = _String_toLower;
+var elm$core$List$tail = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return elm$core$Maybe$Just(xs);
+	} else {
+		return elm$core$Maybe$Nothing;
+	}
+};
+var elm$core$String$isEmpty = function (string) {
+	return string === '';
+};
+var elm$core$Basics$pow = _Basics_pow;
+var elm$core$String$fromChar = function (_char) {
+	return A2(elm$core$String$cons, _char, '');
+};
+var rtfeldman$elm_hex$Hex$fromStringHelp = F3(
+	function (position, chars, accumulated) {
+		fromStringHelp:
+		while (true) {
+			if (!chars.b) {
+				return elm$core$Result$Ok(accumulated);
+			} else {
+				var _char = chars.a;
+				var rest = chars.b;
+				switch (_char.valueOf()) {
+					case '0':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated;
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case '1':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + A2(elm$core$Basics$pow, 16, position);
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case '2':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (2 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case '3':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (3 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case '4':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (4 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case '5':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (5 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case '6':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (6 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case '7':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (7 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case '8':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (8 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case '9':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (9 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case 'a':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (10 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case 'b':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (11 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case 'c':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (12 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case 'd':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (13 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case 'e':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (14 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					case 'f':
+						var $temp$position = position - 1,
+							$temp$chars = rest,
+							$temp$accumulated = accumulated + (15 * A2(elm$core$Basics$pow, 16, position));
+						position = $temp$position;
+						chars = $temp$chars;
+						accumulated = $temp$accumulated;
+						continue fromStringHelp;
+					default:
+						var nonHex = _char;
+						return elm$core$Result$Err(
+							elm$core$String$fromChar(nonHex) + ' is not a valid hexadecimal character.');
+				}
+			}
+		}
+	});
+var rtfeldman$elm_hex$Hex$fromString = function (str) {
+	if (elm$core$String$isEmpty(str)) {
+		return elm$core$Result$Err('Empty strings are not valid hexadecimal strings.');
+	} else {
+		var result = function () {
+			if (A2(elm$core$String$startsWith, '-', str)) {
+				var list = A2(
+					elm$core$Maybe$withDefault,
+					_List_Nil,
+					elm$core$List$tail(
+						elm$core$String$toList(str)));
+				return A2(
+					elm$core$Result$map,
+					elm$core$Basics$negate,
+					A3(
+						rtfeldman$elm_hex$Hex$fromStringHelp,
+						elm$core$List$length(list) - 1,
+						list,
+						0));
+			} else {
+				return A3(
+					rtfeldman$elm_hex$Hex$fromStringHelp,
+					elm$core$String$length(str) - 1,
+					elm$core$String$toList(str),
+					0);
+			}
+		}();
+		var formatError = function (err) {
+			return A2(
+				elm$core$String$join,
+				' ',
+				_List_fromArray(
+					['\"' + (str + '\"'), 'is not a valid hexadecimal string because', err]));
+		};
+		return A2(elm$core$Result$mapError, formatError, result);
+	}
+};
+var rtfeldman$elm_css$Css$validHex = F5(
+	function (str, _n0, _n1, _n2, _n3) {
+		var r1 = _n0.a;
+		var r2 = _n0.b;
+		var g1 = _n1.a;
+		var g2 = _n1.b;
+		var b1 = _n2.a;
+		var b2 = _n2.b;
+		var a1 = _n3.a;
+		var a2 = _n3.b;
+		var toResult = A2(
+			elm$core$Basics$composeR,
+			elm$core$String$fromList,
+			A2(elm$core$Basics$composeR, elm$core$String$toLower, rtfeldman$elm_hex$Hex$fromString));
+		var results = _Utils_Tuple2(
+			_Utils_Tuple2(
+				toResult(
+					_List_fromArray(
+						[r1, r2])),
+				toResult(
+					_List_fromArray(
+						[g1, g2]))),
+			_Utils_Tuple2(
+				toResult(
+					_List_fromArray(
+						[b1, b2])),
+				toResult(
+					_List_fromArray(
+						[a1, a2]))));
+		if ((((results.a.a.$ === 'Ok') && (results.a.b.$ === 'Ok')) && (results.b.a.$ === 'Ok')) && (results.b.b.$ === 'Ok')) {
+			var _n5 = results.a;
+			var red = _n5.a.a;
+			var green = _n5.b.a;
+			var _n6 = results.b;
+			var blue = _n6.a.a;
+			var alpha = _n6.b.a;
+			return {
+				alpha: alpha / 255,
+				blue: blue,
+				color: rtfeldman$elm_css$Css$Structure$Compatible,
+				green: green,
+				red: red,
+				value: rtfeldman$elm_css$Css$withPrecedingHash(str)
+			};
+		} else {
+			return rtfeldman$elm_css$Css$erroneousHex(str);
+		}
+	});
+var rtfeldman$elm_css$Css$hex = function (str) {
+	var withoutHash = A2(elm$core$String$startsWith, '#', str) ? A2(elm$core$String$dropLeft, 1, str) : str;
+	var _n0 = elm$core$String$toList(withoutHash);
+	_n0$4:
+	while (true) {
+		if ((_n0.b && _n0.b.b) && _n0.b.b.b) {
+			if (!_n0.b.b.b.b) {
+				var r = _n0.a;
+				var _n1 = _n0.b;
+				var g = _n1.a;
+				var _n2 = _n1.b;
+				var b = _n2.a;
+				return A5(
+					rtfeldman$elm_css$Css$validHex,
+					str,
+					_Utils_Tuple2(r, r),
+					_Utils_Tuple2(g, g),
+					_Utils_Tuple2(b, b),
+					_Utils_Tuple2(
+						_Utils_chr('f'),
+						_Utils_chr('f')));
+			} else {
+				if (!_n0.b.b.b.b.b) {
+					var r = _n0.a;
+					var _n3 = _n0.b;
+					var g = _n3.a;
+					var _n4 = _n3.b;
+					var b = _n4.a;
+					var _n5 = _n4.b;
+					var a = _n5.a;
+					return A5(
+						rtfeldman$elm_css$Css$validHex,
+						str,
+						_Utils_Tuple2(r, r),
+						_Utils_Tuple2(g, g),
+						_Utils_Tuple2(b, b),
+						_Utils_Tuple2(a, a));
+				} else {
+					if (_n0.b.b.b.b.b.b) {
+						if (!_n0.b.b.b.b.b.b.b) {
+							var r1 = _n0.a;
+							var _n6 = _n0.b;
+							var r2 = _n6.a;
+							var _n7 = _n6.b;
+							var g1 = _n7.a;
+							var _n8 = _n7.b;
+							var g2 = _n8.a;
+							var _n9 = _n8.b;
+							var b1 = _n9.a;
+							var _n10 = _n9.b;
+							var b2 = _n10.a;
+							return A5(
+								rtfeldman$elm_css$Css$validHex,
+								str,
+								_Utils_Tuple2(r1, r2),
+								_Utils_Tuple2(g1, g2),
+								_Utils_Tuple2(b1, b2),
+								_Utils_Tuple2(
+									_Utils_chr('f'),
+									_Utils_chr('f')));
+						} else {
+							if (_n0.b.b.b.b.b.b.b.b && (!_n0.b.b.b.b.b.b.b.b.b)) {
+								var r1 = _n0.a;
+								var _n11 = _n0.b;
+								var r2 = _n11.a;
+								var _n12 = _n11.b;
+								var g1 = _n12.a;
+								var _n13 = _n12.b;
+								var g2 = _n13.a;
+								var _n14 = _n13.b;
+								var b1 = _n14.a;
+								var _n15 = _n14.b;
+								var b2 = _n15.a;
+								var _n16 = _n15.b;
+								var a1 = _n16.a;
+								var _n17 = _n16.b;
+								var a2 = _n17.a;
+								return A5(
+									rtfeldman$elm_css$Css$validHex,
+									str,
+									_Utils_Tuple2(r1, r2),
+									_Utils_Tuple2(g1, g2),
+									_Utils_Tuple2(b1, b2),
+									_Utils_Tuple2(a1, a2));
+							} else {
+								break _n0$4;
+							}
+						}
+					} else {
+						break _n0$4;
+					}
+				}
+			}
+		} else {
+			break _n0$4;
+		}
+	}
+	return rtfeldman$elm_css$Css$erroneousHex(str);
+};
+var rtfeldman$elm_css$Css$hidden = {borderStyle: rtfeldman$elm_css$Css$Structure$Compatible, overflow: rtfeldman$elm_css$Css$Structure$Compatible, value: 'hidden', visibility: rtfeldman$elm_css$Css$Structure$Compatible};
+var rtfeldman$elm_css$Css$left = rtfeldman$elm_css$Css$prop1('left');
+var rtfeldman$elm_css$Css$lighter = {fontWeight: rtfeldman$elm_css$Css$Structure$Compatible, value: 'lighter'};
+var rtfeldman$elm_css$Css$marginBottom = rtfeldman$elm_css$Css$prop1('margin-bottom');
+var rtfeldman$elm_css$Css$marginLeft = rtfeldman$elm_css$Css$prop1('margin-left');
+var rtfeldman$elm_css$Css$marginRight = rtfeldman$elm_css$Css$prop1('margin-right');
+var rtfeldman$elm_css$Css$marginTop = rtfeldman$elm_css$Css$prop1('margin-top');
+var rtfeldman$elm_css$Css$maxHeight = rtfeldman$elm_css$Css$prop1('max-height');
+var rtfeldman$elm_css$Css$Subtraction = {$: 'Subtraction'};
+var rtfeldman$elm_css$Css$minus = rtfeldman$elm_css$Css$Subtraction;
+var rtfeldman$elm_css$Css$noRepeat = {backgroundRepeat: rtfeldman$elm_css$Css$Structure$Compatible, backgroundRepeatShorthand: rtfeldman$elm_css$Css$Structure$Compatible, value: 'no-repeat'};
+var rtfeldman$elm_css$Css$noWrap = {flexDirectionOrWrap: rtfeldman$elm_css$Css$Structure$Compatible, flexWrap: rtfeldman$elm_css$Css$Structure$Compatible, value: 'nowrap', whiteSpace: rtfeldman$elm_css$Css$Structure$Compatible};
+var rtfeldman$elm_css$Css$overflow = rtfeldman$elm_css$Css$prop1('overflow');
+var rtfeldman$elm_css$Css$padding = rtfeldman$elm_css$Css$prop1('padding');
+var rtfeldman$elm_css$Css$prop4 = F5(
+	function (key, argA, argB, argC, argD) {
+		return A2(
+			rtfeldman$elm_css$Css$property,
+			key,
+			A2(
+				elm$core$String$join,
+				' ',
+				_List_fromArray(
+					[argA.value, argB.value, argC.value, argD.value])));
+	});
+var rtfeldman$elm_css$Css$padding4 = rtfeldman$elm_css$Css$prop4('padding');
+var rtfeldman$elm_css$Css$PercentageUnits = {$: 'PercentageUnits'};
+var rtfeldman$elm_css$Css$pct = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PercentageUnits, '%');
+var rtfeldman$elm_css$Css$position = rtfeldman$elm_css$Css$prop1('position');
+var rtfeldman$elm_css$Css$PxUnits = {$: 'PxUnits'};
+var rtfeldman$elm_css$Css$px = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PxUnits, 'px');
+var rtfeldman$elm_css$Css$relative = {position: rtfeldman$elm_css$Css$Structure$Compatible, value: 'relative'};
+var rtfeldman$elm_css$Css$rgba = F4(
+	function (r, g, b, alpha) {
+		return {
+			alpha: alpha,
+			blue: b,
+			color: rtfeldman$elm_css$Css$Structure$Compatible,
+			green: g,
+			red: r,
+			value: A2(
+				rtfeldman$elm_css$Css$cssFunction,
+				'rgba',
+				_Utils_ap(
+					A2(
+						elm$core$List$map,
+						elm$core$String$fromInt,
+						_List_fromArray(
+							[r, g, b])),
+					_List_fromArray(
+						[
+							elm$core$String$fromFloat(alpha)
+						])))
+		};
+	});
+var rtfeldman$elm_css$Css$textAlign = function (fn) {
+	return A3(
+		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
+		'textAlign',
+		'text-align',
+		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
+};
+var rtfeldman$elm_css$Css$textOverflow = rtfeldman$elm_css$Css$prop1('text-overflow');
+var rtfeldman$elm_css$Css$top = rtfeldman$elm_css$Css$prop1('top');
+var elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var elm$core$List$isEmpty = function (xs) {
+	if (!xs.b) {
+		return true;
+	} else {
+		return false;
+	}
+};
+var rtfeldman$elm_css$Css$valuesOrNone = function (list) {
+	return elm$core$List$isEmpty(list) ? {value: 'none'} : {
+		value: A2(
+			elm$core$String$join,
+			' ',
+			A2(
+				elm$core$List$map,
+				function ($) {
+					return $.value;
+				},
+				list))
+	};
+};
+var rtfeldman$elm_css$Css$transforms = A2(
+	elm$core$Basics$composeL,
+	rtfeldman$elm_css$Css$prop1('transform'),
+	rtfeldman$elm_css$Css$valuesOrNone);
+var rtfeldman$elm_css$Css$transform = function (only) {
+	return rtfeldman$elm_css$Css$transforms(
+		_List_fromArray(
+			[only]));
+};
+var rtfeldman$elm_css$Css$translate2 = F2(
+	function (tx, ty) {
+		return {
+			transform: rtfeldman$elm_css$Css$Structure$Compatible,
+			value: A2(
+				rtfeldman$elm_css$Css$cssFunction,
+				'translate',
+				_List_fromArray(
+					[tx.value, ty.value]))
+		};
+	});
+var rtfeldman$elm_css$Css$VhUnits = {$: 'VhUnits'};
+var rtfeldman$elm_css$Css$vh = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$VhUnits, 'vh');
+var rtfeldman$elm_css$Css$VwUnits = {$: 'VwUnits'};
+var rtfeldman$elm_css$Css$vw = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$VwUnits, 'vw');
+var rtfeldman$elm_css$Css$whiteSpace = rtfeldman$elm_css$Css$prop1('white-space');
 var rtfeldman$elm_css$Css$width = rtfeldman$elm_css$Css$prop1('width');
+var author$project$MyStyles$myStyles = {
+	commentInner: _Utils_ap(
+		author$project$MyStyles$flexRowX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$marginBottom(
+				rtfeldman$elm_css$Css$px(8))
+			])),
+	contAuthor: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$fontWeight(rtfeldman$elm_css$Css$lighter),
+			rtfeldman$elm_css$Css$fontSize(
+			rtfeldman$elm_css$Css$px(14)),
+			rtfeldman$elm_css$Css$color(
+			rtfeldman$elm_css$Css$hex('bbded6'))
+		]),
+	contClose: _Utils_ap(
+		author$project$MyStyles$flexEndX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$px(30))
+			])),
+	contComment: _Utils_ap(
+		author$project$MyStyles$flexColX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$marginBottom(
+				rtfeldman$elm_css$Css$px(16)),
+				A4(
+				rtfeldman$elm_css$Css$padding4,
+				rtfeldman$elm_css$Css$px(0),
+				rtfeldman$elm_css$Css$px(16),
+				rtfeldman$elm_css$Css$px(0),
+				rtfeldman$elm_css$Css$px(16))
+			])),
+	contComments: _Utils_ap(
+		author$project$MyStyles$flexColX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left)
+			])),
+	contFlower: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$pct(100)),
+			rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$relative),
+			rtfeldman$elm_css$Css$textAlign(rtfeldman$elm_css$Css$center),
+			rtfeldman$elm_css$Css$backgroundColor(
+			rtfeldman$elm_css$Css$hex('EADEC8')),
+			A4(
+			rtfeldman$elm_css$Css$padding4,
+			rtfeldman$elm_css$Css$px(16),
+			rtfeldman$elm_css$Css$px(0),
+			rtfeldman$elm_css$Css$px(16),
+			rtfeldman$elm_css$Css$px(0))
+		]),
+	contFlowerImage: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			A3(
+				rtfeldman$elm_css$Css$calc,
+				rtfeldman$elm_css$Css$pct(100),
+				rtfeldman$elm_css$Css$minus,
+				rtfeldman$elm_css$Css$px(32)))
+		]),
+	contFlowerText: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$absolute),
+			rtfeldman$elm_css$Css$top(
+			rtfeldman$elm_css$Css$pct(50)),
+			rtfeldman$elm_css$Css$left(
+			rtfeldman$elm_css$Css$pct(50)),
+			rtfeldman$elm_css$Css$transform(
+			A2(
+				rtfeldman$elm_css$Css$translate2,
+				rtfeldman$elm_css$Css$pct(-50),
+				rtfeldman$elm_css$Css$pct(-50))),
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$pct(100))
+		]),
+	contGallery: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$pct(100)),
+			rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left)
+		]),
+	contLoaded: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$marginTop(
+			rtfeldman$elm_css$Css$px(16))
+		]),
+	contLoader: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100))
+			])),
+	contMain: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$vw(100)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$vh(100))
+		]),
+	contMap: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(300)),
+				rtfeldman$elm_css$Css$padding(
+				rtfeldman$elm_css$Css$px(16)),
+				rtfeldman$elm_css$Css$overflow(rtfeldman$elm_css$Css$hidden)
+			])),
+	contName: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(50)),
+				rtfeldman$elm_css$Css$fontSize(
+				rtfeldman$elm_css$Css$px(18))
+			])),
+	contNameSpacer: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(30))
+			])),
+	contOpt: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$flex(
+				rtfeldman$elm_css$Css$num(1))
+			])),
+	contOverlay: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$displayFlex,
+			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexEnd),
+			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center),
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$pct(100)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$px(50))
+		]),
+	contOverlayClose: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$marginTop(
+				rtfeldman$elm_css$Css$px(16)),
+				rtfeldman$elm_css$Css$marginRight(
+				rtfeldman$elm_css$Css$px(8)),
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$px(50)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(50)),
+				rtfeldman$elm_css$Css$borderRadius(
+				rtfeldman$elm_css$Css$pct(50)),
+				rtfeldman$elm_css$Css$backgroundColor(
+				A4(rtfeldman$elm_css$Css$rgba, 241, 241, 246, 0.8))
+			])),
+	contSelectedComment: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$padding(
+			rtfeldman$elm_css$Css$px(16))
+		]),
+	contSelectedImage: _Utils_ap(
+		author$project$MyStyles$flexColX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$fixed),
+				rtfeldman$elm_css$Css$top(
+				rtfeldman$elm_css$Css$px(0)),
+				rtfeldman$elm_css$Css$left(
+				rtfeldman$elm_css$Css$px(0)),
+				rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
+				rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
+			])),
+	contSocial: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$pct(100))
+		]),
+	contSocialOverlay: _Utils_ap(
+		author$project$MyStyles$flexRowX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(75)),
+				rtfeldman$elm_css$Css$backgroundColor(
+				A4(rtfeldman$elm_css$Css$rgba, 0, 0, 0, 0.8))
+			])),
+	contSubtitle: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$fontSize(
+				rtfeldman$elm_css$Css$px(12)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(30))
+			])),
+	displayComment: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$pct(100))
+		]),
+	fgrow: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$flexGrow(
+			rtfeldman$elm_css$Css$num(1))
+		]),
+	flexStart: author$project$MyStyles$flexStartX,
+	iconClose: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$px(25)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$px(25))
+		]),
+	iconCloseOverlay: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$px(30)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$px(30))
+		]),
+	iconLoader: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$maxHeight(
+			rtfeldman$elm_css$Css$px(150))
+		]),
+	iconSocial: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$px(30)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$px(30))
+		]),
+	map: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$pct(100)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$px(400))
+		]),
+	textAuthor: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$whiteSpace(rtfeldman$elm_css$Css$noWrap),
+			rtfeldman$elm_css$Css$textOverflow(rtfeldman$elm_css$Css$ellipsis),
+			rtfeldman$elm_css$Css$fontWeight(rtfeldman$elm_css$Css$bold),
+			rtfeldman$elm_css$Css$fontSize(
+			rtfeldman$elm_css$Css$px(18))
+		]),
+	textContent: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$fontSize(
+			rtfeldman$elm_css$Css$px(14))
+		]),
+	thumbnail: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$vw(31)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$vw(31)),
+			rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left),
+			rtfeldman$elm_css$Css$marginBottom(
+			rtfeldman$elm_css$Css$vw(2)),
+			rtfeldman$elm_css$Css$marginLeft(
+			rtfeldman$elm_css$Css$vw(2)),
+			rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
+			rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
+		])
+};
+var elm$core$Basics$neq = _Utils_notEqual;
 var rtfeldman$elm_css$VirtualDom$Styled$Node = F3(
 	function (a, b, c) {
 		return {$: 'Node', a: a, b: b, c: c};
@@ -6290,18 +7296,10 @@ var Skinney$murmur3$Murmur3$hashString = F2(
 				A4(Skinney$murmur3$Murmur3$HashData, 0, seed, 0, 0),
 				str));
 	});
-var elm$core$List$isEmpty = function (xs) {
-	if (!xs.b) {
-		return true;
-	} else {
-		return false;
-	}
-};
 var elm$core$List$singleton = function (value) {
 	return _List_fromArray(
 		[value]);
 };
-var elm$core$String$cons = _String_cons;
 var rtfeldman$elm_css$Css$Preprocess$stylesheet = function (snippets) {
 	return {charset: elm$core$Maybe$Nothing, imports: _List_Nil, namespaces: _List_Nil, snippets: snippets};
 };
@@ -6324,24 +7322,6 @@ var elm$core$List$concatMap = F2(
 var rtfeldman$elm_css$Css$Preprocess$unwrapSnippet = function (_n0) {
 	var declarations = _n0.a;
 	return declarations;
-};
-var elm$core$List$head = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return elm$core$Maybe$Just(x);
-	} else {
-		return elm$core$Maybe$Nothing;
-	}
-};
-var elm$core$List$tail = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return elm$core$Maybe$Just(xs);
-	} else {
-		return elm$core$Maybe$Nothing;
-	}
 };
 var elm$core$List$takeReverse = F3(
 	function (n, list, kept) {
@@ -6477,15 +7457,6 @@ var elm$core$Maybe$map = F2(
 				f(value));
 		} else {
 			return elm$core$Maybe$Nothing;
-		}
-	});
-var elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
 		}
 	});
 var rtfeldman$elm_css$Css$Preprocess$Resolve$collectSelectors = function (declarations) {
@@ -7024,10 +7995,6 @@ var rtfeldman$elm_css$Css$Structure$styleBlockToMediaRule = F2(
 		}
 	});
 var rtfeldman$elm_css$Hash$murmurSeed = 15739;
-var elm$core$Basics$negate = function (n) {
-	return -n;
-};
-var elm$core$String$fromList = _String_fromList;
 var elm$core$Basics$modBy = _Basics_modBy;
 var rtfeldman$elm_hex$Hex$unsafeToDigit = function (num) {
 	unsafeToDigit:
@@ -7473,11 +8440,6 @@ var rtfeldman$elm_css$Css$Preprocess$Resolve$toStructure = function (_n0) {
 		A2(elm$core$List$concatMap, rtfeldman$elm_css$Css$Preprocess$unwrapSnippet, snippets));
 	return {charset: charset, declarations: declarations, imports: imports, namespaces: namespaces};
 };
-var elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
-	});
 var elm$core$Basics$not = _Basics_not;
 var elm$core$List$any = F2(
 	function (isOkay, list) {
@@ -7507,9 +8469,6 @@ var elm$core$List$all = F2(
 			A2(elm$core$Basics$composeL, elm$core$Basics$not, isOkay),
 			list);
 	});
-var elm$core$String$isEmpty = function (string) {
-	return string === '';
-};
 var rtfeldman$elm_css$Css$Structure$compactHelp = F2(
 	function (declaration, _n0) {
 		var keyframesByName = _n0.a;
@@ -8009,12 +8968,7 @@ var author$project$Main$displayComment = function (c) {
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
 				[
-					rtfeldman$elm_css$Html$Styled$Attributes$css(
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Css$width(
-							rtfeldman$elm_css$Css$pct(100))
-						])),
+					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.displayComment),
 					rtfeldman$elm_css$Html$Styled$Events$onClick(
 					author$project$Main$CommentSelected(author$project$Main$emptyComment))
 				]),
@@ -8030,110 +8984,6 @@ var author$project$Main$ImageSelected = function (a) {
 var author$project$Main$SocialSelected = function (a) {
 	return {$: 'SocialSelected', a: a};
 };
-var rtfeldman$elm_css$Css$Internal$property = F2(
-	function (key, value) {
-		return rtfeldman$elm_css$Css$Preprocess$AppendProperty(key + (':' + value));
-	});
-var rtfeldman$elm_css$Css$Preprocess$ApplyStyles = function (a) {
-	return {$: 'ApplyStyles', a: a};
-};
-var rtfeldman$elm_css$Css$Internal$getOverloadedProperty = F3(
-	function (functionName, desiredKey, style) {
-		getOverloadedProperty:
-		while (true) {
-			switch (style.$) {
-				case 'AppendProperty':
-					var str = style.a;
-					var key = A2(
-						elm$core$Maybe$withDefault,
-						'',
-						elm$core$List$head(
-							A2(elm$core$String$split, ':', str)));
-					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, key);
-				case 'ExtendSelector':
-					var selector = style.a;
-					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-inapplicable-Style-for-selector'));
-				case 'NestSnippet':
-					var combinator = style.a;
-					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-inapplicable-Style-for-combinator'));
-				case 'WithPseudoElement':
-					var pseudoElement = style.a;
-					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-inapplicable-Style-for-pseudo-element setter'));
-				case 'WithMedia':
-					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-inapplicable-Style-for-media-query'));
-				case 'WithKeyframes':
-					return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-inapplicable-Style-for-keyframes'));
-				default:
-					if (!style.a.b) {
-						return A2(rtfeldman$elm_css$Css$Internal$property, desiredKey, 'elm-css-error-cannot-apply-' + (functionName + '-with-empty-Style'));
-					} else {
-						if (!style.a.b.b) {
-							var _n1 = style.a;
-							var only = _n1.a;
-							var $temp$functionName = functionName,
-								$temp$desiredKey = desiredKey,
-								$temp$style = only;
-							functionName = $temp$functionName;
-							desiredKey = $temp$desiredKey;
-							style = $temp$style;
-							continue getOverloadedProperty;
-						} else {
-							var _n2 = style.a;
-							var first = _n2.a;
-							var rest = _n2.b;
-							var $temp$functionName = functionName,
-								$temp$desiredKey = desiredKey,
-								$temp$style = rtfeldman$elm_css$Css$Preprocess$ApplyStyles(rest);
-							functionName = $temp$functionName;
-							desiredKey = $temp$desiredKey;
-							style = $temp$style;
-							continue getOverloadedProperty;
-						}
-					}
-			}
-		}
-	});
-var rtfeldman$elm_css$Css$Internal$IncompatibleUnits = {$: 'IncompatibleUnits'};
-var rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty = A3(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$Internal$IncompatibleUnits, '', 0);
-var rtfeldman$elm_css$Css$alignItems = function (fn) {
-	return A3(
-		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
-		'alignItems',
-		'align-items',
-		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
-};
-var rtfeldman$elm_css$Css$center = rtfeldman$elm_css$Css$prop1('center');
-var rtfeldman$elm_css$Css$displayFlex = A2(rtfeldman$elm_css$Css$property, 'display', 'flex');
-var rtfeldman$elm_css$Css$justifyContent = function (fn) {
-	return A3(
-		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
-		'justifyContent',
-		'justify-content',
-		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
-};
-var author$project$Main$flexCenterX = _List_fromArray(
-	[
-		rtfeldman$elm_css$Css$displayFlex,
-		rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$center),
-		rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center)
-	]);
-var rtfeldman$elm_css$Css$flex = rtfeldman$elm_css$Css$prop1('flex');
-var rtfeldman$elm_css$Css$height = rtfeldman$elm_css$Css$prop1('height');
-var rtfeldman$elm_css$Css$UnitlessFloat = {$: 'UnitlessFloat'};
-var rtfeldman$elm_css$Css$num = function (val) {
-	return {
-		lengthOrNumber: rtfeldman$elm_css$Css$Structure$Compatible,
-		lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible,
-		number: rtfeldman$elm_css$Css$Structure$Compatible,
-		numberOrInfinite: rtfeldman$elm_css$Css$Structure$Compatible,
-		numericValue: val,
-		unitLabel: '',
-		units: rtfeldman$elm_css$Css$UnitlessFloat,
-		value: elm$core$String$fromFloat(val)
-	};
-};
-var rtfeldman$elm_css$Css$PxUnits = {$: 'PxUnits'};
-var rtfeldman$elm_css$Css$px = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PxUnits, 'px');
 var rtfeldman$elm_css$Html$Styled$img = rtfeldman$elm_css$Html$Styled$node('img');
 var rtfeldman$elm_css$VirtualDom$Styled$property = F2(
 	function (key, value) {
@@ -8159,14 +9009,7 @@ var author$project$Main$displayOpt = F2(
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
 				[
-					rtfeldman$elm_css$Html$Styled$Attributes$css(
-					_Utils_ap(
-						author$project$Main$flexCenterX,
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Css$flex(
-								rtfeldman$elm_css$Css$num(1))
-							]))),
+					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contOpt),
 					rtfeldman$elm_css$Html$Styled$Events$onClick(
 					author$project$Main$SocialSelected(url))
 				]),
@@ -8177,35 +9020,11 @@ var author$project$Main$displayOpt = F2(
 					_List_fromArray(
 						[
 							rtfeldman$elm_css$Html$Styled$Attributes$src(social.icon),
-							rtfeldman$elm_css$Html$Styled$Attributes$css(
-							_List_fromArray(
-								[
-									rtfeldman$elm_css$Css$width(
-									rtfeldman$elm_css$Css$px(30)),
-									rtfeldman$elm_css$Css$height(
-									rtfeldman$elm_css$Css$px(30))
-								]))
+							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.iconSocial)
 						]),
 					_List_Nil)
 				]));
 	});
-var rtfeldman$elm_css$Css$row = {flexDirection: rtfeldman$elm_css$Css$Structure$Compatible, flexDirectionOrWrap: rtfeldman$elm_css$Css$Structure$Compatible, value: 'row'};
-var rtfeldman$elm_css$Css$column = _Utils_update(
-	rtfeldman$elm_css$Css$row,
-	{value: 'column'});
-var rtfeldman$elm_css$Css$flexDirection = rtfeldman$elm_css$Css$prop1('flex-direction');
-var author$project$Main$flexColX = _List_fromArray(
-	[
-		rtfeldman$elm_css$Css$displayFlex,
-		rtfeldman$elm_css$Css$flexDirection(rtfeldman$elm_css$Css$column),
-		rtfeldman$elm_css$Css$flex(
-		rtfeldman$elm_css$Css$num(1))
-	]);
-var author$project$Main$flexRowX = _List_fromArray(
-	[
-		rtfeldman$elm_css$Css$displayFlex,
-		rtfeldman$elm_css$Css$flexDirection(rtfeldman$elm_css$Css$row)
-	]);
 var author$project$Main$Facebook = {$: 'Facebook'};
 var author$project$Main$GooglePlus = {$: 'GooglePlus'};
 var author$project$Main$Instagram = {$: 'Instagram'};
@@ -8221,78 +9040,21 @@ var author$project$Main$socialPlatforms = _List_fromArray(
 		{company: author$project$Main$Instagram, icon: './images/Instagram.png', text: 'instagram'},
 		{company: author$project$Main$LinkedIn, icon: './images/LinkedIn.png', text: 'linkedin'}
 	]);
-var rtfeldman$elm_css$Css$backgroundColor = function (c) {
-	return A2(rtfeldman$elm_css$Css$property, 'background-color', c.value);
+var rtfeldman$elm_css$Css$backgroundImage = rtfeldman$elm_css$Css$prop1('background-image');
+var rtfeldman$elm_css$Css$url = function (urlValue) {
+	return {backgroundImage: rtfeldman$elm_css$Css$Structure$Compatible, value: 'url(' + (urlValue + ')')};
 };
-var rtfeldman$elm_css$Css$borderRadius = rtfeldman$elm_css$Css$prop1('border-radius');
-var rtfeldman$elm_css$Css$fixed = {backgroundAttachment: rtfeldman$elm_css$Css$Structure$Compatible, position: rtfeldman$elm_css$Css$Structure$Compatible, tableLayout: rtfeldman$elm_css$Css$Structure$Compatible, value: 'fixed'};
-var rtfeldman$elm_css$Css$flexEnd = rtfeldman$elm_css$Css$prop1('flex-end');
-var rtfeldman$elm_css$Css$flexGrow = rtfeldman$elm_css$Css$prop1('flex-grow');
-var rtfeldman$elm_css$Css$left = rtfeldman$elm_css$Css$prop1('left');
-var rtfeldman$elm_css$Css$marginRight = rtfeldman$elm_css$Css$prop1('margin-right');
-var rtfeldman$elm_css$Css$marginTop = rtfeldman$elm_css$Css$prop1('margin-top');
-var rtfeldman$elm_css$Css$position = rtfeldman$elm_css$Css$prop1('position');
-var rtfeldman$elm_css$Css$cssFunction = F2(
-	function (funcName, args) {
-		return funcName + ('(' + (A2(elm$core$String$join, ', ', args) + ')'));
-	});
-var rtfeldman$elm_css$Css$rgba = F4(
-	function (r, g, b, alpha) {
-		return {
-			alpha: alpha,
-			blue: b,
-			color: rtfeldman$elm_css$Css$Structure$Compatible,
-			green: g,
-			red: r,
-			value: A2(
-				rtfeldman$elm_css$Css$cssFunction,
-				'rgba',
-				_Utils_ap(
-					A2(
-						elm$core$List$map,
-						elm$core$String$fromInt,
-						_List_fromArray(
-							[r, g, b])),
-					_List_fromArray(
-						[
-							elm$core$String$fromFloat(alpha)
-						])))
-		};
-	});
-var rtfeldman$elm_css$Css$top = rtfeldman$elm_css$Css$prop1('top');
-var rtfeldman$elm_css$Css$VhUnits = {$: 'VhUnits'};
-var rtfeldman$elm_css$Css$vh = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$VhUnits, 'vh');
-var elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var rtfeldman$elm_css$VirtualDom$Styled$style = F2(
-	function (key, val) {
-		return A3(
-			rtfeldman$elm_css$VirtualDom$Styled$Attribute,
-			A2(elm$virtual_dom$VirtualDom$style, key, val),
-			_List_Nil,
-			'');
-	});
-var rtfeldman$elm_css$Html$Styled$Attributes$style = rtfeldman$elm_css$VirtualDom$Styled$style;
-var author$project$Main$displaySelectedImage = function (url) {
-	return (url === '') ? A2(rtfeldman$elm_css$Html$Styled$div, _List_Nil, _List_Nil) : A2(
+var author$project$Main$displaySelectedImage = function (link) {
+	return (link === '') ? A2(rtfeldman$elm_css$Html$Styled$div, _List_Nil, _List_Nil) : A2(
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Html$Styled$Attributes$css(
-				_Utils_ap(
-					author$project$Main$flexColX,
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Css$width(
-							rtfeldman$elm_css$Css$pct(100)),
-							rtfeldman$elm_css$Css$height(
-							rtfeldman$elm_css$Css$vh(100)),
-							rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$fixed),
-							rtfeldman$elm_css$Css$top(
-							rtfeldman$elm_css$Css$px(0)),
-							rtfeldman$elm_css$Css$left(
-							rtfeldman$elm_css$Css$px(0))
-						]))),
-				A2(rtfeldman$elm_css$Html$Styled$Attributes$style, 'background', 'url(' + (url + ') no-repeat center'))
+				A2(
+					elm$core$List$cons,
+					rtfeldman$elm_css$Css$backgroundImage(
+						rtfeldman$elm_css$Css$url(link)),
+					author$project$MyStyles$myStyles.contSelectedImage))
 			]),
 		_List_fromArray(
 			[
@@ -8300,17 +9062,7 @@ var author$project$Main$displaySelectedImage = function (url) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Css$displayFlex,
-								rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexEnd),
-								rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center),
-								rtfeldman$elm_css$Css$width(
-								rtfeldman$elm_css$Css$pct(100)),
-								rtfeldman$elm_css$Css$height(
-								rtfeldman$elm_css$Css$px(50))
-							]))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contOverlay)
 					]),
 				_List_fromArray(
 					[
@@ -8318,24 +9070,7 @@ var author$project$Main$displaySelectedImage = function (url) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(
-								_Utils_ap(
-									author$project$Main$flexCenterX,
-									_List_fromArray(
-										[
-											rtfeldman$elm_css$Css$marginTop(
-											rtfeldman$elm_css$Css$px(16)),
-											rtfeldman$elm_css$Css$marginRight(
-											rtfeldman$elm_css$Css$px(8)),
-											rtfeldman$elm_css$Css$width(
-											rtfeldman$elm_css$Css$px(50)),
-											rtfeldman$elm_css$Css$height(
-											rtfeldman$elm_css$Css$px(50)),
-											rtfeldman$elm_css$Css$borderRadius(
-											rtfeldman$elm_css$Css$pct(50)),
-											rtfeldman$elm_css$Css$backgroundColor(
-											A4(rtfeldman$elm_css$Css$rgba, 241, 241, 246, 0.8))
-										]))),
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contOverlayClose),
 								rtfeldman$elm_css$Html$Styled$Events$onClick(
 								author$project$Main$ImageSelected(''))
 							]),
@@ -8346,14 +9081,7 @@ var author$project$Main$displaySelectedImage = function (url) {
 								_List_fromArray(
 									[
 										rtfeldman$elm_css$Html$Styled$Attributes$src('./images/close.png'),
-										rtfeldman$elm_css$Html$Styled$Attributes$css(
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Css$width(
-												rtfeldman$elm_css$Css$px(30)),
-												rtfeldman$elm_css$Css$height(
-												rtfeldman$elm_css$Css$px(30))
-											]))
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.iconCloseOverlay)
 									]),
 								_List_Nil)
 							]))
@@ -8362,69 +9090,40 @@ var author$project$Main$displaySelectedImage = function (url) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Css$flexGrow(
-								rtfeldman$elm_css$Css$num(1))
-							]))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.fgrow)
 					]),
 				_List_Nil),
 				A2(
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_Utils_ap(
-							author$project$Main$flexRowX,
-							_List_fromArray(
-								[
-									rtfeldman$elm_css$Css$width(
-									rtfeldman$elm_css$Css$pct(100)),
-									rtfeldman$elm_css$Css$height(
-									rtfeldman$elm_css$Css$px(75)),
-									rtfeldman$elm_css$Css$backgroundColor(
-									A4(rtfeldman$elm_css$Css$rgba, 0, 0, 0, 0.8))
-								])))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contSocialOverlay)
 					]),
 				A2(
 					elm$core$List$map,
-					author$project$Main$displayOpt(url),
+					author$project$Main$displayOpt(link),
 					author$project$Main$socialPlatforms))
 			]));
 };
-var rtfeldman$elm_css$Html$Styled$Attributes$class = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('className');
 var author$project$Main$displaySocial = function (s) {
 	return A2(
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$class('cont-social')
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contSocial)
 			]),
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Html$Styled$text(s.text)
 			]));
 };
-var rtfeldman$elm_css$Css$fontSize = rtfeldman$elm_css$Css$prop1('font-size');
 var rtfeldman$elm_css$Html$Styled$h4 = rtfeldman$elm_css$Html$Styled$node('h4');
 var author$project$Main$renderName = function (str) {
 	return A2(
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(
-				_Utils_ap(
-					author$project$Main$flexCenterX,
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Css$width(
-							rtfeldman$elm_css$Css$pct(100)),
-							rtfeldman$elm_css$Css$height(
-							rtfeldman$elm_css$Css$px(50)),
-							rtfeldman$elm_css$Css$fontSize(
-							rtfeldman$elm_css$Css$px(18))
-						])))
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contName)
 			]),
 		_List_fromArray(
 			[
@@ -8442,16 +9141,7 @@ var author$project$Main$renderNameSpacer = function (str) {
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(
-				_Utils_ap(
-					author$project$Main$flexCenterX,
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Css$width(
-							rtfeldman$elm_css$Css$pct(100)),
-							rtfeldman$elm_css$Css$height(
-							rtfeldman$elm_css$Css$px(30))
-						])))
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contNameSpacer)
 			]),
 		_List_fromArray(
 			[
@@ -8469,18 +9159,7 @@ var author$project$Main$renderSubtitle = function (str) {
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(
-				_Utils_ap(
-					author$project$Main$flexCenterX,
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Css$width(
-							rtfeldman$elm_css$Css$pct(100)),
-							rtfeldman$elm_css$Css$fontSize(
-							rtfeldman$elm_css$Css$px(12)),
-							rtfeldman$elm_css$Css$height(
-							rtfeldman$elm_css$Css$px(30))
-						])))
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contSubtitle)
 			]),
 		_List_fromArray(
 			[
@@ -8505,21 +9184,13 @@ var author$project$Main$introText = _Utils_ap(
 		author$project$Main$renderSubtitle,
 		_List_fromArray(
 			['2020.04.19 SUN AM 11:00', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])));
-var rtfeldman$elm_css$Css$maxHeight = rtfeldman$elm_css$Css$prop1('max-height');
 var author$project$Main$loader = _List_fromArray(
 	[
 		A2(
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(
-				_Utils_ap(
-					author$project$Main$flexCenterX,
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Css$width(
-							rtfeldman$elm_css$Css$pct(100))
-						])))
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contLoader)
 			]),
 		_List_fromArray(
 			[
@@ -8528,445 +9199,18 @@ var author$project$Main$loader = _List_fromArray(
 				_List_fromArray(
 					[
 						rtfeldman$elm_css$Html$Styled$Attributes$src('./images/loader.gif'),
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Css$maxHeight(
-								rtfeldman$elm_css$Css$px(150))
-							]))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.iconLoader)
 					]),
 				_List_Nil)
 			]))
 	]);
-var author$project$Main$flexEndX = _List_fromArray(
-	[
-		rtfeldman$elm_css$Css$displayFlex,
-		rtfeldman$elm_css$Css$flex(
-		rtfeldman$elm_css$Css$num(1)),
-		rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexEnd),
-		rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center)
-	]);
-var rtfeldman$elm_css$Css$flexStart = rtfeldman$elm_css$Css$prop1('flex-start');
-var author$project$Main$flexStartX = _List_fromArray(
-	[
-		rtfeldman$elm_css$Css$displayFlex,
-		rtfeldman$elm_css$Css$flex(
-		rtfeldman$elm_css$Css$num(1)),
-		rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
-		rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center)
-	]);
-var rtfeldman$elm_css$Css$bold = {fontWeight: rtfeldman$elm_css$Css$Structure$Compatible, value: 'bold'};
-var rtfeldman$elm_css$Css$color = function (c) {
-	return A2(rtfeldman$elm_css$Css$property, 'color', c.value);
-};
-var rtfeldman$elm_css$Css$ellipsis = {textOverflow: rtfeldman$elm_css$Css$Structure$Compatible, value: 'ellipsis'};
-var rtfeldman$elm_css$Css$fontWeight = function (_n0) {
-	var value = _n0.value;
-	return A2(rtfeldman$elm_css$Css$property, 'font-weight', value);
-};
-var elm$core$String$length = _String_length;
-var elm$core$String$slice = _String_slice;
-var elm$core$String$dropLeft = F2(
-	function (n, string) {
-		return (n < 1) ? string : A3(
-			elm$core$String$slice,
-			n,
-			elm$core$String$length(string),
-			string);
-	});
-var elm$core$String$startsWith = _String_startsWith;
-var elm$core$String$foldr = _String_foldr;
-var elm$core$String$toList = function (string) {
-	return A3(elm$core$String$foldr, elm$core$List$cons, _List_Nil, string);
-};
-var rtfeldman$elm_css$Css$withPrecedingHash = function (str) {
-	return A2(elm$core$String$startsWith, '#', str) ? str : A2(
-		elm$core$String$cons,
-		_Utils_chr('#'),
-		str);
-};
-var rtfeldman$elm_css$Css$erroneousHex = function (str) {
-	return {
-		alpha: 1,
-		blue: 0,
-		color: rtfeldman$elm_css$Css$Structure$Compatible,
-		green: 0,
-		red: 0,
-		value: rtfeldman$elm_css$Css$withPrecedingHash(str)
-	};
-};
-var elm$core$String$toLower = _String_toLower;
-var elm$core$Basics$pow = _Basics_pow;
-var elm$core$String$fromChar = function (_char) {
-	return A2(elm$core$String$cons, _char, '');
-};
-var rtfeldman$elm_hex$Hex$fromStringHelp = F3(
-	function (position, chars, accumulated) {
-		fromStringHelp:
-		while (true) {
-			if (!chars.b) {
-				return elm$core$Result$Ok(accumulated);
-			} else {
-				var _char = chars.a;
-				var rest = chars.b;
-				switch (_char.valueOf()) {
-					case '0':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated;
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case '1':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + A2(elm$core$Basics$pow, 16, position);
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case '2':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (2 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case '3':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (3 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case '4':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (4 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case '5':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (5 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case '6':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (6 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case '7':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (7 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case '8':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (8 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case '9':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (9 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case 'a':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (10 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case 'b':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (11 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case 'c':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (12 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case 'd':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (13 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case 'e':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (14 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					case 'f':
-						var $temp$position = position - 1,
-							$temp$chars = rest,
-							$temp$accumulated = accumulated + (15 * A2(elm$core$Basics$pow, 16, position));
-						position = $temp$position;
-						chars = $temp$chars;
-						accumulated = $temp$accumulated;
-						continue fromStringHelp;
-					default:
-						var nonHex = _char;
-						return elm$core$Result$Err(
-							elm$core$String$fromChar(nonHex) + ' is not a valid hexadecimal character.');
-				}
-			}
-		}
-	});
-var rtfeldman$elm_hex$Hex$fromString = function (str) {
-	if (elm$core$String$isEmpty(str)) {
-		return elm$core$Result$Err('Empty strings are not valid hexadecimal strings.');
-	} else {
-		var result = function () {
-			if (A2(elm$core$String$startsWith, '-', str)) {
-				var list = A2(
-					elm$core$Maybe$withDefault,
-					_List_Nil,
-					elm$core$List$tail(
-						elm$core$String$toList(str)));
-				return A2(
-					elm$core$Result$map,
-					elm$core$Basics$negate,
-					A3(
-						rtfeldman$elm_hex$Hex$fromStringHelp,
-						elm$core$List$length(list) - 1,
-						list,
-						0));
-			} else {
-				return A3(
-					rtfeldman$elm_hex$Hex$fromStringHelp,
-					elm$core$String$length(str) - 1,
-					elm$core$String$toList(str),
-					0);
-			}
-		}();
-		var formatError = function (err) {
-			return A2(
-				elm$core$String$join,
-				' ',
-				_List_fromArray(
-					['\"' + (str + '\"'), 'is not a valid hexadecimal string because', err]));
-		};
-		return A2(elm$core$Result$mapError, formatError, result);
-	}
-};
-var rtfeldman$elm_css$Css$validHex = F5(
-	function (str, _n0, _n1, _n2, _n3) {
-		var r1 = _n0.a;
-		var r2 = _n0.b;
-		var g1 = _n1.a;
-		var g2 = _n1.b;
-		var b1 = _n2.a;
-		var b2 = _n2.b;
-		var a1 = _n3.a;
-		var a2 = _n3.b;
-		var toResult = A2(
-			elm$core$Basics$composeR,
-			elm$core$String$fromList,
-			A2(elm$core$Basics$composeR, elm$core$String$toLower, rtfeldman$elm_hex$Hex$fromString));
-		var results = _Utils_Tuple2(
-			_Utils_Tuple2(
-				toResult(
-					_List_fromArray(
-						[r1, r2])),
-				toResult(
-					_List_fromArray(
-						[g1, g2]))),
-			_Utils_Tuple2(
-				toResult(
-					_List_fromArray(
-						[b1, b2])),
-				toResult(
-					_List_fromArray(
-						[a1, a2]))));
-		if ((((results.a.a.$ === 'Ok') && (results.a.b.$ === 'Ok')) && (results.b.a.$ === 'Ok')) && (results.b.b.$ === 'Ok')) {
-			var _n5 = results.a;
-			var red = _n5.a.a;
-			var green = _n5.b.a;
-			var _n6 = results.b;
-			var blue = _n6.a.a;
-			var alpha = _n6.b.a;
-			return {
-				alpha: alpha / 255,
-				blue: blue,
-				color: rtfeldman$elm_css$Css$Structure$Compatible,
-				green: green,
-				red: red,
-				value: rtfeldman$elm_css$Css$withPrecedingHash(str)
-			};
-		} else {
-			return rtfeldman$elm_css$Css$erroneousHex(str);
-		}
-	});
-var rtfeldman$elm_css$Css$hex = function (str) {
-	var withoutHash = A2(elm$core$String$startsWith, '#', str) ? A2(elm$core$String$dropLeft, 1, str) : str;
-	var _n0 = elm$core$String$toList(withoutHash);
-	_n0$4:
-	while (true) {
-		if ((_n0.b && _n0.b.b) && _n0.b.b.b) {
-			if (!_n0.b.b.b.b) {
-				var r = _n0.a;
-				var _n1 = _n0.b;
-				var g = _n1.a;
-				var _n2 = _n1.b;
-				var b = _n2.a;
-				return A5(
-					rtfeldman$elm_css$Css$validHex,
-					str,
-					_Utils_Tuple2(r, r),
-					_Utils_Tuple2(g, g),
-					_Utils_Tuple2(b, b),
-					_Utils_Tuple2(
-						_Utils_chr('f'),
-						_Utils_chr('f')));
-			} else {
-				if (!_n0.b.b.b.b.b) {
-					var r = _n0.a;
-					var _n3 = _n0.b;
-					var g = _n3.a;
-					var _n4 = _n3.b;
-					var b = _n4.a;
-					var _n5 = _n4.b;
-					var a = _n5.a;
-					return A5(
-						rtfeldman$elm_css$Css$validHex,
-						str,
-						_Utils_Tuple2(r, r),
-						_Utils_Tuple2(g, g),
-						_Utils_Tuple2(b, b),
-						_Utils_Tuple2(a, a));
-				} else {
-					if (_n0.b.b.b.b.b.b) {
-						if (!_n0.b.b.b.b.b.b.b) {
-							var r1 = _n0.a;
-							var _n6 = _n0.b;
-							var r2 = _n6.a;
-							var _n7 = _n6.b;
-							var g1 = _n7.a;
-							var _n8 = _n7.b;
-							var g2 = _n8.a;
-							var _n9 = _n8.b;
-							var b1 = _n9.a;
-							var _n10 = _n9.b;
-							var b2 = _n10.a;
-							return A5(
-								rtfeldman$elm_css$Css$validHex,
-								str,
-								_Utils_Tuple2(r1, r2),
-								_Utils_Tuple2(g1, g2),
-								_Utils_Tuple2(b1, b2),
-								_Utils_Tuple2(
-									_Utils_chr('f'),
-									_Utils_chr('f')));
-						} else {
-							if (_n0.b.b.b.b.b.b.b.b && (!_n0.b.b.b.b.b.b.b.b.b)) {
-								var r1 = _n0.a;
-								var _n11 = _n0.b;
-								var r2 = _n11.a;
-								var _n12 = _n11.b;
-								var g1 = _n12.a;
-								var _n13 = _n12.b;
-								var g2 = _n13.a;
-								var _n14 = _n13.b;
-								var b1 = _n14.a;
-								var _n15 = _n14.b;
-								var b2 = _n15.a;
-								var _n16 = _n15.b;
-								var a1 = _n16.a;
-								var _n17 = _n16.b;
-								var a2 = _n17.a;
-								return A5(
-									rtfeldman$elm_css$Css$validHex,
-									str,
-									_Utils_Tuple2(r1, r2),
-									_Utils_Tuple2(g1, g2),
-									_Utils_Tuple2(b1, b2),
-									_Utils_Tuple2(a1, a2));
-							} else {
-								break _n0$4;
-							}
-						}
-					} else {
-						break _n0$4;
-					}
-				}
-			}
-		} else {
-			break _n0$4;
-		}
-	}
-	return rtfeldman$elm_css$Css$erroneousHex(str);
-};
-var rtfeldman$elm_css$Css$lighter = {fontWeight: rtfeldman$elm_css$Css$Structure$Compatible, value: 'lighter'};
-var rtfeldman$elm_css$Css$marginBottom = rtfeldman$elm_css$Css$prop1('margin-bottom');
-var rtfeldman$elm_css$Css$noWrap = {flexDirectionOrWrap: rtfeldman$elm_css$Css$Structure$Compatible, flexWrap: rtfeldman$elm_css$Css$Structure$Compatible, value: 'nowrap', whiteSpace: rtfeldman$elm_css$Css$Structure$Compatible};
-var rtfeldman$elm_css$Css$prop4 = F5(
-	function (key, argA, argB, argC, argD) {
-		return A2(
-			rtfeldman$elm_css$Css$property,
-			key,
-			A2(
-				elm$core$String$join,
-				' ',
-				_List_fromArray(
-					[argA.value, argB.value, argC.value, argD.value])));
-	});
-var rtfeldman$elm_css$Css$padding4 = rtfeldman$elm_css$Css$prop4('padding');
-var rtfeldman$elm_css$Css$textOverflow = rtfeldman$elm_css$Css$prop1('text-overflow');
-var rtfeldman$elm_css$Css$whiteSpace = rtfeldman$elm_css$Css$prop1('white-space');
 var rtfeldman$elm_css$Html$Styled$span = rtfeldman$elm_css$Html$Styled$node('span');
 var author$project$Main$renderComment = function (cmt) {
 	return A2(
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(
-				_Utils_ap(
-					author$project$Main$flexColX,
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Css$marginBottom(
-							rtfeldman$elm_css$Css$px(16)),
-							A4(
-							rtfeldman$elm_css$Css$padding4,
-							rtfeldman$elm_css$Css$px(0),
-							rtfeldman$elm_css$Css$px(16),
-							rtfeldman$elm_css$Css$px(0),
-							rtfeldman$elm_css$Css$px(16))
-						]))),
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contComment),
 				rtfeldman$elm_css$Html$Styled$Events$onClick(
 				author$project$Main$CommentSelected(cmt))
 			]),
@@ -8976,14 +9220,7 @@ var author$project$Main$renderComment = function (cmt) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_Utils_ap(
-							author$project$Main$flexRowX,
-							_List_fromArray(
-								[
-									rtfeldman$elm_css$Css$marginBottom(
-									rtfeldman$elm_css$Css$px(8))
-								])))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.commentInner)
 					]),
 				_List_fromArray(
 					[
@@ -8991,7 +9228,7 @@ var author$project$Main$renderComment = function (cmt) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$Main$flexStartX)
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.flexStart)
 							]),
 						_List_fromArray(
 							[
@@ -8999,15 +9236,7 @@ var author$project$Main$renderComment = function (cmt) {
 								rtfeldman$elm_css$Html$Styled$span,
 								_List_fromArray(
 									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Css$whiteSpace(rtfeldman$elm_css$Css$noWrap),
-												rtfeldman$elm_css$Css$textOverflow(rtfeldman$elm_css$Css$ellipsis),
-												rtfeldman$elm_css$Css$fontWeight(rtfeldman$elm_css$Css$bold),
-												rtfeldman$elm_css$Css$fontSize(
-												rtfeldman$elm_css$Css$px(18))
-											]))
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.textAuthor)
 									]),
 								_List_fromArray(
 									[
@@ -9018,7 +9247,7 @@ var author$project$Main$renderComment = function (cmt) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$Main$flexStartX)
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.flexStart)
 							]),
 						_List_fromArray(
 							[
@@ -9026,15 +9255,7 @@ var author$project$Main$renderComment = function (cmt) {
 								rtfeldman$elm_css$Html$Styled$span,
 								_List_fromArray(
 									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Css$fontWeight(rtfeldman$elm_css$Css$lighter),
-												rtfeldman$elm_css$Css$fontSize(
-												rtfeldman$elm_css$Css$px(14)),
-												rtfeldman$elm_css$Css$color(
-												rtfeldman$elm_css$Css$hex('bbded6'))
-											]))
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contAuthor)
 									]),
 								_List_fromArray(
 									[
@@ -9045,14 +9266,7 @@ var author$project$Main$renderComment = function (cmt) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(
-								_Utils_ap(
-									author$project$Main$flexEndX,
-									_List_fromArray(
-										[
-											rtfeldman$elm_css$Css$width(
-											rtfeldman$elm_css$Css$px(30))
-										])))
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contClose)
 							]),
 						_List_fromArray(
 							[
@@ -9061,14 +9275,7 @@ var author$project$Main$renderComment = function (cmt) {
 								_List_fromArray(
 									[
 										rtfeldman$elm_css$Html$Styled$Attributes$src('./images/close.png'),
-										rtfeldman$elm_css$Html$Styled$Attributes$css(
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Css$width(
-												rtfeldman$elm_css$Css$px(25)),
-												rtfeldman$elm_css$Css$height(
-												rtfeldman$elm_css$Css$px(25))
-											]))
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.iconClose)
 									]),
 								_List_Nil)
 							]))
@@ -9077,12 +9284,7 @@ var author$project$Main$renderComment = function (cmt) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Css$fontSize(
-								rtfeldman$elm_css$Css$px(14))
-							]))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.textContent)
 					]),
 				_List_fromArray(
 					[
@@ -9112,51 +9314,17 @@ var author$project$Main$renderComments = function (status) {
 				]);
 	}
 };
-var rtfeldman$elm_css$Css$backgroundImage = rtfeldman$elm_css$Css$prop1('background-image');
-var rtfeldman$elm_css$Css$backgroundPosition = function (fn) {
-	return A3(
-		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
-		'backgroundPosition',
-		'background-position',
-		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
-};
-var rtfeldman$elm_css$Css$backgroundRepeat = rtfeldman$elm_css$Css$prop1('background-repeat');
-var rtfeldman$elm_css$Css$float = function (fn) {
-	return A3(
-		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
-		'float',
-		'float',
-		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
-};
-var rtfeldman$elm_css$Css$marginLeft = rtfeldman$elm_css$Css$prop1('margin-left');
-var rtfeldman$elm_css$Css$noRepeat = {backgroundRepeat: rtfeldman$elm_css$Css$Structure$Compatible, backgroundRepeatShorthand: rtfeldman$elm_css$Css$Structure$Compatible, value: 'no-repeat'};
-var rtfeldman$elm_css$Css$url = function (urlValue) {
-	return {backgroundImage: rtfeldman$elm_css$Css$Structure$Compatible, value: 'url(' + (urlValue + ')')};
-};
-var rtfeldman$elm_css$Css$VwUnits = {$: 'VwUnits'};
-var rtfeldman$elm_css$Css$vw = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$VwUnits, 'vw');
 var author$project$Main$makeThumbnail = function (link) {
 	return A2(
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Html$Styled$Attributes$css(
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Css$width(
-						rtfeldman$elm_css$Css$vw(31)),
-						rtfeldman$elm_css$Css$height(
-						rtfeldman$elm_css$Css$vw(31)),
-						rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left),
-						rtfeldman$elm_css$Css$marginBottom(
-						rtfeldman$elm_css$Css$vw(2)),
-						rtfeldman$elm_css$Css$marginLeft(
-						rtfeldman$elm_css$Css$vw(2)),
-						rtfeldman$elm_css$Css$backgroundImage(
+				A2(
+					elm$core$List$cons,
+					rtfeldman$elm_css$Css$backgroundImage(
 						rtfeldman$elm_css$Css$url(link)),
-						rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
-						rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
-					])),
+					author$project$MyStyles$myStyles.thumbnail)),
 				rtfeldman$elm_css$Html$Styled$Events$onClick(
 				author$project$Main$ImageSelected(link))
 			]),
@@ -9169,12 +9337,7 @@ var author$project$Main$viewLoaded = function (gallery) {
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
 				[
-					rtfeldman$elm_css$Html$Styled$Attributes$css(
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Css$marginTop(
-							rtfeldman$elm_css$Css$px(16))
-						]))
+					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contLoaded)
 				]),
 			A2(elm$core$List$map, author$project$Main$makeThumbnail, gallery))
 		]);
@@ -9201,95 +9364,13 @@ var author$project$Main$renderGallery = function (status) {
 				]);
 	}
 };
-var rtfeldman$elm_css$Css$absolute = {position: rtfeldman$elm_css$Css$Structure$Compatible, value: 'absolute'};
-var rtfeldman$elm_css$Css$calcExpressionToString = function (expression) {
-	if (expression.$ === 'Addition') {
-		return '+';
-	} else {
-		return '-';
-	}
-};
-var rtfeldman$elm_css$Css$calc = F3(
-	function (firstExpr, expression, secondExpr) {
-		var withoutCalcStr = function (l) {
-			return A2(elm$core$String$startsWith, 'calc(', l.value) ? A2(elm$core$String$dropLeft, 4, l.value) : l.value;
-		};
-		var calcs = A2(
-			elm$core$String$join,
-			' ',
-			_List_fromArray(
-				[
-					withoutCalcStr(firstExpr),
-					rtfeldman$elm_css$Css$calcExpressionToString(expression),
-					withoutCalcStr(secondExpr)
-				]));
-		var value = A2(
-			rtfeldman$elm_css$Css$cssFunction,
-			'calc',
-			_List_fromArray(
-				[calcs]));
-		return {calc: rtfeldman$elm_css$Css$Structure$Compatible, flexBasis: rtfeldman$elm_css$Css$Structure$Compatible, fontSize: rtfeldman$elm_css$Css$Structure$Compatible, length: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrAuto: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrAutoOrCoverOrContain: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNone: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNoneOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNumber: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible, textIndent: rtfeldman$elm_css$Css$Structure$Compatible, value: value};
-	});
-var rtfeldman$elm_css$Css$hidden = {borderStyle: rtfeldman$elm_css$Css$Structure$Compatible, overflow: rtfeldman$elm_css$Css$Structure$Compatible, value: 'hidden', visibility: rtfeldman$elm_css$Css$Structure$Compatible};
-var rtfeldman$elm_css$Css$Subtraction = {$: 'Subtraction'};
-var rtfeldman$elm_css$Css$minus = rtfeldman$elm_css$Css$Subtraction;
-var rtfeldman$elm_css$Css$overflow = rtfeldman$elm_css$Css$prop1('overflow');
-var rtfeldman$elm_css$Css$padding = rtfeldman$elm_css$Css$prop1('padding');
-var rtfeldman$elm_css$Css$relative = {position: rtfeldman$elm_css$Css$Structure$Compatible, value: 'relative'};
-var rtfeldman$elm_css$Css$textAlign = function (fn) {
-	return A3(
-		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
-		'textAlign',
-		'text-align',
-		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
-};
-var rtfeldman$elm_css$Css$valuesOrNone = function (list) {
-	return elm$core$List$isEmpty(list) ? {value: 'none'} : {
-		value: A2(
-			elm$core$String$join,
-			' ',
-			A2(
-				elm$core$List$map,
-				function ($) {
-					return $.value;
-				},
-				list))
-	};
-};
-var rtfeldman$elm_css$Css$transforms = A2(
-	elm$core$Basics$composeL,
-	rtfeldman$elm_css$Css$prop1('transform'),
-	rtfeldman$elm_css$Css$valuesOrNone);
-var rtfeldman$elm_css$Css$transform = function (only) {
-	return rtfeldman$elm_css$Css$transforms(
-		_List_fromArray(
-			[only]));
-};
-var rtfeldman$elm_css$Css$translate2 = F2(
-	function (tx, ty) {
-		return {
-			transform: rtfeldman$elm_css$Css$Structure$Compatible,
-			value: A2(
-				rtfeldman$elm_css$Css$cssFunction,
-				'translate',
-				_List_fromArray(
-					[tx.value, ty.value]))
-		};
-	});
 var rtfeldman$elm_css$Html$Styled$Attributes$id = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('id');
 var author$project$Main$view = function (model) {
 	return A2(
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Css$width(
-						rtfeldman$elm_css$Css$vw(100)),
-						rtfeldman$elm_css$Css$height(
-						rtfeldman$elm_css$Css$vh(100))
-					]))
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contMain)
 			]),
 		_List_fromArray(
 			[
@@ -9297,22 +9378,7 @@ var author$project$Main$view = function (model) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Css$width(
-								rtfeldman$elm_css$Css$pct(100)),
-								rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$relative),
-								rtfeldman$elm_css$Css$textAlign(rtfeldman$elm_css$Css$center),
-								rtfeldman$elm_css$Css$backgroundColor(
-								rtfeldman$elm_css$Css$hex('EADEC8')),
-								A4(
-								rtfeldman$elm_css$Css$padding4,
-								rtfeldman$elm_css$Css$px(16),
-								rtfeldman$elm_css$Css$px(0),
-								rtfeldman$elm_css$Css$px(16),
-								rtfeldman$elm_css$Css$px(0))
-							]))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contFlower)
 					]),
 				_List_fromArray(
 					[
@@ -9320,16 +9386,7 @@ var author$project$Main$view = function (model) {
 						rtfeldman$elm_css$Html$Styled$img,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(
-								_List_fromArray(
-									[
-										rtfeldman$elm_css$Css$width(
-										A3(
-											rtfeldman$elm_css$Css$calc,
-											rtfeldman$elm_css$Css$pct(100),
-											rtfeldman$elm_css$Css$minus,
-											rtfeldman$elm_css$Css$px(32)))
-									])),
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contFlowerImage),
 								rtfeldman$elm_css$Html$Styled$Attributes$src('https://i.imgur.com/IcVqiOb.png')
 							]),
 						_List_Nil),
@@ -9337,22 +9394,7 @@ var author$project$Main$view = function (model) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(
-								_List_fromArray(
-									[
-										rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$absolute),
-										rtfeldman$elm_css$Css$top(
-										rtfeldman$elm_css$Css$pct(50)),
-										rtfeldman$elm_css$Css$left(
-										rtfeldman$elm_css$Css$pct(50)),
-										rtfeldman$elm_css$Css$transform(
-										A2(
-											rtfeldman$elm_css$Css$translate2,
-											rtfeldman$elm_css$Css$pct(-50),
-											rtfeldman$elm_css$Css$pct(-50))),
-										rtfeldman$elm_css$Css$width(
-										rtfeldman$elm_css$Css$pct(100))
-									]))
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contFlowerText)
 							]),
 						author$project$Main$introText)
 					])),
@@ -9360,13 +9402,7 @@ var author$project$Main$view = function (model) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Css$width(
-								rtfeldman$elm_css$Css$pct(100)),
-								rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left)
-							]))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contGallery)
 					]),
 				author$project$Main$renderGallery(model.status)),
 				author$project$Main$displaySelectedImage(model.selectedImage),
@@ -9374,44 +9410,21 @@ var author$project$Main$view = function (model) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_Utils_ap(
-							author$project$Main$flexColX,
-							_List_fromArray(
-								[
-									rtfeldman$elm_css$Css$width(
-									rtfeldman$elm_css$Css$pct(100)),
-									rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left)
-								])))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contComments)
 					]),
 				author$project$Main$renderComments(model.status)),
 				A2(
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Css$padding(
-								rtfeldman$elm_css$Css$px(16))
-							]))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contSelectedComment)
 					]),
 				author$project$Main$displayComment(model.selectedComment)),
 				A2(
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(
-						_Utils_ap(
-							author$project$Main$flexCenterX,
-							_List_fromArray(
-								[
-									rtfeldman$elm_css$Css$height(
-									rtfeldman$elm_css$Css$px(300)),
-									rtfeldman$elm_css$Css$padding(
-									rtfeldman$elm_css$Css$px(16)),
-									rtfeldman$elm_css$Css$overflow(rtfeldman$elm_css$Css$hidden)
-								])))
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contMap)
 					]),
 				_List_fromArray(
 					[
@@ -9420,23 +9433,13 @@ var author$project$Main$view = function (model) {
 						_List_fromArray(
 							[
 								rtfeldman$elm_css$Html$Styled$Attributes$id('map'),
-								rtfeldman$elm_css$Html$Styled$Attributes$css(
-								_List_fromArray(
-									[
-										rtfeldman$elm_css$Css$width(
-										rtfeldman$elm_css$Css$pct(100)),
-										rtfeldman$elm_css$Css$height(
-										rtfeldman$elm_css$Css$px(400))
-									]))
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.map)
 							]),
 						_List_Nil)
 					])),
 				A2(
 				rtfeldman$elm_css$Html$Styled$div,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$id('cont-socials')
-					]),
+				_List_Nil,
 				A2(elm$core$List$map, author$project$Main$displaySocial, author$project$Main$socialPlatforms))
 			]));
 };
