@@ -6918,7 +6918,7 @@ var author$project$MyStyles$myStyles = {
 			rtfeldman$elm_css$Css$backgroundColor(
 			rtfeldman$elm_css$Css$hex('#729FB2')),
 			rtfeldman$elm_css$Css$backgroundImage(
-			rtfeldman$elm_css$Css$url('./images/bg.jpg')),
+			rtfeldman$elm_css$Css$url('./images/bg2.jpg')),
 			rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
 			rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat),
 			A4(

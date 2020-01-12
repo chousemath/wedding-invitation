@@ -122,7 +122,7 @@ myStyles =
         , position relative
         , textAlign center
         , backgroundColor (hex "#729FB2")
-        , backgroundImage (url "./images/bg.jpg")
+        , backgroundImage (url "./images/bg2.jpg")
         , backgroundPosition center
         , backgroundRepeat noRepeat
         , padding4 (px 16) (px 0) (px 16) (px 0)
