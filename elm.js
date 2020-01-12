@@ -5964,7 +5964,7 @@ var author$project$Main$defaultComments = _List_fromArray(
 		{author: 'Dad', content: 'Hi I am a dad', createdAt: '2020-01-15'}
 	]);
 var author$project$Main$emptyComment = {author: '', content: '', createdAt: ''};
-var author$project$Main$initialModel = {comments: author$project$Main$defaultComments, selectedComment: author$project$Main$emptyComment, selectedImage: '', status: author$project$Main$Loading};
+var author$project$Main$initialModel = {comments: author$project$Main$defaultComments, selectedComment: author$project$Main$emptyComment, selectedImage: '', sideOpen: false, status: author$project$Main$Loading};
 var author$project$Main$Errored = function (a) {
 	return {$: 'Errored', a: a};
 };
@@ -6071,6 +6071,7 @@ var author$project$Main$region = 'ap-northeast-2.amazonaws.com/';
 var author$project$Main$genLink = function (fname) {
 	return author$project$Main$bucket + ('.s3.' + (author$project$Main$region + fname));
 };
+var elm$core$Basics$not = _Basics_not;
 var elm$core$List$map = F2(
 	function (f, xs) {
 		return A3(
@@ -6110,7 +6111,7 @@ var author$project$Main$update = F2(
 			case 'SocialSelected':
 				var url = msg.a;
 				return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
-			default:
+			case 'GotPhotos':
 				if (msg.a.$ === 'Ok') {
 					var initialData = msg.a.a;
 					var photos = A2(elm$core$List$map, author$project$Main$genLink, initialData.photos);
@@ -6133,6 +6134,12 @@ var author$project$Main$update = F2(
 							}),
 						elm$core$Platform$Cmd$none);
 				}
+			default:
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{sideOpen: !model.sideOpen}),
+					elm$core$Platform$Cmd$none);
 		}
 	});
 var author$project$Main$CommentSelected = function (a) {
@@ -7089,6 +7096,32 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$px(0)),
 				rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
 				rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
+			])),
+	contSideOpt: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$pct(100)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$px(50)),
+			rtfeldman$elm_css$Css$paddingLeft(
+			rtfeldman$elm_css$Css$px(16)),
+			rtfeldman$elm_css$Css$displayFlex,
+			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
+			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center)
+		]),
+	contSidebar: _Utils_ap(
+		author$project$MyStyles$flexColX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$vw(75)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$backgroundColor(
+				A4(rtfeldman$elm_css$Css$rgba, 255, 255, 255, 0.9)),
+				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$fixed),
+				rtfeldman$elm_css$Css$top(
+				rtfeldman$elm_css$Css$vw(0))
 			])),
 	contSocial: _List_fromArray(
 		[
@@ -8479,7 +8512,6 @@ var elm$core$Basics$composeL = F3(
 		return g(
 			f(x));
 	});
-var elm$core$Basics$not = _Basics_not;
 var elm$core$List$any = F2(
 	function (isOkay, list) {
 		any:
@@ -9152,6 +9184,7 @@ var author$project$Main$displaySocial = function (s) {
 				rtfeldman$elm_css$Html$Styled$text(s.text)
 			]));
 };
+var author$project$Main$ToggleSidebar = {$: 'ToggleSidebar'};
 var rtfeldman$elm_css$Html$Styled$h4 = rtfeldman$elm_css$Html$Styled$node('h4');
 var author$project$Main$renderName = function (str) {
 	return A2(
@@ -9222,7 +9255,8 @@ var author$project$Main$introText = _Utils_ap(
 					rtfeldman$elm_css$Html$Styled$div,
 					_List_fromArray(
 						[
-							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.boxOptions)
+							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.boxOptions),
+							rtfeldman$elm_css$Html$Styled$Events$onClick(author$project$Main$ToggleSidebar)
 						]),
 					_List_fromArray(
 						[
@@ -9452,6 +9486,34 @@ var author$project$Main$renderGallery = function (status) {
 				]);
 	}
 };
+var author$project$Main$renderSideOpt = A2(
+	rtfeldman$elm_css$Html$Styled$div,
+	_List_fromArray(
+		[
+			rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSideOpt)
+		]),
+	_List_fromArray(
+		[
+			rtfeldman$elm_css$Html$Styled$text('asdf fdss deff')
+		]));
+var author$project$Main$renderSidebar = function (sideOpen) {
+	return A2(
+		rtfeldman$elm_css$Html$Styled$div,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Html$Styled$Attributes$css(
+				_Utils_ap(
+					author$project$MyStyles$sty.contSidebar,
+					_List_fromArray(
+						[
+							rtfeldman$elm_css$Css$left(
+							rtfeldman$elm_css$Css$vw(
+								sideOpen ? 0 : (-75)))
+						])))
+			]),
+		_List_fromArray(
+			[author$project$Main$renderSideOpt, author$project$Main$renderSideOpt]));
+};
 var rtfeldman$elm_css$Html$Styled$Attributes$id = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('id');
 var author$project$Main$view = function (model) {
 	return A2(
@@ -9532,7 +9594,8 @@ var author$project$Main$view = function (model) {
 				A2(
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_Nil,
-				A2(elm$core$List$map, author$project$Main$displaySocial, author$project$Main$socialPlatforms))
+				A2(elm$core$List$map, author$project$Main$displaySocial, author$project$Main$socialPlatforms)),
+				author$project$Main$renderSidebar(model.sideOpen)
 			]));
 };
 var elm$browser$Browser$External = function (a) {

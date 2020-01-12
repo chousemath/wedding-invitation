@@ -110,4 +110,20 @@ sty =
     , contOptions = flexStartX ++ [ width (vw 100), paddingLeft (px 16) ]
     , boxOptions = flexStartX ++ [ width (px 50), height (px 50) ]
     , fontImg = [ width (px 20), height (px 20) ]
+    , contSidebar =
+        flexColX
+            ++ [ width (vw 75)
+               , height (vh 100)
+               , backgroundColor (rgba 255 255 255 0.9)
+               , position fixed
+               , top (vw 0)
+               ]
+    , contSideOpt =
+        [ width (pct 100)
+        , height (px 50)
+        , paddingLeft (px 16)
+        , displayFlex
+        , justifyContent flexStart
+        , alignItems center
+        ]
     }

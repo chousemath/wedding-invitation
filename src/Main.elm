@@ -39,6 +39,7 @@ type Msg
     | Social SocialMedia
     | SocialSelected String
     | GotPhotos (Result Http.Error InitialData)
+    | ToggleSidebar
 
 
 type alias Comment =
@@ -60,6 +61,7 @@ type alias Model =
     , comments : Comments
     , selectedImage : String
     , selectedComment : Comment
+    , sideOpen : Bool
     }
 
 
@@ -160,12 +162,12 @@ renderSubtitle str =
         [ h4 [] [ text str ] ]
 
 
-introText : List (Html msg)
+introText : List (Html Msg)
 introText =
     [ div
         [ css sty.contOptions ]
         [ div
-            [ css sty.boxOptions ]
+            [ css sty.boxOptions, onClick ToggleSidebar ]
             [ img [ src "./images/font.png", css sty.fontImg ] [] ]
         ]
     ]
@@ -301,6 +303,7 @@ initialModel =
     , comments = defaultComments
     , selectedComment = emptyComment
     , selectedImage = ""
+    , sideOpen = False
     }
 
 
@@ -330,6 +333,32 @@ renderComments status =
             [ div [] [ text err ] ]
 
 
+renderSideOpt =
+    div [ css sty.contSideOpt ] [ text "asdf fdss deff" ]
+
+
+renderSidebar : Bool -> Html Msg
+renderSidebar sideOpen =
+    div
+        [ css
+            (sty.contSidebar
+                ++ [ left
+                        (vw
+                            (if sideOpen then
+                                0
+
+                             else
+                                -75
+                            )
+                        )
+                   ]
+            )
+        ]
+        [ renderSideOpt
+        , renderSideOpt
+        ]
+
+
 view : Model -> Html Msg
 view model =
     div
@@ -348,6 +377,7 @@ view model =
                 [ div [ id "map", css sty.map ] [] ]
             ]
         , div [] <| List.map displaySocial socialPlatforms
+        , renderSidebar model.sideOpen
         ]
 
 
@@ -384,6 +414,9 @@ update msg model =
 
         GotPhotos (Err httpError) ->
             ( { model | status = Errored "Internal Server Error" }, Cmd.none )
+
+        ToggleSidebar ->
+            ( { model | sideOpen = not model.sideOpen }, Cmd.none )
 
 
 main : Program () Model Msg
