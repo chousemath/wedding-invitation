@@ -6329,13 +6329,10 @@ var author$project$MyStyles$flexStartX = _List_fromArray(
 		rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
 		rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center)
 	]);
-var elm$core$Basics$negate = function (n) {
-	return -n;
-};
-var rtfeldman$elm_css$Css$absolute = {position: rtfeldman$elm_css$Css$Structure$Compatible, value: 'absolute'};
 var rtfeldman$elm_css$Css$backgroundColor = function (c) {
 	return A2(rtfeldman$elm_css$Css$property, 'background-color', c.value);
 };
+var rtfeldman$elm_css$Css$backgroundImage = rtfeldman$elm_css$Css$prop1('background-image');
 var rtfeldman$elm_css$Css$backgroundPosition = function (fn) {
 	return A3(
 		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
@@ -6431,6 +6428,9 @@ var rtfeldman$elm_css$Css$erroneousHex = function (str) {
 };
 var elm$core$String$fromList = _String_fromList;
 var elm$core$String$toLower = _String_toLower;
+var elm$core$Basics$negate = function (n) {
+	return -n;
+};
 var elm$core$List$tail = function (list) {
 	if (list.b) {
 		var x = list.a;
@@ -6780,6 +6780,18 @@ var rtfeldman$elm_css$Css$hex = function (str) {
 var rtfeldman$elm_css$Css$hidden = {borderStyle: rtfeldman$elm_css$Css$Structure$Compatible, overflow: rtfeldman$elm_css$Css$Structure$Compatible, value: 'hidden', visibility: rtfeldman$elm_css$Css$Structure$Compatible};
 var rtfeldman$elm_css$Css$left = rtfeldman$elm_css$Css$prop1('left');
 var rtfeldman$elm_css$Css$lighter = {fontWeight: rtfeldman$elm_css$Css$Structure$Compatible, value: 'lighter'};
+var rtfeldman$elm_css$Css$prop2 = F3(
+	function (key, argA, argB) {
+		return A2(
+			rtfeldman$elm_css$Css$property,
+			key,
+			A2(
+				elm$core$String$join,
+				' ',
+				_List_fromArray(
+					[argA.value, argB.value])));
+	});
+var rtfeldman$elm_css$Css$margin2 = rtfeldman$elm_css$Css$prop2('margin');
 var rtfeldman$elm_css$Css$marginBottom = rtfeldman$elm_css$Css$prop1('margin-bottom');
 var rtfeldman$elm_css$Css$marginLeft = rtfeldman$elm_css$Css$prop1('margin-left');
 var rtfeldman$elm_css$Css$marginRight = rtfeldman$elm_css$Css$prop1('margin-right');
@@ -6803,6 +6815,7 @@ var rtfeldman$elm_css$Css$prop4 = F5(
 					[argA.value, argB.value, argC.value, argD.value])));
 	});
 var rtfeldman$elm_css$Css$padding4 = rtfeldman$elm_css$Css$prop4('padding');
+var rtfeldman$elm_css$Css$paddingLeft = rtfeldman$elm_css$Css$prop1('padding-left');
 var rtfeldman$elm_css$Css$PercentageUnits = {$: 'PercentageUnits'};
 var rtfeldman$elm_css$Css$pct = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PercentageUnits, '%');
 var rtfeldman$elm_css$Css$position = rtfeldman$elm_css$Css$prop1('position');
@@ -6841,51 +6854,9 @@ var rtfeldman$elm_css$Css$textAlign = function (fn) {
 };
 var rtfeldman$elm_css$Css$textOverflow = rtfeldman$elm_css$Css$prop1('text-overflow');
 var rtfeldman$elm_css$Css$top = rtfeldman$elm_css$Css$prop1('top');
-var elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
-	});
-var elm$core$List$isEmpty = function (xs) {
-	if (!xs.b) {
-		return true;
-	} else {
-		return false;
-	}
+var rtfeldman$elm_css$Css$url = function (urlValue) {
+	return {backgroundImage: rtfeldman$elm_css$Css$Structure$Compatible, value: 'url(' + (urlValue + ')')};
 };
-var rtfeldman$elm_css$Css$valuesOrNone = function (list) {
-	return elm$core$List$isEmpty(list) ? {value: 'none'} : {
-		value: A2(
-			elm$core$String$join,
-			' ',
-			A2(
-				elm$core$List$map,
-				function ($) {
-					return $.value;
-				},
-				list))
-	};
-};
-var rtfeldman$elm_css$Css$transforms = A2(
-	elm$core$Basics$composeL,
-	rtfeldman$elm_css$Css$prop1('transform'),
-	rtfeldman$elm_css$Css$valuesOrNone);
-var rtfeldman$elm_css$Css$transform = function (only) {
-	return rtfeldman$elm_css$Css$transforms(
-		_List_fromArray(
-			[only]));
-};
-var rtfeldman$elm_css$Css$translate2 = F2(
-	function (tx, ty) {
-		return {
-			transform: rtfeldman$elm_css$Css$Structure$Compatible,
-			value: A2(
-				rtfeldman$elm_css$Css$cssFunction,
-				'translate',
-				_List_fromArray(
-					[tx.value, ty.value]))
-		};
-	});
 var rtfeldman$elm_css$Css$VhUnits = {$: 'VhUnits'};
 var rtfeldman$elm_css$Css$vh = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$VhUnits, 'vh');
 var rtfeldman$elm_css$Css$VwUnits = {$: 'VwUnits'};
@@ -6940,10 +6911,16 @@ var author$project$MyStyles$myStyles = {
 		[
 			rtfeldman$elm_css$Css$width(
 			rtfeldman$elm_css$Css$pct(100)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$vh(100)),
 			rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$relative),
 			rtfeldman$elm_css$Css$textAlign(rtfeldman$elm_css$Css$center),
 			rtfeldman$elm_css$Css$backgroundColor(
-			rtfeldman$elm_css$Css$hex('EADEC8')),
+			rtfeldman$elm_css$Css$hex('#729FB2')),
+			rtfeldman$elm_css$Css$backgroundImage(
+			rtfeldman$elm_css$Css$url('./images/bg.jpg')),
+			rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
+			rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat),
 			A4(
 			rtfeldman$elm_css$Css$padding4,
 			rtfeldman$elm_css$Css$px(16),
@@ -6960,26 +6937,22 @@ var author$project$MyStyles$myStyles = {
 				rtfeldman$elm_css$Css$minus,
 				rtfeldman$elm_css$Css$px(32)))
 		]),
-	contFlowerText: _List_fromArray(
-		[
-			rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$absolute),
-			rtfeldman$elm_css$Css$top(
-			rtfeldman$elm_css$Css$pct(50)),
-			rtfeldman$elm_css$Css$left(
-			rtfeldman$elm_css$Css$pct(50)),
-			rtfeldman$elm_css$Css$transform(
-			A2(
-				rtfeldman$elm_css$Css$translate2,
-				rtfeldman$elm_css$Css$pct(-50),
-				rtfeldman$elm_css$Css$pct(-50))),
-			rtfeldman$elm_css$Css$width(
-			rtfeldman$elm_css$Css$pct(100))
-		]),
+	contFlowerText: _Utils_ap(
+		author$project$MyStyles$flexColX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100))
+			])),
 	contGallery: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$width(
-			rtfeldman$elm_css$Css$pct(100)),
-			rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left)
+			rtfeldman$elm_css$Css$vw(100)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$vh(100)),
+			rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left),
+			rtfeldman$elm_css$Css$backgroundColor(
+			rtfeldman$elm_css$Css$hex('#000'))
 		]),
 	contLoaded: _List_fromArray(
 		[
@@ -7014,21 +6987,34 @@ var author$project$MyStyles$myStyles = {
 		author$project$MyStyles$flexCenterX,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Css$width(
-				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$px(50)),
+				rtfeldman$elm_css$Css$px(40)),
 				rtfeldman$elm_css$Css$fontSize(
-				rtfeldman$elm_css$Css$px(18))
+				rtfeldman$elm_css$Css$px(36))
 			])),
 	contNameSpacer: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
 		_List_fromArray(
 			[
+				rtfeldman$elm_css$Css$fontSize(
+				rtfeldman$elm_css$Css$px(12)),
+				A2(
+				rtfeldman$elm_css$Css$margin2,
+				rtfeldman$elm_css$Css$px(0),
+				rtfeldman$elm_css$Css$px(16))
+			])),
+	contNames: _Utils_ap(
+		author$project$MyStyles$flexRowX,
+		_List_fromArray(
+			[
 				rtfeldman$elm_css$Css$width(
-				rtfeldman$elm_css$Css$pct(100)),
-				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$px(30))
+				A3(
+					rtfeldman$elm_css$Css$calc,
+					rtfeldman$elm_css$Css$vw(100),
+					rtfeldman$elm_css$Css$minus,
+					rtfeldman$elm_css$Css$px(64))),
+				rtfeldman$elm_css$Css$paddingLeft(
+				rtfeldman$elm_css$Css$px(32))
 			])),
 	contOpt: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
@@ -7108,7 +7094,7 @@ var author$project$MyStyles$myStyles = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$fontSize(
-				rtfeldman$elm_css$Css$px(12)),
+				rtfeldman$elm_css$Css$px(16)),
 				rtfeldman$elm_css$Css$height(
 				rtfeldman$elm_css$Css$px(30))
 			])),
@@ -7119,6 +7105,12 @@ var author$project$MyStyles$myStyles = {
 		]),
 	fgrow: _List_fromArray(
 		[
+			rtfeldman$elm_css$Css$flexGrow(
+			rtfeldman$elm_css$Css$num(1))
+		]),
+	flexGrowX: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$displayFlex,
 			rtfeldman$elm_css$Css$flexGrow(
 			rtfeldman$elm_css$Css$num(1))
 		]),
@@ -7296,6 +7288,13 @@ var Skinney$murmur3$Murmur3$hashString = F2(
 				A4(Skinney$murmur3$Murmur3$HashData, 0, seed, 0, 0),
 				str));
 	});
+var elm$core$List$isEmpty = function (xs) {
+	if (!xs.b) {
+		return true;
+	} else {
+		return false;
+	}
+};
 var elm$core$List$singleton = function (value) {
 	return _List_fromArray(
 		[value]);
@@ -8440,6 +8439,11 @@ var rtfeldman$elm_css$Css$Preprocess$Resolve$toStructure = function (_n0) {
 		A2(elm$core$List$concatMap, rtfeldman$elm_css$Css$Preprocess$unwrapSnippet, snippets));
 	return {charset: charset, declarations: declarations, imports: imports, namespaces: namespaces};
 };
+var elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
 var elm$core$Basics$not = _Basics_not;
 var elm$core$List$any = F2(
 	function (isOkay, list) {
@@ -9040,10 +9044,6 @@ var author$project$Main$socialPlatforms = _List_fromArray(
 		{company: author$project$Main$Instagram, icon: './images/Instagram.png', text: 'instagram'},
 		{company: author$project$Main$LinkedIn, icon: './images/LinkedIn.png', text: 'linkedin'}
 	]);
-var rtfeldman$elm_css$Css$backgroundImage = rtfeldman$elm_css$Css$prop1('background-image');
-var rtfeldman$elm_css$Css$url = function (urlValue) {
-	return {backgroundImage: rtfeldman$elm_css$Css$Structure$Compatible, value: 'url(' + (urlValue + ')')};
-};
 var author$project$Main$displaySelectedImage = function (link) {
 	return (link === '') ? A2(rtfeldman$elm_css$Html$Styled$div, _List_Nil, _List_Nil) : A2(
 		rtfeldman$elm_css$Html$Styled$div,
@@ -9175,9 +9175,32 @@ var author$project$Main$renderSubtitle = function (str) {
 var author$project$Main$introText = _Utils_ap(
 	_List_fromArray(
 		[
-			author$project$Main$renderName('최성필'),
-			author$project$Main$renderNameSpacer('그리고'),
-			author$project$Main$renderName('최수강')
+			A2(
+			rtfeldman$elm_css$Html$Styled$div,
+			_List_fromArray(
+				[
+					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contNames)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					rtfeldman$elm_css$Html$Styled$div,
+					_List_fromArray(
+						[
+							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.flexGrowX)
+						]),
+					_List_Nil),
+					author$project$Main$renderName('최성필'),
+					author$project$Main$renderNameSpacer('그리고'),
+					author$project$Main$renderName('최수강'),
+					A2(
+					rtfeldman$elm_css$Html$Styled$div,
+					_List_fromArray(
+						[
+							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.flexGrowX)
+						]),
+					_List_Nil)
+				]))
 		]),
 	A2(
 		elm$core$List$map,
@@ -9378,18 +9401,11 @@ var author$project$Main$view = function (model) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
+						rtfeldman$elm_css$Html$Styled$Attributes$id('cont-greeting'),
 						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contFlower)
 					]),
 				_List_fromArray(
 					[
-						A2(
-						rtfeldman$elm_css$Html$Styled$img,
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contFlowerImage),
-								rtfeldman$elm_css$Html$Styled$Attributes$src('https://i.imgur.com/IcVqiOb.png')
-							]),
-						_List_Nil),
 						A2(
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
@@ -9402,6 +9418,7 @@ var author$project$Main$view = function (model) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
+						rtfeldman$elm_css$Html$Styled$Attributes$id('cont-gallery'),
 						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contGallery)
 					]),
 				author$project$Main$renderGallery(model.status)),

@@ -26,16 +26,25 @@ flexStartX =
 myStyles =
     { contName =
         flexCenterX
-            ++ [ width (pct 100)
-               , height (px 50)
-               , fontSize (px 18)
+            ++ [ height (px 40)
+               , fontSize (px 36)
                ]
+    , flexGrowX =
+        [ displayFlex, flexGrow (num 1) ]
     , contNameSpacer =
-        flexCenterX ++ [ width (pct 100), height (px 30) ]
+        flexCenterX
+            ++ [ fontSize (px 12)
+               , margin2 (px 0) (px 16)
+               ]
+    , contNames =
+        flexRowX
+            ++ [ width (calc (vw 100) minus (px 64))
+               , paddingLeft (px 32)
+               ]
     , contSubtitle =
         flexCenterX
             ++ [ width (pct 100)
-               , fontSize (px 12)
+               , fontSize (px 16)
                , height (px 30)
                ]
     , contComment =
@@ -109,20 +118,26 @@ myStyles =
     , contMain = [ width (vw 100), height (vh 100) ]
     , contFlower =
         [ width (pct 100)
+        , height (vh 100)
         , position relative
         , textAlign center
-        , backgroundColor (hex "EADEC8")
+        , backgroundColor (hex "#729FB2")
+        , backgroundImage (url "./images/bg.jpg")
+        , backgroundPosition center
+        , backgroundRepeat noRepeat
         , padding4 (px 16) (px 0) (px 16) (px 0)
         ]
     , contFlowerImage = [ width (calc (pct 100) minus (px 32)) ]
     , contFlowerText =
-        [ position absolute
-        , top (pct 50)
-        , left (pct 50)
-        , transform (translate2 (pct -50) (pct -50))
-        , width (pct 100)
+        flexColX
+            ++ [ width (pct 100)
+               ]
+    , contGallery =
+        [ width (vw 100)
+        , height (vh 100)
+        , float left
+        , backgroundColor (hex "#000")
         ]
-    , contGallery = [ width (pct 100), float left ]
     , contComments = flexColX ++ [ width (pct 100), float left ]
     , contSelectedComment = [ padding (px 16) ]
     , contMap = flexCenterX ++ [ height (px 300), padding (px 16), overflow hidden ]

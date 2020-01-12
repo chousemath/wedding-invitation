@@ -162,9 +162,13 @@ renderSubtitle str =
 
 introText : List (Html msg)
 introText =
-    [ renderName "최성필"
-    , renderNameSpacer "그리고"
-    , renderName "최수강"
+    [ div [ css myStyles.contNames ]
+        [ div [ css myStyles.flexGrowX ] []
+        , renderName "최성필"
+        , renderNameSpacer "그리고"
+        , renderName "최수강"
+        , div [ css myStyles.flexGrowX ] []
+        ]
     ]
         ++ List.map
             renderSubtitle
@@ -324,11 +328,10 @@ view model =
     div
         [ css myStyles.contMain ]
         [ div
-            [ css myStyles.contFlower ]
-            [ img [ css myStyles.contFlowerImage, src "https://i.imgur.com/IcVqiOb.png" ] []
-            , div [ css myStyles.contFlowerText ] introText
+            [ id "cont-greeting", css myStyles.contFlower ]
+            [ div [ css myStyles.contFlowerText ] introText
             ]
-        , div [ css myStyles.contGallery ] <| renderGallery model.status
+        , div [ id "cont-gallery", css myStyles.contGallery ] <| renderGallery model.status
         , displaySelectedImage model.selectedImage
         , div [ css myStyles.contComments ] <| renderComments model.status
         , div [ css myStyles.contSelectedComment ] <| displayComment model.selectedComment
