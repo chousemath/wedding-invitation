@@ -121,9 +121,25 @@ sty =
     , contSideOpt =
         [ width (pct 100)
         , height (px 50)
-        , paddingLeft (px 16)
         , displayFlex
         , justifyContent flexStart
         , alignItems center
+        , boxSizing borderBox
+        , border3 (px 1) solid (hex "#5b5656")
+        , borderWidth4 (px 0) (px 0) (px 1) (px 0)
         ]
+    , sideOptText =
+        [ marginLeft (px 16) ]
+    , contSideClose =
+        [ width (pct 100)
+        , height (px 50)
+        , displayFlex
+        , justifyContent flexStart
+        , alignItems center
+        , boxSizing borderBox
+        , border3 (px 1) solid (hex "#5b5656")
+        , borderWidth4 (px 0) (px 0) (px 1) (px 0)
+        ]
+    , closeSidebar =
+        [ marginLeft (px 16) ]
     }

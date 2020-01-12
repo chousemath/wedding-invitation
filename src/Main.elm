@@ -40,6 +40,7 @@ type Msg
     | SocialSelected String
     | GotPhotos (Result Http.Error InitialData)
     | ToggleSidebar
+    | AlterFont Int
 
 
 type alias Comment =
@@ -62,6 +63,7 @@ type alias Model =
     , selectedImage : String
     , selectedComment : Comment
     , sideOpen : Bool
+    , fontSize : Int
     }
 
 
@@ -87,6 +89,13 @@ buildInitialData comments photos =
 
 
 -- default data goes here
+
+
+fontSizes : List { value : Int, viewValue : String }
+fontSizes =
+    [ { value = 2, viewValue = "가장 큰 글꼴 크기로 변경" }
+    , { value = 1, viewValue = "일반 글꼴 크기로 변경" }
+    ]
 
 
 socialPlatforms : List SocialPlatform
@@ -304,6 +313,7 @@ initialModel =
     , selectedComment = emptyComment
     , selectedImage = ""
     , sideOpen = False
+    , fontSize = 1
     }
 
 
@@ -333,8 +343,14 @@ renderComments status =
             [ div [] [ text err ] ]
 
 
-renderSideOpt =
-    div [ css sty.contSideOpt ] [ text "asdf fdss deff" ]
+renderSideOpt : { value : Int, viewValue : String } -> Html Msg
+renderSideOpt opt =
+    div
+        [ css sty.contSideOpt, onClick (AlterFont opt.value) ]
+        [ div
+            [ css sty.sideOptText ]
+            [ text opt.viewValue ]
+        ]
 
 
 renderSidebar : Bool -> Html Msg
@@ -354,9 +370,14 @@ renderSidebar sideOpen =
                    ]
             )
         ]
-        [ renderSideOpt
-        , renderSideOpt
-        ]
+    <|
+        div
+            [ css sty.contSideClose ]
+            [ div
+                [ css sty.closeSidebar, onClick ToggleSidebar ]
+                [ img [ src "./images/font.png", css sty.fontImg ] [] ]
+            ]
+            :: List.map renderSideOpt fontSizes
 
 
 view : Model -> Html Msg
@@ -417,6 +438,9 @@ update msg model =
 
         ToggleSidebar ->
             ( { model | sideOpen = not model.sideOpen }, Cmd.none )
+
+        AlterFont size ->
+            ( { model | fontSize = size }, Cmd.none )
 
 
 main : Program () Model Msg

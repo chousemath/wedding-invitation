@@ -5964,7 +5964,7 @@ var author$project$Main$defaultComments = _List_fromArray(
 		{author: 'Dad', content: 'Hi I am a dad', createdAt: '2020-01-15'}
 	]);
 var author$project$Main$emptyComment = {author: '', content: '', createdAt: ''};
-var author$project$Main$initialModel = {comments: author$project$Main$defaultComments, selectedComment: author$project$Main$emptyComment, selectedImage: '', sideOpen: false, status: author$project$Main$Loading};
+var author$project$Main$initialModel = {comments: author$project$Main$defaultComments, fontSize: 1, selectedComment: author$project$Main$emptyComment, selectedImage: '', sideOpen: false, status: author$project$Main$Loading};
 var author$project$Main$Errored = function (a) {
 	return {$: 'Errored', a: a};
 };
@@ -6134,11 +6134,18 @@ var author$project$Main$update = F2(
 							}),
 						elm$core$Platform$Cmd$none);
 				}
-			default:
+			case 'ToggleSidebar':
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{sideOpen: !model.sideOpen}),
+					elm$core$Platform$Cmd$none);
+			default:
+				var size = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{fontSize: size}),
 					elm$core$Platform$Cmd$none);
 		}
 	});
@@ -6349,7 +6356,33 @@ var rtfeldman$elm_css$Css$backgroundPosition = function (fn) {
 };
 var rtfeldman$elm_css$Css$backgroundRepeat = rtfeldman$elm_css$Css$prop1('background-repeat');
 var rtfeldman$elm_css$Css$bold = {fontWeight: rtfeldman$elm_css$Css$Structure$Compatible, value: 'bold'};
+var rtfeldman$elm_css$Css$prop3 = F4(
+	function (key, argA, argB, argC) {
+		return A2(
+			rtfeldman$elm_css$Css$property,
+			key,
+			A2(
+				elm$core$String$join,
+				' ',
+				_List_fromArray(
+					[argA.value, argB.value, argC.value])));
+	});
+var rtfeldman$elm_css$Css$border3 = rtfeldman$elm_css$Css$prop3('border');
+var rtfeldman$elm_css$Css$borderBox = {backgroundClip: rtfeldman$elm_css$Css$Structure$Compatible, boxSizing: rtfeldman$elm_css$Css$Structure$Compatible, value: 'border-box'};
 var rtfeldman$elm_css$Css$borderRadius = rtfeldman$elm_css$Css$prop1('border-radius');
+var rtfeldman$elm_css$Css$prop4 = F5(
+	function (key, argA, argB, argC, argD) {
+		return A2(
+			rtfeldman$elm_css$Css$property,
+			key,
+			A2(
+				elm$core$String$join,
+				' ',
+				_List_fromArray(
+					[argA.value, argB.value, argC.value, argD.value])));
+	});
+var rtfeldman$elm_css$Css$borderWidth4 = rtfeldman$elm_css$Css$prop4('border-width');
+var rtfeldman$elm_css$Css$boxSizing = rtfeldman$elm_css$Css$prop1('box-sizing');
 var elm$core$String$length = _String_length;
 var elm$core$String$slice = _String_slice;
 var elm$core$String$dropLeft = F2(
@@ -6810,17 +6843,6 @@ var rtfeldman$elm_css$Css$noRepeat = {backgroundRepeat: rtfeldman$elm_css$Css$St
 var rtfeldman$elm_css$Css$noWrap = {flexDirectionOrWrap: rtfeldman$elm_css$Css$Structure$Compatible, flexWrap: rtfeldman$elm_css$Css$Structure$Compatible, value: 'nowrap', whiteSpace: rtfeldman$elm_css$Css$Structure$Compatible};
 var rtfeldman$elm_css$Css$overflow = rtfeldman$elm_css$Css$prop1('overflow');
 var rtfeldman$elm_css$Css$padding = rtfeldman$elm_css$Css$prop1('padding');
-var rtfeldman$elm_css$Css$prop4 = F5(
-	function (key, argA, argB, argC, argD) {
-		return A2(
-			rtfeldman$elm_css$Css$property,
-			key,
-			A2(
-				elm$core$String$join,
-				' ',
-				_List_fromArray(
-					[argA.value, argB.value, argC.value, argD.value])));
-	});
 var rtfeldman$elm_css$Css$padding4 = rtfeldman$elm_css$Css$prop4('padding');
 var rtfeldman$elm_css$Css$paddingLeft = rtfeldman$elm_css$Css$prop1('padding-left');
 var rtfeldman$elm_css$Css$PercentageUnits = {$: 'PercentageUnits'};
@@ -6852,6 +6874,7 @@ var rtfeldman$elm_css$Css$rgba = F4(
 						])))
 		};
 	});
+var rtfeldman$elm_css$Css$solid = {borderStyle: rtfeldman$elm_css$Css$Structure$Compatible, textDecorationStyle: rtfeldman$elm_css$Css$Structure$Compatible, value: 'solid'};
 var rtfeldman$elm_css$Css$textAlign = function (fn) {
 	return A3(
 		rtfeldman$elm_css$Css$Internal$getOverloadedProperty,
@@ -6880,6 +6903,11 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$height(
 				rtfeldman$elm_css$Css$px(50))
 			])),
+	closeSidebar: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$marginLeft(
+			rtfeldman$elm_css$Css$px(16))
+		]),
 	commentInner: _Utils_ap(
 		author$project$MyStyles$flexRowX,
 		_List_fromArray(
@@ -7097,17 +7125,49 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
 				rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
 			])),
+	contSideClose: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$pct(100)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$px(50)),
+			rtfeldman$elm_css$Css$displayFlex,
+			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
+			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center),
+			rtfeldman$elm_css$Css$boxSizing(rtfeldman$elm_css$Css$borderBox),
+			A3(
+			rtfeldman$elm_css$Css$border3,
+			rtfeldman$elm_css$Css$px(1),
+			rtfeldman$elm_css$Css$solid,
+			rtfeldman$elm_css$Css$hex('#5b5656')),
+			A4(
+			rtfeldman$elm_css$Css$borderWidth4,
+			rtfeldman$elm_css$Css$px(0),
+			rtfeldman$elm_css$Css$px(0),
+			rtfeldman$elm_css$Css$px(1),
+			rtfeldman$elm_css$Css$px(0))
+		]),
 	contSideOpt: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$width(
 			rtfeldman$elm_css$Css$pct(100)),
 			rtfeldman$elm_css$Css$height(
 			rtfeldman$elm_css$Css$px(50)),
-			rtfeldman$elm_css$Css$paddingLeft(
-			rtfeldman$elm_css$Css$px(16)),
 			rtfeldman$elm_css$Css$displayFlex,
 			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
-			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center)
+			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$center),
+			rtfeldman$elm_css$Css$boxSizing(rtfeldman$elm_css$Css$borderBox),
+			A3(
+			rtfeldman$elm_css$Css$border3,
+			rtfeldman$elm_css$Css$px(1),
+			rtfeldman$elm_css$Css$solid,
+			rtfeldman$elm_css$Css$hex('#5b5656')),
+			A4(
+			rtfeldman$elm_css$Css$borderWidth4,
+			rtfeldman$elm_css$Css$px(0),
+			rtfeldman$elm_css$Css$px(0),
+			rtfeldman$elm_css$Css$px(1),
+			rtfeldman$elm_css$Css$px(0))
 		]),
 	contSidebar: _Utils_ap(
 		author$project$MyStyles$flexColX,
@@ -7216,6 +7276,11 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$height(
 				rtfeldman$elm_css$Css$vh(100))
 			])),
+	sideOptText: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$marginLeft(
+			rtfeldman$elm_css$Css$px(16))
+		]),
 	textAuthor: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$whiteSpace(rtfeldman$elm_css$Css$noWrap),
@@ -9486,16 +9551,37 @@ var author$project$Main$renderGallery = function (status) {
 				]);
 	}
 };
-var author$project$Main$renderSideOpt = A2(
-	rtfeldman$elm_css$Html$Styled$div,
-	_List_fromArray(
-		[
-			rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSideOpt)
-		]),
-	_List_fromArray(
-		[
-			rtfeldman$elm_css$Html$Styled$text('asdf fdss deff')
-		]));
+var author$project$Main$fontSizes = _List_fromArray(
+	[
+		{value: 2, viewValue: '가장 큰 글꼴 크기로 변경'},
+		{value: 1, viewValue: '일반 글꼴 크기로 변경'}
+	]);
+var author$project$Main$AlterFont = function (a) {
+	return {$: 'AlterFont', a: a};
+};
+var author$project$Main$renderSideOpt = function (opt) {
+	return A2(
+		rtfeldman$elm_css$Html$Styled$div,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSideOpt),
+				rtfeldman$elm_css$Html$Styled$Events$onClick(
+				author$project$Main$AlterFont(opt.value))
+			]),
+		_List_fromArray(
+			[
+				A2(
+				rtfeldman$elm_css$Html$Styled$div,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.sideOptText)
+					]),
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$text(opt.viewValue)
+					]))
+			]));
+};
 var author$project$Main$renderSidebar = function (sideOpen) {
 	return A2(
 		rtfeldman$elm_css$Html$Styled$div,
@@ -9511,8 +9597,36 @@ var author$project$Main$renderSidebar = function (sideOpen) {
 								sideOpen ? 0 : (-75)))
 						])))
 			]),
-		_List_fromArray(
-			[author$project$Main$renderSideOpt, author$project$Main$renderSideOpt]));
+		A2(
+			elm$core$List$cons,
+			A2(
+				rtfeldman$elm_css$Html$Styled$div,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSideClose)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						rtfeldman$elm_css$Html$Styled$div,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.closeSidebar),
+								rtfeldman$elm_css$Html$Styled$Events$onClick(author$project$Main$ToggleSidebar)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								rtfeldman$elm_css$Html$Styled$img,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$src('./images/font.png'),
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.fontImg)
+									]),
+								_List_Nil)
+							]))
+					])),
+			A2(elm$core$List$map, author$project$Main$renderSideOpt, author$project$Main$fontSizes)));
 };
 var rtfeldman$elm_css$Html$Styled$Attributes$id = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('id');
 var author$project$Main$view = function (model) {
