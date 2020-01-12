@@ -5,16 +5,17 @@ window.onload = function() {
     var greeting = new Hammer(contGreeting, {});
     var gallery = new Hammer(contGallery, {});
     var mapSect = new Hammer(contMap, {});
+    var scrollOpts = { block: 'start',  behavior: 'smooth' };
 
     greeting.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
     gallery.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
     mapSect.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
 
-    greeting.on('swipeup', function(ev) { contGallery.scrollIntoView(); });
-    gallery.on('swipeup', function(ev) { contMap.scrollIntoView(); });
+    greeting.on('swipeup', function(ev) { zenscroll.to(contGallery); });
+    gallery.on('swipeup', function(ev) { zenscroll.to(contMap); });
 
-    gallery.on('swipedown', function(ev) { contGreeting.scrollIntoView(); });
-    mapSect.on('swipedown', function(ev) { contGallery.scrollIntoView(); });
+    gallery.on('swipedown', function(ev) { zenscroll.to(contGreeting); });
+    mapSect.on('swipedown', function(ev) { zenscroll.to(contGallery); });
 
     // kakao map section
     // http://apis.map.kakao.com/web/sample/
