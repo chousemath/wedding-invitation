@@ -335,9 +335,11 @@ view model =
         , displaySelectedImage model.selectedImage
         , div [ css myStyles.contComments ] <| renderComments model.status
         , div [ css myStyles.contSelectedComment ] <| displayComment model.selectedComment
-        , div
-            [ css myStyles.contMap ]
-            [ div [ id "map", css myStyles.map ] [] ]
+        , div [ id "cont-map", css myStyles.sectionMap ]
+            [ div
+                [ css myStyles.contMap ]
+                [ div [ id "map", css myStyles.map ] [] ]
+            ]
         , div [] <| List.map displaySocial socialPlatforms
         ]
 

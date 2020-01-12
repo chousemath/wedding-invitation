@@ -140,6 +140,12 @@ myStyles =
         ]
     , contComments = flexColX ++ [ width (pct 100), float left ]
     , contSelectedComment = [ padding (px 16) ]
-    , contMap = flexCenterX ++ [ height (px 300), padding (px 16), overflow hidden ]
+    , contMap = flexCenterX ++ [ height (vh 40), overflow hidden ]
+    , sectionMap =
+        flexColX
+            ++ [ width (vw 100)
+               , height (vh 100)
+               , backgroundColor (hex "#000")
+               ]
     , map = [ width (pct 100), height (px 400) ]
     }

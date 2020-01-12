@@ -6978,9 +6978,7 @@ var author$project$MyStyles$myStyles = {
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$px(300)),
-				rtfeldman$elm_css$Css$padding(
-				rtfeldman$elm_css$Css$px(16)),
+				rtfeldman$elm_css$Css$vh(40)),
 				rtfeldman$elm_css$Css$overflow(rtfeldman$elm_css$Css$hidden)
 			])),
 	contName: _Utils_ap(
@@ -7148,6 +7146,17 @@ var author$project$MyStyles$myStyles = {
 			rtfeldman$elm_css$Css$height(
 			rtfeldman$elm_css$Css$px(400))
 		]),
+	sectionMap: _Utils_ap(
+		author$project$MyStyles$flexColX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$vw(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$backgroundColor(
+				rtfeldman$elm_css$Css$hex('#000'))
+			])),
 	textAuthor: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$whiteSpace(rtfeldman$elm_css$Css$noWrap),
@@ -9441,7 +9450,8 @@ var author$project$Main$view = function (model) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contMap)
+						rtfeldman$elm_css$Html$Styled$Attributes$id('cont-map'),
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.sectionMap)
 					]),
 				_List_fromArray(
 					[
@@ -9449,10 +9459,19 @@ var author$project$Main$view = function (model) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$id('map'),
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.map)
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contMap)
 							]),
-						_List_Nil)
+						_List_fromArray(
+							[
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$id('map'),
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.map)
+									]),
+								_List_Nil)
+							]))
 					])),
 				A2(
 				rtfeldman$elm_css$Html$Styled$div,
