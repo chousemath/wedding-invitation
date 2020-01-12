@@ -9,9 +9,9 @@ window.onload = function() {
         console.log(ev);
         alert('greeting tapped');
     });
-    greeting.on('swipedown', function(ev) {
+    greeting.on('swipeup', function(ev) {
         console.log(ev);
-        alert('greeting swiped down');
+        alert('greeting swiped up');
     });
 }
 
