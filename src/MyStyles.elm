@@ -141,7 +141,7 @@ sty =
         , borderWidth4 (px 0) (px 0) (px 1) (px 0)
         ]
     , closeSidebar = [ marginLeft (px 16) ]
-    , contGifs = flexColX ++ [ paddingTop (px 32), width (vw 100), height (vh 100), backgroundColor (hex "#000") ]
+    , contGifs = flexColX ++ [ paddingTop (px 32), width (vw 100), height (vh 100), backgroundColor (hex "#fff") ]
     , contGif = flexRowX ++ [ width (pct 100), maxHeight (vh 50) ]
     , contGifImg = flexCenterX ++ [ flex (num 1) ]
     , contGifText =
