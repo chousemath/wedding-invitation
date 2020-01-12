@@ -23,35 +23,13 @@ flexStartX =
     [ displayFlex, flex (num 1), justifyContent flexStart, alignItems center ]
 
 
-myStyles =
-    { contName =
-        flexCenterX
-            ++ [ height (px 40)
-               , fontSize (px 36)
-               ]
-    , flexGrowX =
-        [ displayFlex, flexGrow (num 1) ]
-    , contNameSpacer =
-        flexCenterX
-            ++ [ fontSize (px 12)
-               , margin2 (px 0) (px 16)
-               ]
-    , contNames =
-        flexRowX
-            ++ [ width (calc (vw 100) minus (px 64))
-               , paddingLeft (px 32)
-               ]
-    , contSubtitle =
-        flexCenterX
-            ++ [ width (pct 100)
-               , fontSize (px 16)
-               , height (px 30)
-               ]
-    , contComment =
-        flexColX
-            ++ [ marginBottom (px 16)
-               , padding4 (px 0) (px 16) (px 0) (px 16)
-               ]
+sty =
+    { contName = flexCenterX ++ [ height (px 40), fontSize (px 36) ]
+    , flexGrowX = [ displayFlex, flexGrow (num 1) ]
+    , contNameSpacer = flexCenterX ++ [ fontSize (px 12), margin2 (px 0) (px 16) ]
+    , contNames = flexRowX ++ [ width (calc (vw 100) minus (px 64)), paddingLeft (px 32) ]
+    , contSubtitle = flexCenterX ++ [ width (pct 100), fontSize (px 16), height (px 30) ]
+    , contComment = flexColX ++ [ marginBottom (px 16), padding4 (px 0) (px 16) (px 0) (px 16) ]
     , commentInner = flexRowX ++ [ marginBottom (px 8) ]
     , flexStart = flexStartX
     , textAuthor =
@@ -61,8 +39,7 @@ myStyles =
         , fontSize (px 18)
         ]
     , contClose = flexEndX ++ [ width (px 30) ]
-    , contAuthor =
-        [ fontWeight lighter, fontSize (px 14), color (hex "bbded6") ]
+    , contAuthor = [ fontWeight lighter, fontSize (px 14), color (hex "bbded6") ]
     , iconClose = [ width (px 25), height (px 25) ]
     , textContent = [ fontSize (px 14) ]
     , thumbnail =
@@ -107,12 +84,7 @@ myStyles =
                ]
     , iconCloseOverlay = [ width (px 30), height (px 30) ]
     , fgrow = [ flexGrow (num 1) ]
-    , contSocialOverlay =
-        flexRowX
-            ++ [ width (pct 100)
-               , height (px 75)
-               , backgroundColor (rgba 0 0 0 0.8)
-               ]
+    , contSocialOverlay = flexRowX ++ [ width (pct 100), height (px 75), backgroundColor (rgba 0 0 0 0.8) ]
     , contLoader = flexCenterX ++ [ width (pct 100) ]
     , iconLoader = [ maxHeight (px 150) ]
     , contMain = [ width (vw 100), height (vh 100) ]
@@ -125,27 +97,17 @@ myStyles =
         , backgroundImage (url "./images/bg2.jpg")
         , backgroundPosition center
         , backgroundRepeat noRepeat
-        , padding4 (px 16) (px 0) (px 16) (px 0)
         ]
     , contFlowerImage = [ width (calc (pct 100) minus (px 32)) ]
-    , contFlowerText =
-        flexColX
-            ++ [ width (pct 100)
-               ]
-    , contGallery =
-        [ width (vw 100)
-        , height (vh 100)
-        , float left
-        , backgroundColor (hex "#000")
-        ]
+    , contFlowerText = flexColX ++ [ width (pct 100) ]
+    , contGallery = [ width (vw 100), height (vh 100), float left ]
     , contComments = flexColX ++ [ width (pct 100), float left ]
     , contSelectedComment = [ padding (px 16) ]
     , contMap = flexCenterX ++ [ height (vh 40), overflow hidden ]
-    , sectionMap =
-        flexColX
-            ++ [ width (vw 100)
-               , height (vh 100)
-               , backgroundColor (hex "#000")
-               ]
+    , sectionMap = flexColX ++ [ width (vw 100), height (vh 100) ]
     , map = [ width (pct 100), height (px 400) ]
+    , contProgress = flexCenterX ++ [ width (vw 100), height (vh 20), backgroundColor (hex "f6eec7") ]
+    , contOptions = flexStartX ++ [ width (vw 100), paddingLeft (px 16) ]
+    , boxOptions = flexStartX ++ [ width (px 50), height (px 50) ]
+    , fontImg = [ width (px 20), height (px 20) ]
     }

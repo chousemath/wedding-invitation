@@ -6863,7 +6863,16 @@ var rtfeldman$elm_css$Css$VwUnits = {$: 'VwUnits'};
 var rtfeldman$elm_css$Css$vw = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$VwUnits, 'vw');
 var rtfeldman$elm_css$Css$whiteSpace = rtfeldman$elm_css$Css$prop1('white-space');
 var rtfeldman$elm_css$Css$width = rtfeldman$elm_css$Css$prop1('width');
-var author$project$MyStyles$myStyles = {
+var author$project$MyStyles$sty = {
+	boxOptions: _Utils_ap(
+		author$project$MyStyles$flexStartX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$px(50)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(50))
+			])),
 	commentInner: _Utils_ap(
 		author$project$MyStyles$flexRowX,
 		_List_fromArray(
@@ -6920,13 +6929,7 @@ var author$project$MyStyles$myStyles = {
 			rtfeldman$elm_css$Css$backgroundImage(
 			rtfeldman$elm_css$Css$url('./images/bg2.jpg')),
 			rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
-			rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat),
-			A4(
-			rtfeldman$elm_css$Css$padding4,
-			rtfeldman$elm_css$Css$px(16),
-			rtfeldman$elm_css$Css$px(0),
-			rtfeldman$elm_css$Css$px(16),
-			rtfeldman$elm_css$Css$px(0))
+			rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
 		]),
 	contFlowerImage: _List_fromArray(
 		[
@@ -6950,9 +6953,7 @@ var author$project$MyStyles$myStyles = {
 			rtfeldman$elm_css$Css$vw(100)),
 			rtfeldman$elm_css$Css$height(
 			rtfeldman$elm_css$Css$vh(100)),
-			rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left),
-			rtfeldman$elm_css$Css$backgroundColor(
-			rtfeldman$elm_css$Css$hex('#000'))
+			rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left)
 		]),
 	contLoaded: _List_fromArray(
 		[
@@ -7021,6 +7022,15 @@ var author$project$MyStyles$myStyles = {
 				rtfeldman$elm_css$Css$flex(
 				rtfeldman$elm_css$Css$num(1))
 			])),
+	contOptions: _Utils_ap(
+		author$project$MyStyles$flexStartX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$vw(100)),
+				rtfeldman$elm_css$Css$paddingLeft(
+				rtfeldman$elm_css$Css$px(16))
+			])),
 	contOverlay: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$displayFlex,
@@ -7047,6 +7057,17 @@ var author$project$MyStyles$myStyles = {
 				rtfeldman$elm_css$Css$pct(50)),
 				rtfeldman$elm_css$Css$backgroundColor(
 				A4(rtfeldman$elm_css$Css$rgba, 241, 241, 246, 0.8))
+			])),
+	contProgress: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$vw(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$vh(20)),
+				rtfeldman$elm_css$Css$backgroundColor(
+				rtfeldman$elm_css$Css$hex('f6eec7'))
 			])),
 	contSelectedComment: _List_fromArray(
 		[
@@ -7113,6 +7134,13 @@ var author$project$MyStyles$myStyles = {
 			rtfeldman$elm_css$Css$num(1))
 		]),
 	flexStart: author$project$MyStyles$flexStartX,
+	fontImg: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$px(20)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$px(20))
+		]),
 	iconClose: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$width(
@@ -7153,9 +7181,7 @@ var author$project$MyStyles$myStyles = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(100)),
-				rtfeldman$elm_css$Css$backgroundColor(
-				rtfeldman$elm_css$Css$hex('#000'))
+				rtfeldman$elm_css$Css$vh(100))
 			])),
 	textAuthor: _List_fromArray(
 		[
@@ -8981,7 +9007,7 @@ var author$project$Main$displayComment = function (c) {
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
 				[
-					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.displayComment),
+					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.displayComment),
 					rtfeldman$elm_css$Html$Styled$Events$onClick(
 					author$project$Main$CommentSelected(author$project$Main$emptyComment))
 				]),
@@ -9022,7 +9048,7 @@ var author$project$Main$displayOpt = F2(
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
 				[
-					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contOpt),
+					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contOpt),
 					rtfeldman$elm_css$Html$Styled$Events$onClick(
 					author$project$Main$SocialSelected(url))
 				]),
@@ -9033,7 +9059,7 @@ var author$project$Main$displayOpt = F2(
 					_List_fromArray(
 						[
 							rtfeldman$elm_css$Html$Styled$Attributes$src(social.icon),
-							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.iconSocial)
+							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.iconSocial)
 						]),
 					_List_Nil)
 				]));
@@ -9063,7 +9089,7 @@ var author$project$Main$displaySelectedImage = function (link) {
 					elm$core$List$cons,
 					rtfeldman$elm_css$Css$backgroundImage(
 						rtfeldman$elm_css$Css$url(link)),
-					author$project$MyStyles$myStyles.contSelectedImage))
+					author$project$MyStyles$sty.contSelectedImage))
 			]),
 		_List_fromArray(
 			[
@@ -9071,7 +9097,7 @@ var author$project$Main$displaySelectedImage = function (link) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contOverlay)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contOverlay)
 					]),
 				_List_fromArray(
 					[
@@ -9079,7 +9105,7 @@ var author$project$Main$displaySelectedImage = function (link) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contOverlayClose),
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contOverlayClose),
 								rtfeldman$elm_css$Html$Styled$Events$onClick(
 								author$project$Main$ImageSelected(''))
 							]),
@@ -9090,7 +9116,7 @@ var author$project$Main$displaySelectedImage = function (link) {
 								_List_fromArray(
 									[
 										rtfeldman$elm_css$Html$Styled$Attributes$src('./images/close.png'),
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.iconCloseOverlay)
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.iconCloseOverlay)
 									]),
 								_List_Nil)
 							]))
@@ -9099,14 +9125,14 @@ var author$project$Main$displaySelectedImage = function (link) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.fgrow)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.fgrow)
 					]),
 				_List_Nil),
 				A2(
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contSocialOverlay)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSocialOverlay)
 					]),
 				A2(
 					elm$core$List$map,
@@ -9119,7 +9145,7 @@ var author$project$Main$displaySocial = function (s) {
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contSocial)
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSocial)
 			]),
 		_List_fromArray(
 			[
@@ -9132,7 +9158,7 @@ var author$project$Main$renderName = function (str) {
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contName)
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contName)
 			]),
 		_List_fromArray(
 			[
@@ -9150,7 +9176,7 @@ var author$project$Main$renderNameSpacer = function (str) {
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contNameSpacer)
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contNameSpacer)
 			]),
 		_List_fromArray(
 			[
@@ -9168,7 +9194,7 @@ var author$project$Main$renderSubtitle = function (str) {
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contSubtitle)
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSubtitle)
 			]),
 		_List_fromArray(
 			[
@@ -9188,7 +9214,7 @@ var author$project$Main$introText = _Utils_ap(
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
 				[
-					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contNames)
+					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contOptions)
 				]),
 			_List_fromArray(
 				[
@@ -9196,33 +9222,63 @@ var author$project$Main$introText = _Utils_ap(
 					rtfeldman$elm_css$Html$Styled$div,
 					_List_fromArray(
 						[
-							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.flexGrowX)
+							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.boxOptions)
 						]),
-					_List_Nil),
-					author$project$Main$renderName('최성필'),
-					author$project$Main$renderNameSpacer('그리고'),
-					author$project$Main$renderName('최수강'),
-					A2(
-					rtfeldman$elm_css$Html$Styled$div,
 					_List_fromArray(
 						[
-							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.flexGrowX)
-						]),
-					_List_Nil)
+							A2(
+							rtfeldman$elm_css$Html$Styled$img,
+							_List_fromArray(
+								[
+									rtfeldman$elm_css$Html$Styled$Attributes$src('./images/font.png'),
+									rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.fontImg)
+								]),
+							_List_Nil)
+						]))
 				]))
 		]),
-	A2(
-		elm$core$List$map,
-		author$project$Main$renderSubtitle,
+	_Utils_ap(
 		_List_fromArray(
-			['2020.04.19 SUN AM 11:00', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])));
+			[
+				A2(
+				rtfeldman$elm_css$Html$Styled$div,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contNames)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						rtfeldman$elm_css$Html$Styled$div,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.flexGrowX)
+							]),
+						_List_Nil),
+						author$project$Main$renderName('최성필'),
+						author$project$Main$renderNameSpacer('그리고'),
+						author$project$Main$renderName('최수강'),
+						A2(
+						rtfeldman$elm_css$Html$Styled$div,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.flexGrowX)
+							]),
+						_List_Nil)
+					]))
+			]),
+		A2(
+			elm$core$List$map,
+			author$project$Main$renderSubtitle,
+			_List_fromArray(
+				['- 2020.04.19 SUN AM 11:00 -', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)']))));
 var author$project$Main$loader = _List_fromArray(
 	[
 		A2(
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contLoader)
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contLoader)
 			]),
 		_List_fromArray(
 			[
@@ -9231,7 +9287,7 @@ var author$project$Main$loader = _List_fromArray(
 				_List_fromArray(
 					[
 						rtfeldman$elm_css$Html$Styled$Attributes$src('./images/loader.gif'),
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.iconLoader)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.iconLoader)
 					]),
 				_List_Nil)
 			]))
@@ -9242,7 +9298,7 @@ var author$project$Main$renderComment = function (cmt) {
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contComment),
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contComment),
 				rtfeldman$elm_css$Html$Styled$Events$onClick(
 				author$project$Main$CommentSelected(cmt))
 			]),
@@ -9252,7 +9308,7 @@ var author$project$Main$renderComment = function (cmt) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.commentInner)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.commentInner)
 					]),
 				_List_fromArray(
 					[
@@ -9260,7 +9316,7 @@ var author$project$Main$renderComment = function (cmt) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.flexStart)
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.flexStart)
 							]),
 						_List_fromArray(
 							[
@@ -9268,7 +9324,7 @@ var author$project$Main$renderComment = function (cmt) {
 								rtfeldman$elm_css$Html$Styled$span,
 								_List_fromArray(
 									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.textAuthor)
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.textAuthor)
 									]),
 								_List_fromArray(
 									[
@@ -9279,7 +9335,7 @@ var author$project$Main$renderComment = function (cmt) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.flexStart)
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.flexStart)
 							]),
 						_List_fromArray(
 							[
@@ -9287,7 +9343,7 @@ var author$project$Main$renderComment = function (cmt) {
 								rtfeldman$elm_css$Html$Styled$span,
 								_List_fromArray(
 									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contAuthor)
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contAuthor)
 									]),
 								_List_fromArray(
 									[
@@ -9298,7 +9354,7 @@ var author$project$Main$renderComment = function (cmt) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contClose)
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contClose)
 							]),
 						_List_fromArray(
 							[
@@ -9307,7 +9363,7 @@ var author$project$Main$renderComment = function (cmt) {
 								_List_fromArray(
 									[
 										rtfeldman$elm_css$Html$Styled$Attributes$src('./images/close.png'),
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.iconClose)
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.iconClose)
 									]),
 								_List_Nil)
 							]))
@@ -9316,7 +9372,7 @@ var author$project$Main$renderComment = function (cmt) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.textContent)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.textContent)
 					]),
 				_List_fromArray(
 					[
@@ -9356,7 +9412,7 @@ var author$project$Main$makeThumbnail = function (link) {
 					elm$core$List$cons,
 					rtfeldman$elm_css$Css$backgroundImage(
 						rtfeldman$elm_css$Css$url(link)),
-					author$project$MyStyles$myStyles.thumbnail)),
+					author$project$MyStyles$sty.thumbnail)),
 				rtfeldman$elm_css$Html$Styled$Events$onClick(
 				author$project$Main$ImageSelected(link))
 			]),
@@ -9369,7 +9425,7 @@ var author$project$Main$viewLoaded = function (gallery) {
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
 				[
-					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contLoaded)
+					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contLoaded)
 				]),
 			A2(elm$core$List$map, author$project$Main$makeThumbnail, gallery))
 		]);
@@ -9402,7 +9458,7 @@ var author$project$Main$view = function (model) {
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contMain)
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMain)
 			]),
 		_List_fromArray(
 			[
@@ -9411,7 +9467,7 @@ var author$project$Main$view = function (model) {
 				_List_fromArray(
 					[
 						rtfeldman$elm_css$Html$Styled$Attributes$id('cont-greeting'),
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contFlower)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contFlower)
 					]),
 				_List_fromArray(
 					[
@@ -9419,7 +9475,7 @@ var author$project$Main$view = function (model) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contFlowerText)
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contFlowerText)
 							]),
 						author$project$Main$introText)
 					])),
@@ -9428,7 +9484,7 @@ var author$project$Main$view = function (model) {
 				_List_fromArray(
 					[
 						rtfeldman$elm_css$Html$Styled$Attributes$id('cont-gallery'),
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contGallery)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGallery)
 					]),
 				author$project$Main$renderGallery(model.status)),
 				author$project$Main$displaySelectedImage(model.selectedImage),
@@ -9436,14 +9492,14 @@ var author$project$Main$view = function (model) {
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contComments)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contComments)
 					]),
 				author$project$Main$renderComments(model.status)),
 				A2(
 				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contSelectedComment)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSelectedComment)
 					]),
 				author$project$Main$displayComment(model.selectedComment)),
 				A2(
@@ -9451,7 +9507,7 @@ var author$project$Main$view = function (model) {
 				_List_fromArray(
 					[
 						rtfeldman$elm_css$Html$Styled$Attributes$id('cont-map'),
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.sectionMap)
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.sectionMap)
 					]),
 				_List_fromArray(
 					[
@@ -9459,7 +9515,7 @@ var author$project$Main$view = function (model) {
 						rtfeldman$elm_css$Html$Styled$div,
 						_List_fromArray(
 							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.contMap)
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMap)
 							]),
 						_List_fromArray(
 							[
@@ -9468,7 +9524,7 @@ var author$project$Main$view = function (model) {
 								_List_fromArray(
 									[
 										rtfeldman$elm_css$Html$Styled$Attributes$id('map'),
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$myStyles.map)
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.map)
 									]),
 								_List_Nil)
 							]))

@@ -11,7 +11,7 @@ import Html.Styled.Events exposing (onClick)
 import Http
 import Json.Decode exposing (Decoder, int, list, string, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
-import MyStyles exposing (myStyles)
+import MyStyles exposing (sty)
 
 
 
@@ -142,37 +142,44 @@ extractComment com =
 renderName : String -> Html msg
 renderName str =
     div
-        [ css myStyles.contName ]
+        [ css sty.contName ]
         [ h4 [] [ text str ] ]
 
 
 renderNameSpacer : String -> Html msg
 renderNameSpacer str =
     div
-        [ css myStyles.contNameSpacer ]
+        [ css sty.contNameSpacer ]
         [ h4 [] [ text str ] ]
 
 
 renderSubtitle : String -> Html msg
 renderSubtitle str =
     div
-        [ css myStyles.contSubtitle ]
+        [ css sty.contSubtitle ]
         [ h4 [] [ text str ] ]
 
 
 introText : List (Html msg)
 introText =
-    [ div [ css myStyles.contNames ]
-        [ div [ css myStyles.flexGrowX ] []
-        , renderName "최성필"
-        , renderNameSpacer "그리고"
-        , renderName "최수강"
-        , div [ css myStyles.flexGrowX ] []
+    [ div
+        [ css sty.contOptions ]
+        [ div
+            [ css sty.boxOptions ]
+            [ img [ src "./images/font.png", css sty.fontImg ] [] ]
         ]
     ]
+        ++ [ div [ css sty.contNames ]
+                [ div [ css sty.flexGrowX ] []
+                , renderName "최성필"
+                , renderNameSpacer "그리고"
+                , renderName "최수강"
+                , div [ css sty.flexGrowX ] []
+                ]
+           ]
         ++ List.map
             renderSubtitle
-            [ "2020.04.19 SUN AM 11:00"
+            [ "- 2020.04.19 SUN AM 11:00 -"
             , "서울특별시 종로구 종로1길 50 (중학동)"
             , "더케이트윈타워 A동 LL층 (지하2층)"
             ]
@@ -194,28 +201,28 @@ genLink fname =
 renderComment : Comment -> Html Msg
 renderComment cmt =
     div
-        [ css myStyles.contComment, onClick (CommentSelected cmt) ]
+        [ css sty.contComment, onClick (CommentSelected cmt) ]
         [ div
-            [ css myStyles.commentInner ]
+            [ css sty.commentInner ]
             [ div
-                [ css myStyles.flexStart ]
-                [ span [ css myStyles.textAuthor ] [ text cmt.author ]
+                [ css sty.flexStart ]
+                [ span [ css sty.textAuthor ] [ text cmt.author ]
                 ]
             , div
-                [ css myStyles.flexStart ]
-                [ span [ css myStyles.contAuthor ] [ text cmt.createdAt ] ]
+                [ css sty.flexStart ]
+                [ span [ css sty.contAuthor ] [ text cmt.createdAt ] ]
             , div
-                [ css myStyles.contClose ]
-                [ img [ src "./images/close.png", css myStyles.iconClose ] [] ]
+                [ css sty.contClose ]
+                [ img [ src "./images/close.png", css sty.iconClose ] [] ]
             ]
-        , div [ css myStyles.textContent ] [ text cmt.content ]
+        , div [ css sty.textContent ] [ text cmt.content ]
         ]
 
 
 makeThumbnail : String -> Html Msg
 makeThumbnail link =
     div
-        [ css (backgroundImage (url link) :: myStyles.thumbnail)
+        [ css (backgroundImage (url link) :: sty.thumbnail)
         , onClick (ImageSelected link)
         ]
         []
@@ -231,7 +238,7 @@ defaultComments =
 displayComment : Comment -> List (Html Msg)
 displayComment c =
     if c.author /= "" then
-        [ div [ css myStyles.displayComment, onClick (CommentSelected emptyComment) ] [ text c.author ] ]
+        [ div [ css sty.displayComment, onClick (CommentSelected emptyComment) ] [ text c.author ] ]
 
     else
         []
@@ -239,19 +246,19 @@ displayComment c =
 
 displaySocial : SocialPlatform -> Html Msg
 displaySocial s =
-    div [ css myStyles.contSocial ] [ text s.text ]
+    div [ css sty.contSocial ] [ text s.text ]
 
 
 viewLoaded : List String -> List (Html Msg)
 viewLoaded gallery =
-    [ div [ css myStyles.contLoaded ] (List.map makeThumbnail gallery) ]
+    [ div [ css sty.contLoaded ] (List.map makeThumbnail gallery) ]
 
 
 displayOpt : String -> SocialPlatform -> Html Msg
 displayOpt url social =
     div
-        [ css myStyles.contOpt, onClick (SocialSelected url) ]
-        [ img [ src social.icon, css myStyles.iconSocial ] [] ]
+        [ css sty.contOpt, onClick (SocialSelected url) ]
+        [ img [ src social.icon, css sty.iconSocial ] [] ]
 
 
 displaySelectedImage : String -> Html Msg
@@ -261,22 +268,22 @@ displaySelectedImage link =
 
     else
         div
-            [ css (backgroundImage (url link) :: myStyles.contSelectedImage) ]
+            [ css (backgroundImage (url link) :: sty.contSelectedImage) ]
             [ div
-                [ css myStyles.contOverlay ]
+                [ css sty.contOverlay ]
                 [ div
-                    [ css myStyles.contOverlayClose, onClick (ImageSelected "") ]
-                    [ img [ src "./images/close.png", css myStyles.iconCloseOverlay ] [] ]
+                    [ css sty.contOverlayClose, onClick (ImageSelected "") ]
+                    [ img [ src "./images/close.png", css sty.iconCloseOverlay ] [] ]
                 ]
-            , div [ css myStyles.fgrow ] []
-            , div [ css myStyles.contSocialOverlay ] <| List.map (displayOpt link) socialPlatforms
+            , div [ css sty.fgrow ] []
+            , div [ css sty.contSocialOverlay ] <| List.map (displayOpt link) socialPlatforms
             ]
 
 
 loader =
     [ div
-        [ css myStyles.contLoader ]
-        [ img [ src "./images/loader.gif", css myStyles.iconLoader ] [] ]
+        [ css sty.contLoader ]
+        [ img [ src "./images/loader.gif", css sty.iconLoader ] [] ]
     ]
 
 
@@ -326,19 +333,19 @@ renderComments status =
 view : Model -> Html Msg
 view model =
     div
-        [ css myStyles.contMain ]
+        [ css sty.contMain ]
         [ div
-            [ id "cont-greeting", css myStyles.contFlower ]
-            [ div [ css myStyles.contFlowerText ] introText
+            [ id "cont-greeting", css sty.contFlower ]
+            [ div [ css sty.contFlowerText ] introText
             ]
-        , div [ id "cont-gallery", css myStyles.contGallery ] <| renderGallery model.status
+        , div [ id "cont-gallery", css sty.contGallery ] <| renderGallery model.status
         , displaySelectedImage model.selectedImage
-        , div [ css myStyles.contComments ] <| renderComments model.status
-        , div [ css myStyles.contSelectedComment ] <| displayComment model.selectedComment
-        , div [ id "cont-map", css myStyles.sectionMap ]
+        , div [ css sty.contComments ] <| renderComments model.status
+        , div [ css sty.contSelectedComment ] <| displayComment model.selectedComment
+        , div [ id "cont-map", css sty.sectionMap ]
             [ div
-                [ css myStyles.contMap ]
-                [ div [ id "map", css myStyles.map ] [] ]
+                [ css sty.contMap ]
+                [ div [ id "map", css sty.map ] [] ]
             ]
         , div [] <| List.map displaySocial socialPlatforms
         ]
