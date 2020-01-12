@@ -140,6 +140,18 @@ sty =
         , border3 (px 1) solid (hex "#5b5656")
         , borderWidth4 (px 0) (px 0) (px 1) (px 0)
         ]
-    , closeSidebar =
-        [ marginLeft (px 16) ]
+    , closeSidebar = [ marginLeft (px 16) ]
+    , contGifs = flexColX ++ [ paddingTop (px 32), width (vw 100), height (vh 100), backgroundColor (hex "#000") ]
+    , contGif = flexRowX ++ [ width (pct 100), maxHeight (vh 50) ]
+    , contGifImg = flexCenterX ++ [ flex (num 1) ]
+    , contGifText =
+        [ flex (num 1)
+        , justifyContent flexStart
+        , alignItems flexStart
+        , color (hex "#fff")
+        , padding (px 16)
+        ]
+    , gifImg = [ width (vw 50) ]
+    , gifName = [ fontSize (px 24) ]
+    , gifDesc = [ fontSize (px 18) ]
     }

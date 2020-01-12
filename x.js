@@ -2,6 +2,8 @@ window.onload = function() {
     var contGreeting = document.getElementById('cont-greeting');
     var contGallery = document.getElementById('cont-gallery');
     var contMap = document.getElementById('cont-map');
+    var contGif = document.getElementById('cont-gifs');
+    var gifs = new Hammer(contGif, {});
     var greeting = new Hammer(contGreeting, {});
     var gallery = new Hammer(contGallery, {});
     var mapSect = new Hammer(contMap, {});
@@ -10,12 +12,15 @@ window.onload = function() {
     greeting.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
     gallery.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
     mapSect.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+    gifs.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
 
     greeting.on('swipeup', function(ev) { zenscroll.to(contGallery); });
     gallery.on('swipeup', function(ev) { zenscroll.to(contMap); });
+    mapSect.on('swipeup', function(ev) { zenscroll.to(contGif); });
 
     gallery.on('swipedown', function(ev) { zenscroll.to(contGreeting); });
     mapSect.on('swipedown', function(ev) { zenscroll.to(contGallery); });
+    gifs.on('swipedown', function(ev) { zenscroll.to(contMap); });
 
     // kakao map section
     // http://apis.map.kakao.com/web/sample/

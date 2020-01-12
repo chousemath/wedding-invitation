@@ -397,6 +397,20 @@ view model =
                 [ css sty.contMap ]
                 [ div [ id "map", css sty.map ] [] ]
             ]
+        , div
+            [ id "cont-gifs", css sty.contGifs ]
+            [ div
+                [ css sty.contGif ]
+                [ div
+                    [ css sty.contGifImg ]
+                    [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
+                , div
+                    [ css sty.contGifText ]
+                    [ p [ css sty.gifName ] [ text "최수강" ]
+                    , p [ css sty.gifDesc ] [ text "ad asd fas asdf asdf fgadfasdf asdf" ]
+                    ]
+                ]
+            ]
         , div [] <| List.map displaySocial socialPlatforms
         , renderSidebar model.sideOpen
         ]

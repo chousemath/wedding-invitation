@@ -6845,6 +6845,7 @@ var rtfeldman$elm_css$Css$overflow = rtfeldman$elm_css$Css$prop1('overflow');
 var rtfeldman$elm_css$Css$padding = rtfeldman$elm_css$Css$prop1('padding');
 var rtfeldman$elm_css$Css$padding4 = rtfeldman$elm_css$Css$prop4('padding');
 var rtfeldman$elm_css$Css$paddingLeft = rtfeldman$elm_css$Css$prop1('padding-left');
+var rtfeldman$elm_css$Css$paddingTop = rtfeldman$elm_css$Css$prop1('padding-top');
 var rtfeldman$elm_css$Css$PercentageUnits = {$: 'PercentageUnits'};
 var rtfeldman$elm_css$Css$pct = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PercentageUnits, '%');
 var rtfeldman$elm_css$Css$position = rtfeldman$elm_css$Css$prop1('position');
@@ -6990,6 +6991,46 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$vh(100)),
 			rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left)
 		]),
+	contGif: _Utils_ap(
+		author$project$MyStyles$flexRowX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$maxHeight(
+				rtfeldman$elm_css$Css$vh(50))
+			])),
+	contGifImg: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$flex(
+				rtfeldman$elm_css$Css$num(1))
+			])),
+	contGifText: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$flex(
+			rtfeldman$elm_css$Css$num(1)),
+			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
+			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$flexStart),
+			rtfeldman$elm_css$Css$color(
+			rtfeldman$elm_css$Css$hex('#fff')),
+			rtfeldman$elm_css$Css$padding(
+			rtfeldman$elm_css$Css$px(16))
+		]),
+	contGifs: _Utils_ap(
+		author$project$MyStyles$flexColX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$paddingTop(
+				rtfeldman$elm_css$Css$px(32)),
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$vw(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$backgroundColor(
+				rtfeldman$elm_css$Css$hex('#000'))
+			])),
 	contLoaded: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$marginTop(
@@ -7233,6 +7274,21 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$px(20)),
 			rtfeldman$elm_css$Css$height(
 			rtfeldman$elm_css$Css$px(20))
+		]),
+	gifDesc: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$fontSize(
+			rtfeldman$elm_css$Css$px(18))
+		]),
+	gifImg: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$vw(50))
+		]),
+	gifName: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$fontSize(
+			rtfeldman$elm_css$Css$px(24))
 		]),
 	iconClose: _List_fromArray(
 		[
@@ -9628,6 +9684,7 @@ var author$project$Main$renderSidebar = function (sideOpen) {
 					])),
 			A2(elm$core$List$map, author$project$Main$renderSideOpt, author$project$Main$fontSizes)));
 };
+var rtfeldman$elm_css$Html$Styled$p = rtfeldman$elm_css$Html$Styled$node('p');
 var rtfeldman$elm_css$Html$Styled$Attributes$id = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('id');
 var author$project$Main$view = function (model) {
 	return A2(
@@ -9703,6 +9760,71 @@ var author$project$Main$view = function (model) {
 										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.map)
 									]),
 								_List_Nil)
+							]))
+					])),
+				A2(
+				rtfeldman$elm_css$Html$Styled$div,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$id('cont-gifs'),
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifs)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						rtfeldman$elm_css$Html$Styled$div,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$img,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
+											]),
+										_List_Nil)
+									])),
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifText)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$p,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifName)
+											]),
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$text('최수강')
+											])),
+										A2(
+										rtfeldman$elm_css$Html$Styled$p,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifDesc)
+											]),
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$text('ad asd fas asdf asdf fgadfasdf asdf')
+											]))
+									]))
 							]))
 					])),
 				A2(
