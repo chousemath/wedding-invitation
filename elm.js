@@ -7014,7 +7014,7 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
 			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$flexStart),
 			rtfeldman$elm_css$Css$color(
-			rtfeldman$elm_css$Css$hex('#fff')),
+			rtfeldman$elm_css$Css$hex('#000000')),
 			rtfeldman$elm_css$Css$padding(
 			rtfeldman$elm_css$Css$px(16))
 		]),
@@ -7029,7 +7029,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$height(
 				rtfeldman$elm_css$Css$vh(100)),
 				rtfeldman$elm_css$Css$backgroundColor(
-				rtfeldman$elm_css$Css$hex('#000'))
+				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
 	contLoaded: _List_fromArray(
 		[
