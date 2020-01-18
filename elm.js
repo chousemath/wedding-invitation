@@ -5931,7 +5931,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(90))
+				rtfeldman$elm_css$Css$vh(100))
 			])),
 	boxOptions: _Utils_ap(
 		author$project$MyStyles$flexStartX,
@@ -5997,7 +5997,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(90)),
+				rtfeldman$elm_css$Css$vh(100)),
 				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$relative),
 				rtfeldman$elm_css$Css$textAlign(rtfeldman$elm_css$Css$center),
 				rtfeldman$elm_css$Css$backgroundColor(
@@ -6015,13 +6015,13 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$px(32))
 			])),
 	contGallery: _Utils_ap(
-		author$project$MyStyles$flexCenterX,
+		author$project$MyStyles$flexColX,
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(90)),
+				rtfeldman$elm_css$Css$vh(100)),
 				rtfeldman$elm_css$Css$backgroundColor(
 				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
@@ -6063,7 +6063,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(90)),
+				rtfeldman$elm_css$Css$vh(100)),
 				rtfeldman$elm_css$Css$backgroundColor(
 				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
@@ -6093,7 +6093,7 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$width(
 			rtfeldman$elm_css$Css$vw(100)),
 			rtfeldman$elm_css$Css$height(
-			rtfeldman$elm_css$Css$vh(90)),
+			rtfeldman$elm_css$Css$vh(100)),
 			rtfeldman$elm_css$Css$overflow(rtfeldman$elm_css$Css$scroll)
 		]),
 	contMap: _Utils_ap(
@@ -6235,7 +6235,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(90)),
+				rtfeldman$elm_css$Css$vh(100)),
 				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$fixed),
 				rtfeldman$elm_css$Css$top(
 				rtfeldman$elm_css$Css$px(0)),
@@ -6298,7 +6298,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(75)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(90)),
+				rtfeldman$elm_css$Css$vh(100)),
 				rtfeldman$elm_css$Css$backgroundColor(
 				A4(rtfeldman$elm_css$Css$rgba, 255, 255, 255, 0.9)),
 				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$fixed),
@@ -6366,6 +6366,20 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$px(20)),
 			rtfeldman$elm_css$Css$height(
 			rtfeldman$elm_css$Css$px(20))
+		]),
+	gallerySpacer: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$flexGrow(
+				rtfeldman$elm_css$Css$num(1))
+			])),
+	gallerySpacerImg: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$vh(5)),
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$vh(5))
 		]),
 	gifDesc: _List_fromArray(
 		[
@@ -6454,7 +6468,7 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$height(
 			A3(
 				rtfeldman$elm_css$Css$calc,
-				rtfeldman$elm_css$Css$vh(90),
+				rtfeldman$elm_css$Css$vh(100),
 				rtfeldman$elm_css$Css$minus,
 				rtfeldman$elm_css$Css$px(32))),
 			rtfeldman$elm_css$Css$backgroundColor(
@@ -6514,7 +6528,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(90))
+				rtfeldman$elm_css$Css$vh(100))
 			])),
 	sideOptText: _List_fromArray(
 		[
@@ -6539,7 +6553,7 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$width(
 			rtfeldman$elm_css$Css$vw(100)),
 			rtfeldman$elm_css$Css$height(
-			rtfeldman$elm_css$Css$vh(70)),
+			rtfeldman$elm_css$Css$vh(50)),
 			rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
 			rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
 		])
@@ -8663,6 +8677,25 @@ var author$project$Main$makeThumbnail = function (link) {
 				_List_Nil)
 			]));
 };
+var author$project$Main$renderGallerySpacer = function (imgSrc) {
+	return A2(
+		rtfeldman$elm_css$Html$Styled$div,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gallerySpacer)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				rtfeldman$elm_css$Html$Styled$img,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gallerySpacerImg),
+						rtfeldman$elm_css$Html$Styled$Attributes$src(imgSrc)
+					]),
+				_List_Nil)
+			]));
+};
 var rtfeldman$elm_css$Html$Styled$button = rtfeldman$elm_css$Html$Styled$node('button');
 var rtfeldman$elm_css$Html$Styled$ul = rtfeldman$elm_css$Html$Styled$node('ul');
 var elm$virtual_dom$VirtualDom$attribute = F2(
@@ -8684,6 +8717,7 @@ var rtfeldman$elm_css$Html$Styled$Attributes$attribute = rtfeldman$elm_css$Virtu
 var author$project$Main$renderGallery = function (links) {
 	return _List_fromArray(
 		[
+			author$project$Main$renderGallerySpacer('https://img.icons8.com/office/16/000000/flower.png'),
 			A2(
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
@@ -8741,7 +8775,8 @@ var author$project$Main$renderGallery = function (links) {
 									rtfeldman$elm_css$Html$Styled$text('다음')
 								]))
 						]))
-				]))
+				])),
+			author$project$Main$renderGallerySpacer('https://img.icons8.com/office/16/000000/flower.png')
 		]);
 };
 var author$project$Main$showHallInfo = function (info) {
@@ -8825,111 +8860,6 @@ var author$project$Main$view = function (model) {
 											]),
 										author$project$Main$introText)
 									]))
-							])),
-						A2(
-						rtfeldman$elm_css$Html$Styled$section,
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGallery)
-							]),
-						author$project$Main$renderGallery(author$project$Main$gallery)),
-						A2(
-						rtfeldman$elm_css$Html$Styled$section,
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.sectionMap)
-							]),
-						_List_fromArray(
-							[
-								A2(
-								rtfeldman$elm_css$Html$Styled$div,
-								_List_fromArray(
-									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMap)
-									]),
-								_List_fromArray(
-									[
-										A2(
-										rtfeldman$elm_css$Html$Styled$div,
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Html$Styled$Attributes$id('map'),
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.map)
-											]),
-										_List_Nil)
-									])),
-								A2(
-								rtfeldman$elm_css$Html$Styled$div,
-								_List_fromArray(
-									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contWeddingHall)
-									]),
-								_Utils_ap(
-									_List_fromArray(
-										[
-											A2(
-											rtfeldman$elm_css$Html$Styled$div,
-											_List_fromArray(
-												[
-													rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.hallTitle)
-												]),
-											_List_fromArray(
-												[
-													rtfeldman$elm_css$Html$Styled$text('아펠가모 광화문점')
-												])),
-											A2(
-											rtfeldman$elm_css$Html$Styled$div,
-											_List_fromArray(
-												[
-													rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMapButtons)
-												]),
-											_List_fromArray(
-												[
-													A2(
-													rtfeldman$elm_css$Html$Styled$div,
-													_List_fromArray(
-														[
-															rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMapButtonLeft)
-														]),
-													_List_fromArray(
-														[
-															A2(
-															rtfeldman$elm_css$Html$Styled$a,
-															_List_fromArray(
-																[
-																	rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.mapButtonLeft),
-																	rtfeldman$elm_css$Html$Styled$Attributes$href('https://m.map.naver.com/map.nhn?pinId=31738014&pinType=site&lat=&lng=&dlevel=&mapMode=')
-																]),
-															_List_fromArray(
-																[
-																	rtfeldman$elm_css$Html$Styled$text('네이버지도')
-																]))
-														])),
-													A2(
-													rtfeldman$elm_css$Html$Styled$div,
-													_List_fromArray(
-														[
-															rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMapButtonRight)
-														]),
-													_List_fromArray(
-														[
-															A2(
-															rtfeldman$elm_css$Html$Styled$a,
-															_List_fromArray(
-																[
-																	rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.mapButtonRight),
-																	rtfeldman$elm_css$Html$Styled$Attributes$href('https://place.map.kakao.com/m/20000428')
-																]),
-															_List_fromArray(
-																[
-																	rtfeldman$elm_css$Html$Styled$text('카카오맵')
-																]))
-														]))
-												]))
-										]),
-									A2(elm$core$List$map, author$project$Main$showHallInfo, author$project$Main$hallInfo)))
 							])),
 						A2(
 						rtfeldman$elm_css$Html$Styled$section,
@@ -9046,6 +8976,111 @@ var author$project$Main$view = function (model) {
 												_List_Nil)
 											]))
 									]))
+							])),
+						A2(
+						rtfeldman$elm_css$Html$Styled$section,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGallery)
+							]),
+						author$project$Main$renderGallery(author$project$Main$gallery)),
+						A2(
+						rtfeldman$elm_css$Html$Styled$section,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.sectionMap)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMap)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$div,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$id('map'),
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.map)
+											]),
+										_List_Nil)
+									])),
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contWeddingHall)
+									]),
+								_Utils_ap(
+									_List_fromArray(
+										[
+											A2(
+											rtfeldman$elm_css$Html$Styled$div,
+											_List_fromArray(
+												[
+													rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.hallTitle)
+												]),
+											_List_fromArray(
+												[
+													rtfeldman$elm_css$Html$Styled$text('아펠가모 광화문점')
+												])),
+											A2(
+											rtfeldman$elm_css$Html$Styled$div,
+											_List_fromArray(
+												[
+													rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMapButtons)
+												]),
+											_List_fromArray(
+												[
+													A2(
+													rtfeldman$elm_css$Html$Styled$div,
+													_List_fromArray(
+														[
+															rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMapButtonLeft)
+														]),
+													_List_fromArray(
+														[
+															A2(
+															rtfeldman$elm_css$Html$Styled$a,
+															_List_fromArray(
+																[
+																	rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.mapButtonLeft),
+																	rtfeldman$elm_css$Html$Styled$Attributes$href('https://m.map.naver.com/map.nhn?pinId=31738014&pinType=site&lat=&lng=&dlevel=&mapMode=')
+																]),
+															_List_fromArray(
+																[
+																	rtfeldman$elm_css$Html$Styled$text('네이버지도')
+																]))
+														])),
+													A2(
+													rtfeldman$elm_css$Html$Styled$div,
+													_List_fromArray(
+														[
+															rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMapButtonRight)
+														]),
+													_List_fromArray(
+														[
+															A2(
+															rtfeldman$elm_css$Html$Styled$a,
+															_List_fromArray(
+																[
+																	rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.mapButtonRight),
+																	rtfeldman$elm_css$Html$Styled$Attributes$href('https://place.map.kakao.com/m/20000428')
+																]),
+															_List_fromArray(
+																[
+																	rtfeldman$elm_css$Html$Styled$text('카카오맵')
+																]))
+														]))
+												]))
+										]),
+									A2(elm$core$List$map, author$project$Main$showHallInfo, author$project$Main$hallInfo)))
 							])),
 						author$project$Main$displaySelectedImage(model.selectedImage)
 					]))

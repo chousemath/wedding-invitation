@@ -283,9 +283,17 @@ displaySocial s =
     div [ css sty.contSocial ] [ text s.text ]
 
 
+renderGallerySpacer : String -> Html Msg
+renderGallerySpacer imgSrc =
+    div
+        [ css sty.gallerySpacer ]
+        [ img [ css sty.gallerySpacerImg, src imgSrc ] [] ]
+
+
 renderGallery : List String -> List (Html Msg)
 renderGallery links =
-    [ div
+    [ renderGallerySpacer "https://img.icons8.com/office/16/000000/flower.png"
+    , div
         [ class "glide" ]
         [ div
             [ class "glide__track"
@@ -305,6 +313,7 @@ renderGallery links =
                 [ text "다음" ]
             ]
         ]
+    , renderGallerySpacer "https://img.icons8.com/office/16/000000/flower.png"
     ]
 
 
@@ -429,6 +438,31 @@ view model =
                     ]
                 ]
             , section
+                [ class "snap-child", css sty.contGifs ]
+                [ div
+                    [ css sty.contGif ]
+                    [ div
+                        [ css sty.contGifImg ]
+                        [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
+                    , div
+                        [ css sty.contGifText ]
+                        [ p [ css sty.gifName ] [ text "최수강" ]
+                        , div [ id "sk-typed", css sty.gifDesc ] []
+                        ]
+                    ]
+                , div
+                    [ css sty.contGif ]
+                    [ div
+                        [ css sty.contGifImg ]
+                        [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
+                    , div
+                        [ css sty.contGifText ]
+                        [ p [ css sty.gifName ] [ text "최성필" ]
+                        , div [ id "js-typed", css sty.gifDesc ] []
+                        ]
+                    ]
+                ]
+            , section
                 [ class "snap-child", css sty.contGallery ]
               <|
                 renderGallery gallery
@@ -460,31 +494,6 @@ view model =
                         ]
                     ]
                         ++ List.map showHallInfo hallInfo
-                ]
-            , section
-                [ class "snap-child", css sty.contGifs ]
-                [ div
-                    [ css sty.contGif ]
-                    [ div
-                        [ css sty.contGifImg ]
-                        [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
-                    , div
-                        [ css sty.contGifText ]
-                        [ p [ css sty.gifName ] [ text "최수강" ]
-                        , div [ id "sk-typed", css sty.gifDesc ] []
-                        ]
-                    ]
-                , div
-                    [ css sty.contGif ]
-                    [ div
-                        [ css sty.contGifImg ]
-                        [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
-                    , div
-                        [ css sty.contGifText ]
-                        [ p [ css sty.gifName ] [ text "최성필" ]
-                        , div [ id "js-typed", css sty.gifDesc ] []
-                        ]
-                    ]
                 ]
             , displaySelectedImage model.selectedImage
             ]

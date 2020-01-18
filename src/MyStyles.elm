@@ -57,7 +57,7 @@ sty =
     , textContent = [ fontSize (px 14) ]
     , thumbnail =
         [ width (vw 100)
-        , height (vh 70)
+        , height (vh 50)
         , backgroundPosition center
         , backgroundRepeat noRepeat
         ]
@@ -72,7 +72,7 @@ sty =
     , contSelectedImage =
         flexColX
             ++ [ width (pct 100)
-               , height (vh 90)
+               , height (vh 100)
                , position fixed
                , top (px 0)
                , left (px 0)
@@ -104,13 +104,13 @@ sty =
     , iconLoader = [ maxHeight (px 150) ]
     , contMain =
         [ width (vw 100)
-        , height (vh 90)
+        , height (vh 100)
         , overflow scroll
         ]
     , contFlower =
         flexCenterX
             ++ [ width (pct 100)
-               , height (vh 90)
+               , height (vh 100)
                , position relative
                , textAlign center
                , backgroundColor (hex "#729FB2")
@@ -124,20 +124,20 @@ sty =
                ]
     , lightBg =
         [ width (calc (vw 100) minus (px 32))
-        , height (calc (vh 90) minus (px 32))
+        , height (calc (vh 100) minus (px 32))
         , backgroundColor (rgba 255 255 255 0.25)
         , borderRadius (px 10)
         ]
     , contGallery =
-        flexCenterX
+        flexColX
             ++ [ width (vw 100)
-               , height (vh 90)
+               , height (vh 100)
                , backgroundColor (hex "#ffffff")
                ]
     , contComments = flexColX ++ [ width (pct 100), float left ]
     , contSelectedComment = [ padding (px 16) ]
     , contMap = flexCenterX ++ [ height (vh 40), overflow hidden ]
-    , sectionMap = flexColX ++ [ width (vw 100), height (vh 90) ]
+    , sectionMap = flexColX ++ [ width (vw 100), height (vh 100) ]
     , map = [ width (pct 100), height (px 400) ]
     , contProgress = flexCenterX ++ [ width (vw 100), height (vh 20), backgroundColor (hex "f6eec7") ]
     , contOptions =
@@ -153,7 +153,7 @@ sty =
     , contSidebar =
         flexColX
             ++ [ width (vw 75)
-               , height (vh 90)
+               , height (vh 100)
                , backgroundColor (rgba 255 255 255 0.9)
                , position fixed
                , top (vw 0)
@@ -181,7 +181,13 @@ sty =
         , borderWidth4 (px 0) (px 0) (px 1) (px 0)
         ]
     , closeSidebar = [ marginLeft (px 16) ]
-    , contGifs = flexColX ++ [ padding2 (px 32) (px 0), width (vw 100), height (vh 90), backgroundColor (hex "#ffffff") ]
+    , contGifs =
+        flexColX
+            ++ [ padding2 (px 32) (px 0)
+               , width (vw 100)
+               , height (vh 100)
+               , backgroundColor (hex "#ffffff")
+               ]
     , contGif =
         flexColX
             ++ [ width (pct 100)
@@ -204,7 +210,7 @@ sty =
     , boundingBox =
         flexCenterX
             ++ [ width (vw 100)
-               , height (vh 90)
+               , height (vh 100)
                ]
     , contWeddingHall =
         flexColX
@@ -270,4 +276,6 @@ sty =
                , borderRadius (px 8)
                , textDecoration none
                ]
+    , gallerySpacer = flexCenterX ++ [ flexGrow (num 1) ]
+    , gallerySpacerImg = [ width (vh 5), height (vh 5) ]
     }
