@@ -136,7 +136,7 @@ sty =
                ]
     , contComments = flexColX ++ [ width (pct 100), float left ]
     , contSelectedComment = [ padding (px 16) ]
-    , contMap = flexCenterX ++ [ height (vh 40), overflow hidden ]
+    , contMap = flexCenterX ++ [ height (vh 33), overflow hidden ]
     , sectionMap = flexColX ++ [ width (vw 100), height (vh 100) ]
     , map = [ width (pct 100), height (px 400) ]
     , contProgress = flexCenterX ++ [ width (vw 100), height (vh 20), backgroundColor (hex "f6eec7") ]
@@ -201,7 +201,7 @@ sty =
         , color (hex "#000000")
         , padding (px 16)
         ]
-    , gifImg = [ width (vw 50) ]
+    , gifImg = [ height (px 75) ]
     , gifName = [ fontSize (px 24) ]
     , gifDesc =
         [ fontSize (px 18)
@@ -215,7 +215,7 @@ sty =
     , contWeddingHall =
         flexColX
             ++ [ flexGrow (num 1)
-               , padding2 (px 8) (px 16)
+               , padding4 (px 8) (px 16) (px 60) (px 16)
                ]
     , contHallInfo = flexRowX ++ [ flex (num 1) ]
     , hallInfoLeft =
@@ -276,6 +276,19 @@ sty =
                , borderRadius (px 8)
                , textDecoration none
                ]
-    , gallerySpacer = flexCenterX ++ [ flexGrow (num 1) ]
+    , gallerySpacerTop =
+        [ flexGrow (num 1)
+        , displayFlex
+        , alignItems flexEnd
+        , justifyContent center
+        , paddingBottom (px 32)
+        ]
+    , gallerySpacerBtm =
+        [ flexGrow (num 1)
+        , displayFlex
+        , alignItems flexStart
+        , justifyContent center
+        , paddingTop (px 32)
+        ]
     , gallerySpacerImg = [ width (vh 5), height (vh 5) ]
     }

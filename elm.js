@@ -5871,6 +5871,7 @@ var rtfeldman$elm_css$Css$overflow = rtfeldman$elm_css$Css$prop1('overflow');
 var rtfeldman$elm_css$Css$padding = rtfeldman$elm_css$Css$prop1('padding');
 var rtfeldman$elm_css$Css$padding2 = rtfeldman$elm_css$Css$prop2('padding');
 var rtfeldman$elm_css$Css$padding4 = rtfeldman$elm_css$Css$prop4('padding');
+var rtfeldman$elm_css$Css$paddingBottom = rtfeldman$elm_css$Css$prop1('padding-bottom');
 var rtfeldman$elm_css$Css$paddingTop = rtfeldman$elm_css$Css$prop1('padding-top');
 var rtfeldman$elm_css$Css$PercentageUnits = {$: 'PercentageUnits'};
 var rtfeldman$elm_css$Css$pct = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PercentageUnits, '%');
@@ -6101,7 +6102,7 @@ var author$project$MyStyles$sty = {
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(40)),
+				rtfeldman$elm_css$Css$vh(33)),
 				rtfeldman$elm_css$Css$overflow(rtfeldman$elm_css$Css$hidden)
 			])),
 	contMapButtonLeft: _Utils_ap(
@@ -6338,9 +6339,11 @@ var author$project$MyStyles$sty = {
 			[
 				rtfeldman$elm_css$Css$flexGrow(
 				rtfeldman$elm_css$Css$num(1)),
-				A2(
-				rtfeldman$elm_css$Css$padding2,
+				A4(
+				rtfeldman$elm_css$Css$padding4,
 				rtfeldman$elm_css$Css$px(8),
+				rtfeldman$elm_css$Css$px(16),
+				rtfeldman$elm_css$Css$px(60),
 				rtfeldman$elm_css$Css$px(16))
 			])),
 	displayComment: _List_fromArray(
@@ -6367,19 +6370,32 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$height(
 			rtfeldman$elm_css$Css$px(20))
 		]),
-	gallerySpacer: _Utils_ap(
-		author$project$MyStyles$flexCenterX,
-		_List_fromArray(
-			[
-				rtfeldman$elm_css$Css$flexGrow(
-				rtfeldman$elm_css$Css$num(1))
-			])),
+	gallerySpacerBtm: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$flexGrow(
+			rtfeldman$elm_css$Css$num(1)),
+			rtfeldman$elm_css$Css$displayFlex,
+			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$flexStart),
+			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$center),
+			rtfeldman$elm_css$Css$paddingTop(
+			rtfeldman$elm_css$Css$px(32))
+		]),
 	gallerySpacerImg: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$width(
 			rtfeldman$elm_css$Css$vh(5)),
 			rtfeldman$elm_css$Css$height(
 			rtfeldman$elm_css$Css$vh(5))
+		]),
+	gallerySpacerTop: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$flexGrow(
+			rtfeldman$elm_css$Css$num(1)),
+			rtfeldman$elm_css$Css$displayFlex,
+			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$flexEnd),
+			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$center),
+			rtfeldman$elm_css$Css$paddingBottom(
+			rtfeldman$elm_css$Css$px(32))
 		]),
 	gifDesc: _List_fromArray(
 		[
@@ -6390,8 +6406,8 @@ var author$project$MyStyles$sty = {
 		]),
 	gifImg: _List_fromArray(
 		[
-			rtfeldman$elm_css$Css$width(
-			rtfeldman$elm_css$Css$vw(50))
+			rtfeldman$elm_css$Css$height(
+			rtfeldman$elm_css$Css$px(75))
 		]),
 	gifName: _List_fromArray(
 		[
@@ -8650,6 +8666,7 @@ var author$project$Main$introText = _Utils_ap(
 		author$project$Main$renderSubtitle,
 		_List_fromArray(
 			['- 2020.04.19 SUN AM 11:00 -', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])));
+var author$project$Main$flowerImg = 'https://img.icons8.com/office/16/000000/flower.png';
 var rtfeldman$elm_css$Html$Styled$li = rtfeldman$elm_css$Html$Styled$node('li');
 var rtfeldman$elm_css$Html$Styled$Attributes$class = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('className');
 var author$project$Main$makeThumbnail = function (link) {
@@ -8677,25 +8694,27 @@ var author$project$Main$makeThumbnail = function (link) {
 				_List_Nil)
 			]));
 };
-var author$project$Main$renderGallerySpacer = function (imgSrc) {
-	return A2(
-		rtfeldman$elm_css$Html$Styled$div,
-		_List_fromArray(
-			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gallerySpacer)
-			]),
-		_List_fromArray(
-			[
-				A2(
-				rtfeldman$elm_css$Html$Styled$img,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gallerySpacerImg),
-						rtfeldman$elm_css$Html$Styled$Attributes$src(imgSrc)
-					]),
-				_List_Nil)
-			]));
-};
+var author$project$Main$renderGallerySpacer = F2(
+	function (imgSrc, pos) {
+		return A2(
+			rtfeldman$elm_css$Html$Styled$div,
+			_List_fromArray(
+				[
+					rtfeldman$elm_css$Html$Styled$Attributes$css(
+					(pos === 'top') ? author$project$MyStyles$sty.gallerySpacerTop : author$project$MyStyles$sty.gallerySpacerBtm)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					rtfeldman$elm_css$Html$Styled$img,
+					_List_fromArray(
+						[
+							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gallerySpacerImg),
+							rtfeldman$elm_css$Html$Styled$Attributes$src(imgSrc)
+						]),
+					_List_Nil)
+				]));
+	});
 var rtfeldman$elm_css$Html$Styled$button = rtfeldman$elm_css$Html$Styled$node('button');
 var rtfeldman$elm_css$Html$Styled$ul = rtfeldman$elm_css$Html$Styled$node('ul');
 var elm$virtual_dom$VirtualDom$attribute = F2(
@@ -8717,7 +8736,7 @@ var rtfeldman$elm_css$Html$Styled$Attributes$attribute = rtfeldman$elm_css$Virtu
 var author$project$Main$renderGallery = function (links) {
 	return _List_fromArray(
 		[
-			author$project$Main$renderGallerySpacer('https://img.icons8.com/office/16/000000/flower.png'),
+			A2(author$project$Main$renderGallerySpacer, author$project$Main$flowerImg, 'top'),
 			A2(
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
@@ -8776,7 +8795,7 @@ var author$project$Main$renderGallery = function (links) {
 								]))
 						]))
 				])),
-			author$project$Main$renderGallerySpacer('https://img.icons8.com/office/16/000000/flower.png')
+			A2(author$project$Main$renderGallerySpacer, author$project$Main$flowerImg, 'btm')
 		]);
 };
 var author$project$Main$showHallInfo = function (info) {
@@ -8914,13 +8933,15 @@ var author$project$Main$view = function (model) {
 														rtfeldman$elm_css$Html$Styled$text('최수강')
 													])),
 												A2(
-												rtfeldman$elm_css$Html$Styled$div,
+												rtfeldman$elm_css$Html$Styled$p,
 												_List_fromArray(
 													[
-														rtfeldman$elm_css$Html$Styled$Attributes$id('sk-typed'),
 														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifDesc)
 													]),
-												_List_Nil)
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$text('북한의 외교수장이자 대미전략을 총괄하는 리용호 북한 외무상이 교체됐다고 미국의 북한 전문 매체인 NK뉴스가 보도했습니다.')
+													]))
 											]))
 									])),
 								A2(
@@ -8967,13 +8988,15 @@ var author$project$Main$view = function (model) {
 														rtfeldman$elm_css$Html$Styled$text('최성필')
 													])),
 												A2(
-												rtfeldman$elm_css$Html$Styled$div,
+												rtfeldman$elm_css$Html$Styled$p,
 												_List_fromArray(
 													[
-														rtfeldman$elm_css$Html$Styled$Attributes$id('js-typed'),
 														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifDesc)
 													]),
-												_List_Nil)
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$text('북한의 외교수장이자 대미전략을 총괄하는 리용호 북한 외무상이 교체됐다고 미국의 북한 전문 매체인 NK뉴스가 보도했습니다.')
+													]))
 											]))
 									]))
 							])),

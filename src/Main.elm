@@ -283,16 +283,28 @@ displaySocial s =
     div [ css sty.contSocial ] [ text s.text ]
 
 
-renderGallerySpacer : String -> Html Msg
-renderGallerySpacer imgSrc =
+renderGallerySpacer : String -> String -> Html Msg
+renderGallerySpacer imgSrc pos =
     div
-        [ css sty.gallerySpacer ]
+        [ css
+            (if pos == "top" then
+                sty.gallerySpacerTop
+
+             else
+                sty.gallerySpacerBtm
+            )
+        ]
         [ img [ css sty.gallerySpacerImg, src imgSrc ] [] ]
+
+
+flowerImg : String
+flowerImg =
+    "https://img.icons8.com/office/16/000000/flower.png"
 
 
 renderGallery : List String -> List (Html Msg)
 renderGallery links =
-    [ renderGallerySpacer "https://img.icons8.com/office/16/000000/flower.png"
+    [ renderGallerySpacer flowerImg "top"
     , div
         [ class "glide" ]
         [ div
@@ -313,7 +325,7 @@ renderGallery links =
                 [ text "다음" ]
             ]
         ]
-    , renderGallerySpacer "https://img.icons8.com/office/16/000000/flower.png"
+    , renderGallerySpacer flowerImg "btm"
     ]
 
 
@@ -447,7 +459,9 @@ view model =
                     , div
                         [ css sty.contGifText ]
                         [ p [ css sty.gifName ] [ text "최수강" ]
-                        , div [ id "sk-typed", css sty.gifDesc ] []
+                        , p
+                            [ css sty.gifDesc ]
+                            [ text "북한의 외교수장이자 대미전략을 총괄하는 리용호 북한 외무상이 교체됐다고 미국의 북한 전문 매체인 NK뉴스가 보도했습니다." ]
                         ]
                     ]
                 , div
@@ -458,7 +472,9 @@ view model =
                     , div
                         [ css sty.contGifText ]
                         [ p [ css sty.gifName ] [ text "최성필" ]
-                        , div [ id "js-typed", css sty.gifDesc ] []
+                        , p
+                            [ css sty.gifDesc ]
+                            [ text "북한의 외교수장이자 대미전략을 총괄하는 리용호 북한 외무상이 교체됐다고 미국의 북한 전문 매체인 NK뉴스가 보도했습니다." ]
                         ]
                     ]
                 ]

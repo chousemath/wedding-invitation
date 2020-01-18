@@ -38,28 +38,6 @@ window.onload = function() {
         console.log(load);
         appElm.ports.resizeWindow.send(load);
     };
-    var typedOpt = {
-        typeSpeed: 40,
-        backSpeed: 90,
-        smartBackspace: true,
-        loop: true,
-        showCursor: false
-    };
-    var skOptions = {...typedOpt,
-        strings: [
-            'Thank you so much for coming to our wedding. I really appreciate it. ^1000',
-            'You guys are really the absolute best!'
-        ]
-    };
-    var jsOptions = {...typedOpt,
-        strings: [
-            'The moment comes once in a lifetime, when a lone prairie dog must find his way. ^1000',
-            'The shadow of the dog tail leads the way to the tastiest termites.'
-        ]
-    };
-
-    var skTyped = new Typed('#sk-typed', skOptions);
-    var jsTyped = new Typed('#js-typed', jsOptions);
 }
 
 window.fbAsyncInit = function() {
