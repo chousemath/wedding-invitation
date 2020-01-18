@@ -8,6 +8,8 @@
     <meta name="description" content="The official invitation to Joseph and Sookang Choi's wedding ceremony">
     <meta name="author" content="Joseph Choi">
     <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="node_modules/@glidejs/glide/dist/css/glide.theme.min.css">
     <style>
         * {
             margin: 0;
@@ -20,11 +22,17 @@
             font-family: 'Nanum Myeongjo', serif;
             -webkit-overflow-scrolling: touch;
         }
-        html {
+        html, body {
             scroll-behavior: smooth;
-        }
-        body.noScroll {
             overflow: hidden;
+        }
+        .snap-container {
+            scroll-snap-type: mandatory;
+            scroll-snap-points-y: repeat(100vh);
+            scroll-snap-type: y mandatory;
+        }
+        .snap-child {
+            scroll-snap-align: start;
         }
     </style>
 </head>
@@ -37,14 +45,7 @@
         });
     </script>
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=34bdc320546bff69ab85d45afbb07fc1"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"
-        integrity="sha256-eVNjHw5UeU0jUqPPpZHAkU1z4U+QFBBY488WvueTm88="
-        crossorigin="anonymous"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/zenscroll/4.0.2/zenscroll-min.js"
-        integrity="sha256-P3WAuks0zjjUNJHAQsa3qo5fMU1+d3flCMCI9vGK9So="
-        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
     <script type="text/javascript" src="./x.js"></script>
 </body>
 </html>

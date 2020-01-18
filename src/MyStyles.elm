@@ -43,17 +43,17 @@ sty =
     , iconClose = [ width (px 25), height (px 25) ]
     , textContent = [ fontSize (px 14) ]
     , thumbnail =
-        [ width (vw 31)
-        , height (vw 31)
-        , float left
-        , marginBottom (vw 2)
-        , marginLeft (vw 2)
+        [ width (vw 100)
+        , height (vh 70)
         , backgroundPosition center
         , backgroundRepeat noRepeat
         ]
     , displayComment = [ width (pct 100) ]
     , contSocial = [ width (pct 100) ]
-    , contLoaded = [ marginTop (px 16) ]
+    , contLoaded =
+        [ width (pct 100)
+        , height (vh 50)
+        ]
     , contOpt = flexCenterX ++ [ flex (num 1) ]
     , iconSocial = [ width (px 30), height (px 30) ]
     , contSelectedImage =
@@ -87,7 +87,11 @@ sty =
     , contSocialOverlay = flexRowX ++ [ width (pct 100), height (px 75), backgroundColor (rgba 0 0 0 0.8) ]
     , contLoader = flexCenterX ++ [ width (pct 100) ]
     , iconLoader = [ maxHeight (px 150) ]
-    , contMain = [ width (vw 100), height (vh 100) ]
+    , contMain =
+        [ width (vw 100)
+        , height (vh 100)
+        , overflow scroll
+        ]
     , contFlower =
         [ width (pct 100)
         , height (vh 100)
@@ -100,7 +104,12 @@ sty =
         ]
     , contFlowerImage = [ width (calc (pct 100) minus (px 32)) ]
     , contFlowerText = flexColX ++ [ width (pct 100) ]
-    , contGallery = [ width (vw 100), height (vh 100), float left ]
+    , contGallery =
+        flexCenterX
+            ++ [ width (vw 100)
+               , height (vh 100)
+               , backgroundColor (hex "#000000")
+               ]
     , contComments = flexColX ++ [ width (pct 100), float left ]
     , contSelectedComment = [ padding (px 16) ]
     , contMap = flexCenterX ++ [ height (vh 40), overflow hidden ]

@@ -6,7 +6,7 @@ import Css exposing (..)
 import Debug exposing (log)
 import Html
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (class, css, href, id, src, style)
+import Html.Styled.Attributes exposing (attribute, class, css, href, id, src, style)
 import Html.Styled.Events exposing (onClick)
 import Http
 import Json.Decode exposing (Decoder, int, list, string, succeed)
@@ -232,11 +232,13 @@ renderComment cmt =
 
 makeThumbnail : String -> Html Msg
 makeThumbnail link =
-    div
-        [ css (backgroundImage (url link) :: sty.thumbnail)
-        , onClick (ImageSelected link)
+    li [ class "glide__slide" ]
+        [ div
+            [ css (backgroundImage (url link) :: sty.thumbnail)
+            , onClick (ImageSelected link)
+            ]
+            []
         ]
-        []
 
 
 defaultComments : List Comment
@@ -260,9 +262,62 @@ displaySocial s =
     div [ css sty.contSocial ] [ text s.text ]
 
 
-viewLoaded : List String -> List (Html Msg)
-viewLoaded gallery =
-    [ div [ css sty.contLoaded ] (List.map makeThumbnail gallery) ]
+renderGallery : List String -> List (Html Msg)
+renderGallery links =
+    [ div
+        [ class "glide" ]
+        [ div
+            [ class "glide__track"
+            , attribute "data-glide-el" "track"
+            ]
+            [ ul
+                [ class "glide__slides" ]
+                (List.map makeThumbnail links)
+
+            {-
+               [ li [ class "glide__slide" ] [ text "0" ]
+               , li [ class "glide__slide" ] [ text "1" ]
+               , li [ class "glide__slide" ] [ text "2" ]
+               , li [ class "glide__slide" ] [ text "3" ]
+               , li [ class "glide__slide" ] [ text "4" ]
+               ]
+            -}
+            ]
+        , div
+            [ class "glide__arrows", attribute "data-glide-el" "controls" ]
+            [ button
+                [ class "glide__arrow glide__arrow--left", attribute "data-glide-dir" "<" ]
+                [ text "이전" ]
+            , button
+                [ class "glide__arrow glide__arrow--right", attribute "data-glide-dir" ">" ]
+                [ text "다음" ]
+            ]
+        ]
+    ]
+
+
+
+{-
+
+       <div class="glide">
+     <div class="glide__track" data-glide-el="track">
+       <ul class="glide__slides">
+         <li class="glide__slide">0</li>
+         <li class="glide__slide">1</li>
+         <li class="glide__slide">2</li>
+       </ul>
+     </div>
+   </div>
+
+       [ div
+           [ class "glide" ]
+           [ div [ class "glide__track", attribute "data-glide-el" "track" ]
+               [ ul [ class "glide__slides" ]
+                   (List.map makeThumbnail links)
+               ]
+           ]
+           ]
+-}
 
 
 displayOpt : String -> SocialPlatform -> Html Msg
@@ -298,14 +353,6 @@ loader =
     ]
 
 
-initialCmd : Cmd Msg
-initialCmd =
-    Http.get
-        { url = "https://raw.githubusercontent.com/chousemath/wedding-invitation/master/response.json"
-        , expect = Http.expectJson GotPhotos initialDataDecoder
-        }
-
-
 initialModel : Model
 initialModel =
     { status = Loading
@@ -315,19 +362,6 @@ initialModel =
     , sideOpen = False
     , fontSize = 1
     }
-
-
-renderGallery : Status -> List (Html Msg)
-renderGallery status =
-    case status of
-        Loaded ( gallery, _ ) ->
-            viewLoaded gallery
-
-        Loading ->
-            loader
-
-        Errored err ->
-            [ div [] [ text err ] ]
 
 
 renderComments : Status -> List (Html Msg)
@@ -380,25 +414,39 @@ renderSidebar sideOpen =
             :: List.map renderSideOpt fontSizes
 
 
+gallery =
+    [ "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00673_Resize.jpg"
+    , "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00514_Resize.jpg"
+    , "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00864_Resize.jpg"
+    , "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00451_Resize.jpg"
+    , "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00948_Resize.jpg"
+    , "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00789_Resize.jpg"
+    , "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00934_Resize.jpg"
+    , "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00806_Resize.jpg"
+    , "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00579_Resize.jpg"
+    ]
+
+
 view : Model -> Html Msg
 view model =
     div
-        [ css sty.contMain ]
-        [ div
-            [ id "cont-greeting", css sty.contFlower ]
+        [ class "snap-container", css sty.contMain ]
+        [ section
+            [ class "snap-child", css sty.contFlower ]
             [ div [ css sty.contFlowerText ] introText
             ]
-        , div [ id "cont-gallery", css sty.contGallery ] <| renderGallery model.status
+        , section
+            [ class "snap-child", css sty.contGallery ]
+          <|
+            renderGallery gallery
         , displaySelectedImage model.selectedImage
-        , div [ css sty.contComments ] <| renderComments model.status
-        , div [ css sty.contSelectedComment ] <| displayComment model.selectedComment
-        , div [ id "cont-map", css sty.sectionMap ]
+        , section [ class "snap-child", css sty.sectionMap ]
             [ div
-                [ css sty.contMap ]
+                [ class "snap-child", css sty.contMap ]
                 [ div [ id "map", css sty.map ] [] ]
             ]
-        , div
-            [ id "cont-gifs", css sty.contGifs ]
+        , section
+            [ class "snap-child", css sty.contGifs ]
             [ div
                 [ css sty.contGif ]
                 [ div
@@ -411,7 +459,6 @@ view model =
                     ]
                 ]
             ]
-        , div [] <| List.map displaySocial socialPlatforms
         , renderSidebar model.sideOpen
         ]
 
@@ -460,7 +507,7 @@ update msg model =
 main : Program () Model Msg
 main =
     Browser.element
-        { init = \flags -> ( initialModel, initialCmd )
+        { init = \flags -> ( initialModel, Cmd.none )
         , view = view >> toUnstyled
         , update = update
         , subscriptions = \model -> Sub.none
