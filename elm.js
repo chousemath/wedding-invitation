@@ -5931,7 +5931,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(100))
+				rtfeldman$elm_css$Css$vh(90))
 			])),
 	boxOptions: _Utils_ap(
 		author$project$MyStyles$flexStartX,
@@ -5997,7 +5997,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$vh(90)),
 				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$relative),
 				rtfeldman$elm_css$Css$textAlign(rtfeldman$elm_css$Css$center),
 				rtfeldman$elm_css$Css$backgroundColor(
@@ -6021,9 +6021,9 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$vh(90)),
 				rtfeldman$elm_css$Css$backgroundColor(
-				rtfeldman$elm_css$Css$hex('#000000'))
+				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
 	contGif: _Utils_ap(
 		author$project$MyStyles$flexColX,
@@ -6063,7 +6063,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$vh(90)),
 				rtfeldman$elm_css$Css$backgroundColor(
 				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
@@ -6093,7 +6093,7 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$width(
 			rtfeldman$elm_css$Css$vw(100)),
 			rtfeldman$elm_css$Css$height(
-			rtfeldman$elm_css$Css$vh(100)),
+			rtfeldman$elm_css$Css$vh(90)),
 			rtfeldman$elm_css$Css$overflow(rtfeldman$elm_css$Css$scroll)
 		]),
 	contMap: _Utils_ap(
@@ -6101,7 +6101,7 @@ var author$project$MyStyles$sty = {
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(50)),
+				rtfeldman$elm_css$Css$vh(40)),
 				rtfeldman$elm_css$Css$overflow(rtfeldman$elm_css$Css$hidden)
 			])),
 	contMapButtonLeft: _Utils_ap(
@@ -6125,7 +6125,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$px(40)),
+				rtfeldman$elm_css$Css$px(33)),
 				A4(
 				rtfeldman$elm_css$Css$margin4,
 				rtfeldman$elm_css$Css$px(16),
@@ -6235,7 +6235,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$vh(90)),
 				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$fixed),
 				rtfeldman$elm_css$Css$top(
 				rtfeldman$elm_css$Css$px(0)),
@@ -6298,7 +6298,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(75)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$vh(90)),
 				rtfeldman$elm_css$Css$backgroundColor(
 				A4(rtfeldman$elm_css$Css$rgba, 255, 255, 255, 0.9)),
 				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$fixed),
@@ -6454,7 +6454,7 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$height(
 			A3(
 				rtfeldman$elm_css$Css$calc,
-				rtfeldman$elm_css$Css$vh(100),
+				rtfeldman$elm_css$Css$vh(90),
 				rtfeldman$elm_css$Css$minus,
 				rtfeldman$elm_css$Css$px(32))),
 			rtfeldman$elm_css$Css$backgroundColor(
@@ -6514,7 +6514,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(100))
+				rtfeldman$elm_css$Css$vh(90))
 			])),
 	sideOptText: _List_fromArray(
 		[
