@@ -283,28 +283,20 @@ displaySocial s =
     div [ css sty.contSocial ] [ text s.text ]
 
 
-renderGallerySpacer : String -> String -> Html Msg
-renderGallerySpacer imgSrc pos =
+renderGallerySpacer : String -> Html Msg
+renderGallerySpacer imgSrc =
     div
-        [ css
-            (if pos == "top" then
-                sty.gallerySpacerTop
-
-             else
-                sty.gallerySpacerBtm
-            )
-        ]
+        [ css sty.gallerySpacer ]
         [ img [ css sty.gallerySpacerImg, src imgSrc ] [] ]
 
 
-flowerImg : String
 flowerImg =
     "https://img.icons8.com/office/16/000000/flower.png"
 
 
 renderGallery : List String -> List (Html Msg)
 renderGallery links =
-    [ renderGallerySpacer flowerImg "top"
+    [ renderGallerySpacer flowerImg
     , div
         [ class "glide" ]
         [ div
@@ -325,7 +317,7 @@ renderGallery links =
                 [ text "다음" ]
             ]
         ]
-    , renderGallerySpacer flowerImg "btm"
+    , renderGallerySpacer flowerImg
     ]
 
 
@@ -451,17 +443,19 @@ view model =
                 ]
             , section
                 [ class "snap-child", css sty.contGifs ]
-                [ div
+                [ renderGallerySpacer flowerImg
+                , div
+                    [ css sty.gifMsg ]
+                    [ p [ css sty.gifText ] [ text "베이징에서 북한으로 들어가는 모습이 목격돼 관심을 모으고 있습니다. 미국의 NK뉴스는 평양의 소식통들을 인용해 리용호 북한 외무상이 교체됐으며 후임이 누구인지는 파악되지 않았다고 현지시각 18일 보도했습니다." ]
+                    ]
+                , div
                     [ css sty.contGif ]
                     [ div
                         [ css sty.contGifImg ]
                         [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
                     , div
                         [ css sty.contGifText ]
-                        [ p [ css sty.gifName ] [ text "최수강" ]
-                        , p
-                            [ css sty.gifDesc ]
-                            [ text "북한의 외교수장이자 대미전략을 총괄하는 리용호 북한 외무상이 교체됐다고 미국의 북한 전문 매체인 NK뉴스가 보도했습니다." ]
+                        [ div [ css sty.contGifText ] [ p [ css sty.gifName ] [ text "최수강 (신부)" ] ]
                         ]
                     ]
                 , div
@@ -471,11 +465,20 @@ view model =
                         [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
                     , div
                         [ css sty.contGifText ]
-                        [ p [ css sty.gifName ] [ text "최성필" ]
-                        , p
-                            [ css sty.gifDesc ]
-                            [ text "북한의 외교수장이자 대미전략을 총괄하는 리용호 북한 외무상이 교체됐다고 미국의 북한 전문 매체인 NK뉴스가 보도했습니다." ]
+                        [ div [ css sty.contGifText ] [ p [ css sty.gifName ] [ text "최성필 (신랑)" ] ]
                         ]
+                    ]
+                , div
+                    [ css sty.gifMsg ]
+                    [ p [ css sty.gifText ] [ text "2020년 4월 19일 일요일 오전 11시" ]
+                    ]
+                , div
+                    [ css sty.gifMsg ]
+                    [ p [ css sty.gifText ] [ text "서울특별시 종로구 종로1길 50 (중학동)," ]
+                    ]
+                , div
+                    [ css sty.gifMsg ]
+                    [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
                     ]
                 ]
             , section
