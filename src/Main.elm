@@ -11,6 +11,7 @@ import Html.Styled.Events exposing (onClick)
 import Json.Decode exposing (Decoder, int, list, string, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
 import MyStyles exposing (sty)
+import Url.Builder as UBuild
 
 
 
@@ -402,6 +403,14 @@ view model =
         ]
 
 
+buildImgLink : String -> String
+buildImgLink url =
+    "https://chousemath.github.io"
+        ++ UBuild.absolute
+            [ "wedding-invitation" ]
+            [ UBuild.string "imageURL" url ]
+
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -423,7 +432,11 @@ update msg model =
         SocialSelected url soc ->
             case soc.company of
                 KakaoStory ->
-                    ( model, shareLink { url = url, platform = 1 } )
+                    let
+                        link =
+                            buildImgLink url
+                    in
+                    ( model, shareLink { url = link, platform = 1 } )
 
                 Facebook ->
                     ( model, shareLink { url = url, platform = 2 } )
