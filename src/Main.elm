@@ -8,7 +8,6 @@ import Html
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (attribute, class, css, href, id, src, style)
 import Html.Styled.Events exposing (onClick)
-import Http
 import Json.Decode exposing (Decoder, int, list, string, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
 import MyStyles exposing (sty)
@@ -38,7 +37,6 @@ type Msg
     | ImageSelected String
     | Social SocialMedia
     | SocialSelected String
-    | GotPhotos (Result Http.Error InitialData)
     | ToggleSidebar
     | AlterFont Int
 
@@ -273,15 +271,6 @@ renderGallery links =
             [ ul
                 [ class "glide__slides" ]
                 (List.map makeThumbnail links)
-
-            {-
-               [ li [ class "glide__slide" ] [ text "0" ]
-               , li [ class "glide__slide" ] [ text "1" ]
-               , li [ class "glide__slide" ] [ text "2" ]
-               , li [ class "glide__slide" ] [ text "3" ]
-               , li [ class "glide__slide" ] [ text "4" ]
-               ]
-            -}
             ]
         , div
             [ class "glide__arrows", attribute "data-glide-el" "controls" ]
@@ -294,30 +283,6 @@ renderGallery links =
             ]
         ]
     ]
-
-
-
-{-
-
-       <div class="glide">
-     <div class="glide__track" data-glide-el="track">
-       <ul class="glide__slides">
-         <li class="glide__slide">0</li>
-         <li class="glide__slide">1</li>
-         <li class="glide__slide">2</li>
-       </ul>
-     </div>
-   </div>
-
-       [ div
-           [ class "glide" ]
-           [ div [ class "glide__track", attribute "data-glide-el" "track" ]
-               [ ul [ class "glide__slides" ]
-                   (List.map makeThumbnail links)
-               ]
-           ]
-           ]
--}
 
 
 displayOpt : String -> SocialPlatform -> Html Msg
@@ -483,19 +448,6 @@ update msg model =
 
         SocialSelected url ->
             ( model, Cmd.none )
-
-        GotPhotos (Ok initialData) ->
-            let
-                comments =
-                    List.map extractComment initialData.comments
-
-                photos =
-                    List.map genLink initialData.photos
-            in
-            ( { model | status = Loaded ( photos, comments ) }, Cmd.none )
-
-        GotPhotos (Err httpError) ->
-            ( { model | status = Errored "Internal Server Error" }, Cmd.none )
 
         ToggleSidebar ->
             ( { model | sideOpen = not model.sideOpen }, Cmd.none )
