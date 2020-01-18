@@ -65,6 +65,8 @@ sty =
                , left (px 0)
                , backgroundPosition center
                , backgroundRepeat noRepeat
+               , zIndex (int 99)
+               , overflow hidden
                ]
     , contOverlay =
         [ displayFlex
@@ -116,7 +118,14 @@ sty =
     , sectionMap = flexColX ++ [ width (vw 100), height (vh 100) ]
     , map = [ width (pct 100), height (px 400) ]
     , contProgress = flexCenterX ++ [ width (vw 100), height (vh 20), backgroundColor (hex "f6eec7") ]
-    , contOptions = flexStartX ++ [ width (vw 100), paddingLeft (px 16) ]
+    , contOptions =
+        flexStartX
+            ++ [ width (vw 60)
+               , height (px 70)
+               , position fixed
+               , left (px 0)
+               , top (px 0)
+               ]
     , boxOptions = flexStartX ++ [ width (px 50), height (px 50) ]
     , fontImg = [ width (px 20), height (px 20) ]
     , contSidebar =

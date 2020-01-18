@@ -4481,15 +4481,6 @@ var author$project$Main$defaultComments = _List_fromArray(
 var author$project$Main$emptyComment = {author: '', content: '', createdAt: ''};
 var elm$core$Basics$False = {$: 'False'};
 var author$project$Main$initialModel = {comments: author$project$Main$defaultComments, fontSize: 1, selectedComment: author$project$Main$emptyComment, selectedImage: '', sideOpen: false, status: author$project$Main$Loading};
-var elm$core$Basics$not = _Basics_not;
-var elm$core$Basics$True = {$: 'True'};
-var elm$core$Result$isOk = function (result) {
-	if (result.$ === 'Ok') {
-		return true;
-	} else {
-		return false;
-	}
-};
 var elm$core$Array$branchFactor = 32;
 var elm$core$Array$Array_elm_builtin = F4(
 	function (a, b, c, d) {
@@ -4670,6 +4661,14 @@ var elm$core$Result$Err = function (a) {
 };
 var elm$core$Result$Ok = function (a) {
 	return {$: 'Ok', a: a};
+};
+var elm$core$Basics$True = {$: 'True'};
+var elm$core$Result$isOk = function (result) {
+	if (result.$ === 'Ok') {
+		return true;
+	} else {
+		return false;
+	}
 };
 var elm$json$Json$Decode$Failure = F2(
 	function (a, b) {
@@ -4876,6 +4875,36 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 			}
 		}
 	});
+var elm$json$Json$Encode$int = _Json_wrap;
+var elm$json$Json$Encode$object = function (pairs) {
+	return _Json_wrap(
+		A3(
+			elm$core$List$foldl,
+			F2(
+				function (_n0, obj) {
+					var k = _n0.a;
+					var v = _n0.b;
+					return A3(_Json_addField, k, v, obj);
+				}),
+			_Json_emptyObject(_Utils_Tuple0),
+			pairs));
+};
+var elm$json$Json$Encode$string = _Json_wrap;
+var author$project$Main$shareLink = _Platform_outgoingPort(
+	'shareLink',
+	function ($) {
+		return elm$json$Json$Encode$object(
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					'platform',
+					elm$json$Json$Encode$int($.platform)),
+					_Utils_Tuple2(
+					'url',
+					elm$json$Json$Encode$string($.url))
+				]));
+	});
+var elm$core$Basics$not = _Basics_not;
 var elm$core$Platform$Cmd$batch = _Platform_batch;
 var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
 var author$project$Main$update = F2(
@@ -4900,7 +4929,32 @@ var author$project$Main$update = F2(
 				return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 			case 'SocialSelected':
 				var url = msg.a;
-				return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
+				var soc = msg.b;
+				var _n1 = soc.company;
+				switch (_n1.$) {
+					case 'KakaoStory':
+						return _Utils_Tuple2(
+							model,
+							author$project$Main$shareLink(
+								{platform: 1, url: url}));
+					case 'Facebook':
+						return _Utils_Tuple2(
+							model,
+							author$project$Main$shareLink(
+								{platform: 2, url: url}));
+					case 'Twitter':
+						return _Utils_Tuple2(
+							model,
+							author$project$Main$shareLink(
+								{platform: 3, url: url}));
+					case 'LinkedIn':
+						return _Utils_Tuple2(
+							model,
+							author$project$Main$shareLink(
+								{platform: 4, url: url}));
+					default:
+						return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
+				}
 			case 'ToggleSidebar':
 				return _Utils_Tuple2(
 					_Utils_update(
@@ -4919,9 +4973,10 @@ var author$project$Main$update = F2(
 var author$project$Main$ImageSelected = function (a) {
 	return {$: 'ImageSelected', a: a};
 };
-var author$project$Main$SocialSelected = function (a) {
-	return {$: 'SocialSelected', a: a};
-};
+var author$project$Main$SocialSelected = F2(
+	function (a, b) {
+		return {$: 'SocialSelected', a: a, b: b};
+	});
 var elm$core$List$head = function (list) {
 	if (list.b) {
 		var x = list.a;
@@ -5615,6 +5670,21 @@ var rtfeldman$elm_css$Css$hex = function (str) {
 	return rtfeldman$elm_css$Css$erroneousHex(str);
 };
 var rtfeldman$elm_css$Css$hidden = {borderStyle: rtfeldman$elm_css$Css$Structure$Compatible, overflow: rtfeldman$elm_css$Css$Structure$Compatible, value: 'hidden', visibility: rtfeldman$elm_css$Css$Structure$Compatible};
+var rtfeldman$elm_css$Css$UnitlessInteger = {$: 'UnitlessInteger'};
+var rtfeldman$elm_css$Css$int = function (val) {
+	return {
+		fontWeight: rtfeldman$elm_css$Css$Structure$Compatible,
+		intOrAuto: rtfeldman$elm_css$Css$Structure$Compatible,
+		lengthOrNumber: rtfeldman$elm_css$Css$Structure$Compatible,
+		lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible,
+		number: rtfeldman$elm_css$Css$Structure$Compatible,
+		numberOrInfinite: rtfeldman$elm_css$Css$Structure$Compatible,
+		numericValue: val,
+		unitLabel: '',
+		units: rtfeldman$elm_css$Css$UnitlessInteger,
+		value: elm$core$String$fromInt(val)
+	};
+};
 var rtfeldman$elm_css$Css$left = rtfeldman$elm_css$Css$prop1('left');
 var rtfeldman$elm_css$Css$lighter = {fontWeight: rtfeldman$elm_css$Css$Structure$Compatible, value: 'lighter'};
 var rtfeldman$elm_css$Css$prop2 = F3(
@@ -5761,6 +5831,7 @@ var rtfeldman$elm_css$Css$VwUnits = {$: 'VwUnits'};
 var rtfeldman$elm_css$Css$vw = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$VwUnits, 'vw');
 var rtfeldman$elm_css$Css$whiteSpace = rtfeldman$elm_css$Css$prop1('white-space');
 var rtfeldman$elm_css$Css$width = rtfeldman$elm_css$Css$prop1('width');
+var rtfeldman$elm_css$Css$zIndex = rtfeldman$elm_css$Css$prop1('z-index');
 var author$project$MyStyles$sty = {
 	boxOptions: _Utils_ap(
 		author$project$MyStyles$flexStartX,
@@ -5976,9 +6047,14 @@ var author$project$MyStyles$sty = {
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$width(
-				rtfeldman$elm_css$Css$vw(100)),
-				rtfeldman$elm_css$Css$paddingLeft(
-				rtfeldman$elm_css$Css$px(16))
+				rtfeldman$elm_css$Css$vw(60)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(70)),
+				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$fixed),
+				rtfeldman$elm_css$Css$left(
+				rtfeldman$elm_css$Css$px(0)),
+				rtfeldman$elm_css$Css$top(
+				rtfeldman$elm_css$Css$px(0))
 			])),
 	contOverlay: _List_fromArray(
 		[
@@ -6037,7 +6113,10 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$left(
 				rtfeldman$elm_css$Css$px(0)),
 				rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
-				rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
+				rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat),
+				rtfeldman$elm_css$Css$zIndex(
+				rtfeldman$elm_css$Css$int(99)),
+				rtfeldman$elm_css$Css$overflow(rtfeldman$elm_css$Css$hidden)
 			])),
 	contSideClose: _List_fromArray(
 		[
@@ -6241,7 +6320,6 @@ var rtfeldman$elm_css$VirtualDom$Styled$node = rtfeldman$elm_css$VirtualDom$Styl
 var rtfeldman$elm_css$Html$Styled$node = rtfeldman$elm_css$VirtualDom$Styled$node;
 var rtfeldman$elm_css$Html$Styled$div = rtfeldman$elm_css$Html$Styled$node('div');
 var rtfeldman$elm_css$Html$Styled$img = rtfeldman$elm_css$Html$Styled$node('img');
-var elm$json$Json$Encode$string = _Json_wrap;
 var elm$core$Basics$identity = function (x) {
 	return x;
 };
@@ -8158,7 +8236,7 @@ var author$project$Main$displayOpt = F2(
 				[
 					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contOpt),
 					rtfeldman$elm_css$Html$Styled$Events$onClick(
-					author$project$Main$SocialSelected(url))
+					A2(author$project$Main$SocialSelected, url, social))
 				]),
 			_List_fromArray(
 				[
@@ -8173,8 +8251,6 @@ var author$project$Main$displayOpt = F2(
 				]));
 	});
 var author$project$Main$Facebook = {$: 'Facebook'};
-var author$project$Main$GooglePlus = {$: 'GooglePlus'};
-var author$project$Main$Instagram = {$: 'Instagram'};
 var author$project$Main$KakaoStory = {$: 'KakaoStory'};
 var author$project$Main$LinkedIn = {$: 'LinkedIn'};
 var author$project$Main$Twitter = {$: 'Twitter'};
@@ -8183,8 +8259,6 @@ var author$project$Main$socialPlatforms = _List_fromArray(
 		{company: author$project$Main$KakaoStory, icon: './images/KakaoStory.png', text: 'kakao story'},
 		{company: author$project$Main$Facebook, icon: './images/Facebook.png', text: 'facebook'},
 		{company: author$project$Main$Twitter, icon: './images/Twitter.png', text: 'twitter'},
-		{company: author$project$Main$GooglePlus, icon: './images/GooglePlus.png', text: 'google plus'},
-		{company: author$project$Main$Instagram, icon: './images/Instagram.png', text: 'instagram'},
 		{company: author$project$Main$LinkedIn, icon: './images/LinkedIn.png', text: 'linkedin'}
 	]);
 var author$project$Main$displaySelectedImage = function (link) {
@@ -8226,31 +8300,23 @@ var author$project$Main$displaySelectedImage = function (link) {
 										rtfeldman$elm_css$Html$Styled$Attributes$src('./images/close.png'),
 										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.iconCloseOverlay)
 									]),
-								_List_Nil)
+								_List_Nil),
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contOptions)
+									]),
+								A2(
+									elm$core$List$map,
+									author$project$Main$displayOpt(link),
+									author$project$Main$socialPlatforms))
 							]))
-					])),
-				A2(
-				rtfeldman$elm_css$Html$Styled$div,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.fgrow)
-					]),
-				_List_Nil),
-				A2(
-				rtfeldman$elm_css$Html$Styled$div,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSocialOverlay)
-					]),
-				A2(
-					elm$core$List$map,
-					author$project$Main$displayOpt(link),
-					author$project$Main$socialPlatforms))
+					]))
 			]));
 };
 var author$project$Main$gallery = _List_fromArray(
 	['https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00673_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00514_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00864_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00451_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00948_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00789_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00934_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00806_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00579_Resize.jpg']);
-var author$project$Main$ToggleSidebar = {$: 'ToggleSidebar'};
 var rtfeldman$elm_css$Html$Styled$h4 = rtfeldman$elm_css$Html$Styled$node('h4');
 var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var rtfeldman$elm_css$VirtualDom$Styled$Unstyled = function (a) {
@@ -8322,7 +8388,7 @@ var author$project$Main$introText = _Utils_ap(
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
 				[
-					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contOptions)
+					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contNames)
 				]),
 			_List_fromArray(
 				[
@@ -8330,57 +8396,26 @@ var author$project$Main$introText = _Utils_ap(
 					rtfeldman$elm_css$Html$Styled$div,
 					_List_fromArray(
 						[
-							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.boxOptions),
-							rtfeldman$elm_css$Html$Styled$Events$onClick(author$project$Main$ToggleSidebar)
+							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.flexGrowX)
 						]),
+					_List_Nil),
+					author$project$Main$renderName('최성필'),
+					author$project$Main$renderNameSpacer('그리고'),
+					author$project$Main$renderName('최수강'),
+					A2(
+					rtfeldman$elm_css$Html$Styled$div,
 					_List_fromArray(
 						[
-							A2(
-							rtfeldman$elm_css$Html$Styled$img,
-							_List_fromArray(
-								[
-									rtfeldman$elm_css$Html$Styled$Attributes$src('./images/font.png'),
-									rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.fontImg)
-								]),
-							_List_Nil)
-						]))
+							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.flexGrowX)
+						]),
+					_List_Nil)
 				]))
 		]),
-	_Utils_ap(
+	A2(
+		elm$core$List$map,
+		author$project$Main$renderSubtitle,
 		_List_fromArray(
-			[
-				A2(
-				rtfeldman$elm_css$Html$Styled$div,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contNames)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						rtfeldman$elm_css$Html$Styled$div,
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.flexGrowX)
-							]),
-						_List_Nil),
-						author$project$Main$renderName('최성필'),
-						author$project$Main$renderNameSpacer('그리고'),
-						author$project$Main$renderName('최수강'),
-						A2(
-						rtfeldman$elm_css$Html$Styled$div,
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.flexGrowX)
-							]),
-						_List_Nil)
-					]))
-			]),
-		A2(
-			elm$core$List$map,
-			author$project$Main$renderSubtitle,
-			_List_fromArray(
-				['- 2020.04.19 SUN AM 11:00 -', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)']))));
+			['- 2020.04.19 SUN AM 11:00 -', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])));
 var rtfeldman$elm_css$Html$Styled$li = rtfeldman$elm_css$Html$Styled$node('li');
 var rtfeldman$elm_css$Html$Styled$Attributes$class = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('className');
 var author$project$Main$makeThumbnail = function (link) {
@@ -8489,83 +8524,6 @@ var author$project$Main$renderGallery = function (links) {
 				]))
 		]);
 };
-var author$project$Main$fontSizes = _List_fromArray(
-	[
-		{value: 2, viewValue: '가장 큰 글꼴 크기로 변경'},
-		{value: 1, viewValue: '일반 글꼴 크기로 변경'}
-	]);
-var author$project$Main$AlterFont = function (a) {
-	return {$: 'AlterFont', a: a};
-};
-var author$project$Main$renderSideOpt = function (opt) {
-	return A2(
-		rtfeldman$elm_css$Html$Styled$div,
-		_List_fromArray(
-			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSideOpt),
-				rtfeldman$elm_css$Html$Styled$Events$onClick(
-				author$project$Main$AlterFont(opt.value))
-			]),
-		_List_fromArray(
-			[
-				A2(
-				rtfeldman$elm_css$Html$Styled$div,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.sideOptText)
-					]),
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$text(opt.viewValue)
-					]))
-			]));
-};
-var author$project$Main$renderSidebar = function (sideOpen) {
-	return A2(
-		rtfeldman$elm_css$Html$Styled$div,
-		_List_fromArray(
-			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(
-				_Utils_ap(
-					author$project$MyStyles$sty.contSidebar,
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Css$left(
-							rtfeldman$elm_css$Css$vw(
-								sideOpen ? 0 : (-75)))
-						])))
-			]),
-		A2(
-			elm$core$List$cons,
-			A2(
-				rtfeldman$elm_css$Html$Styled$div,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contSideClose)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						rtfeldman$elm_css$Html$Styled$div,
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.closeSidebar),
-								rtfeldman$elm_css$Html$Styled$Events$onClick(author$project$Main$ToggleSidebar)
-							]),
-						_List_fromArray(
-							[
-								A2(
-								rtfeldman$elm_css$Html$Styled$img,
-								_List_fromArray(
-									[
-										rtfeldman$elm_css$Html$Styled$Attributes$src('./images/font.png'),
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.fontImg)
-									]),
-								_List_Nil)
-							]))
-					])),
-			A2(elm$core$List$map, author$project$Main$renderSideOpt, author$project$Main$fontSizes)));
-};
 var rtfeldman$elm_css$Html$Styled$p = rtfeldman$elm_css$Html$Styled$node('p');
 var rtfeldman$elm_css$Html$Styled$section = rtfeldman$elm_css$Html$Styled$node('section');
 var rtfeldman$elm_css$Html$Styled$Attributes$id = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('id');
@@ -8604,7 +8562,6 @@ var author$project$Main$view = function (model) {
 						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGallery)
 					]),
 				author$project$Main$renderGallery(author$project$Main$gallery)),
-				author$project$Main$displaySelectedImage(model.selectedImage),
 				A2(
 				rtfeldman$elm_css$Html$Styled$section,
 				_List_fromArray(
@@ -8698,7 +8655,7 @@ var author$project$Main$view = function (model) {
 									]))
 							]))
 					])),
-				author$project$Main$renderSidebar(model.sideOpen)
+				author$project$Main$displaySelectedImage(model.selectedImage)
 			]));
 };
 var elm$browser$Browser$External = function (a) {

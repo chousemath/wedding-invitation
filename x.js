@@ -12,5 +12,24 @@ window.onload = function() {
 
     // generate the slide show
     new Glide('.glide').mount();
+
+    Kakao.init('34bdc320546bff69ab85d45afbb07fc1');
+
+    var shareMsg = '최수강/최성필: 우리는 결혼합니다!';
+    appElm.ports.shareLink.subscribe(function(share) {
+        switch (share.platform) {
+            case 1:
+                Kakao.Story.share({url: share.url, text: shareMsg});
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
+    });
 }
 

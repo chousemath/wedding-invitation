@@ -40,11 +40,11 @@
     <div id="app"></div>
     <script src="elm.js"></script>
     <script>
-        Elm.Main.init({
-            node: document.getElementById('app')
-        });
+        var appNode = document.getElementById('app');
+        var appElm = Elm.Main.init({node: appNode});
     </script>
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=34bdc320546bff69ab85d45afbb07fc1"></script>
+    <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script type="text/javascript" src="./glide.min.js"></script>
     <script type="text/javascript" src="./x.js"></script>
 </body>

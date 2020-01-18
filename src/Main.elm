@@ -1,4 +1,4 @@
-module Main exposing (main)
+port module Main exposing (main)
 
 import Array exposing (Array)
 import Browser
@@ -36,7 +36,7 @@ type Msg
     = CommentSelected Comment
     | ImageSelected String
     | Social SocialMedia
-    | SocialSelected String
+    | SocialSelected String SocialPlatform
     | ToggleSidebar
     | AlterFont Int
 
@@ -67,6 +67,15 @@ type alias Model =
 
 type alias SocialPlatform =
     { company : SocialMedia, text : String, icon : String }
+
+
+port shareLink : LinkShare -> Cmd msg
+
+
+type alias LinkShare =
+    { url : String
+    , platform : Int
+    }
 
 
 
@@ -101,8 +110,6 @@ socialPlatforms =
     [ { company = KakaoStory, text = "kakao story", icon = "./images/KakaoStory.png" }
     , { company = Facebook, text = "facebook", icon = "./images/Facebook.png" }
     , { company = Twitter, text = "twitter", icon = "./images/Twitter.png" }
-    , { company = GooglePlus, text = "google plus", icon = "./images/GooglePlus.png" }
-    , { company = Instagram, text = "instagram", icon = "./images/Instagram.png" }
     , { company = LinkedIn, text = "linkedin", icon = "./images/LinkedIn.png" }
     ]
 
@@ -171,21 +178,14 @@ renderSubtitle str =
 
 introText : List (Html Msg)
 introText =
-    [ div
-        [ css sty.contOptions ]
-        [ div
-            [ css sty.boxOptions, onClick ToggleSidebar ]
-            [ img [ src "./images/font.png", css sty.fontImg ] [] ]
+    [ div [ css sty.contNames ]
+        [ div [ css sty.flexGrowX ] []
+        , renderName "최성필"
+        , renderNameSpacer "그리고"
+        , renderName "최수강"
+        , div [ css sty.flexGrowX ] []
         ]
     ]
-        ++ [ div [ css sty.contNames ]
-                [ div [ css sty.flexGrowX ] []
-                , renderName "최성필"
-                , renderNameSpacer "그리고"
-                , renderName "최수강"
-                , div [ css sty.flexGrowX ] []
-                ]
-           ]
         ++ List.map
             renderSubtitle
             [ "- 2020.04.19 SUN AM 11:00 -"
@@ -288,7 +288,7 @@ renderGallery links =
 displayOpt : String -> SocialPlatform -> Html Msg
 displayOpt url social =
     div
-        [ css sty.contOpt, onClick (SocialSelected url) ]
+        [ css sty.contOpt, onClick (SocialSelected url social) ]
         [ img [ src social.icon, css sty.iconSocial ] [] ]
 
 
@@ -304,10 +304,12 @@ displaySelectedImage link =
                 [ css sty.contOverlay ]
                 [ div
                     [ css sty.contOverlayClose, onClick (ImageSelected "") ]
-                    [ img [ src "./images/close.png", css sty.iconCloseOverlay ] [] ]
+                    [ img [ src "./images/close.png", css sty.iconCloseOverlay ] []
+                    , div
+                        [ css sty.contOptions ]
+                        (List.map (displayOpt link) socialPlatforms)
+                    ]
                 ]
-            , div [ css sty.fgrow ] []
-            , div [ css sty.contSocialOverlay ] <| List.map (displayOpt link) socialPlatforms
             ]
 
 
@@ -352,33 +354,6 @@ renderSideOpt opt =
         ]
 
 
-renderSidebar : Bool -> Html Msg
-renderSidebar sideOpen =
-    div
-        [ css
-            (sty.contSidebar
-                ++ [ left
-                        (vw
-                            (if sideOpen then
-                                0
-
-                             else
-                                -75
-                            )
-                        )
-                   ]
-            )
-        ]
-    <|
-        div
-            [ css sty.contSideClose ]
-            [ div
-                [ css sty.closeSidebar, onClick ToggleSidebar ]
-                [ img [ src "./images/font.png", css sty.fontImg ] [] ]
-            ]
-            :: List.map renderSideOpt fontSizes
-
-
 gallery =
     [ "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00673_Resize.jpg"
     , "https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00514_Resize.jpg"
@@ -404,7 +379,6 @@ view model =
             [ class "snap-child", css sty.contGallery ]
           <|
             renderGallery gallery
-        , displaySelectedImage model.selectedImage
         , section [ class "snap-child", css sty.sectionMap ]
             [ div
                 [ class "snap-child", css sty.contMap ]
@@ -424,7 +398,7 @@ view model =
                     ]
                 ]
             ]
-        , renderSidebar model.sideOpen
+        , displaySelectedImage model.selectedImage
         ]
 
 
@@ -446,8 +420,22 @@ update msg model =
             , Cmd.none
             )
 
-        SocialSelected url ->
-            ( model, Cmd.none )
+        SocialSelected url soc ->
+            case soc.company of
+                KakaoStory ->
+                    ( model, shareLink { url = url, platform = 1 } )
+
+                Facebook ->
+                    ( model, shareLink { url = url, platform = 2 } )
+
+                Twitter ->
+                    ( model, shareLink { url = url, platform = 3 } )
+
+                LinkedIn ->
+                    ( model, shareLink { url = url, platform = 4 } )
+
+                _ ->
+                    ( model, Cmd.none )
 
         ToggleSidebar ->
             ( { model | sideOpen = not model.sideOpen }, Cmd.none )
