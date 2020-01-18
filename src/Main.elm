@@ -40,6 +40,7 @@ type Msg
     | SocialSelected String SocialPlatform
     | ToggleSidebar
     | AlterFont Int
+    | GotWindowSize WindowSize
 
 
 type alias Comment =
@@ -63,6 +64,7 @@ type alias Model =
     , selectedComment : Comment
     , sideOpen : Bool
     , fontSize : Int
+    , windowSize : WindowSize
     }
 
 
@@ -76,6 +78,21 @@ port shareLink : LinkShare -> Cmd msg
 type alias LinkShare =
     { url : String
     , platform : Int
+    }
+
+
+port resizeWindow : (WindowSize -> msg) -> Sub msg
+
+
+type alias WindowSize =
+    { width : Int
+    , height : Int
+    }
+
+
+type alias KeyVal =
+    { key : String
+    , val : String
     }
 
 
@@ -110,8 +127,6 @@ socialPlatforms : List SocialPlatform
 socialPlatforms =
     [ { company = KakaoStory, text = "kakao story", icon = "./images/KakaoStory.png" }
     , { company = Facebook, text = "facebook", icon = "./images/Facebook.png" }
-    , { company = Twitter, text = "twitter", icon = "./images/Twitter.png" }
-    , { company = LinkedIn, text = "linkedin", icon = "./images/LinkedIn.png" }
     ]
 
 
@@ -121,6 +136,15 @@ emptyComment =
     , createdAt = ""
     , content = ""
     }
+
+
+hallInfo : List KeyVal
+hallInfo =
+    [ { key = "예식간격", val = "1시간 30분" }
+    , { key = "예식시간", val = "오전 11시" }
+    , { key = "전화번호", val = "02-730-0230" }
+    , { key = "주소", val = "서울특별시 종로구 종로1길 50 (중학동), 더케이트윈타워 A동 LL층 (지하2층)" }
+    ]
 
 
 
@@ -180,11 +204,9 @@ renderSubtitle str =
 introText : List (Html Msg)
 introText =
     [ div [ css sty.contNames ]
-        [ div [ css sty.flexGrowX ] []
-        , renderName "최성필"
-        , renderNameSpacer "그리고"
+        [ renderName "최성필"
+        , renderNameSpacer "(그리고)"
         , renderName "최수강"
-        , div [ css sty.flexGrowX ] []
         ]
     ]
         ++ List.map
@@ -329,6 +351,10 @@ initialModel =
     , selectedImage = ""
     , sideOpen = False
     , fontSize = 1
+    , windowSize =
+        { width = 812
+        , height = 375
+        }
     }
 
 
@@ -368,38 +394,100 @@ gallery =
     ]
 
 
+showHallInfo : KeyVal -> Html Msg
+showHallInfo info =
+    div
+        [ css sty.contHallInfo ]
+        [ div [ css sty.hallInfoLeft ] [ text info.key ]
+        , div [ css sty.hallInfoRight ] [ text info.val ]
+        ]
+
+
+adjustBBox : WindowSize -> List Style
+adjustBBox wsize =
+    let
+        portrait =
+            wsize.height > wsize.width
+    in
+    if portrait then
+        sty.contMain
+
+    else
+        sty.contMain
+
+
 view : Model -> Html Msg
 view model =
-    div
-        [ class "snap-container", css sty.contMain ]
-        [ section
-            [ class "snap-child", css sty.contFlower ]
-            [ div [ css sty.contFlowerText ] introText
-            ]
-        , section
-            [ class "snap-child", css sty.contGallery ]
-          <|
-            renderGallery gallery
-        , section [ class "snap-child", css sty.sectionMap ]
-            [ div
-                [ class "snap-child", css sty.contMap ]
-                [ div [ id "map", css sty.map ] [] ]
-            ]
-        , section
-            [ class "snap-child", css sty.contGifs ]
-            [ div
-                [ css sty.contGif ]
+    div [ css sty.boundingBox ]
+        [ div
+            [ class "snap-container", css sty.contMain ]
+            [ section
+                [ class "snap-child", css sty.contFlower ]
                 [ div
-                    [ css sty.contGifImg ]
-                    [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
-                , div
-                    [ css sty.contGifText ]
-                    [ p [ css sty.gifName ] [ text "최수강" ]
-                    , p [ css sty.gifDesc ] [ text "ad asd fas asdf asdf fgadfasdf asdf" ]
+                    [ css sty.lightBg ]
+                    [ div [ css sty.contFlowerText ] introText
                     ]
                 ]
+            , section
+                [ class "snap-child", css sty.contGallery ]
+              <|
+                renderGallery gallery
+            , section [ class "snap-child", css sty.sectionMap ]
+                [ div
+                    [ css sty.contMap ]
+                    [ div [ id "map", css sty.map ] []
+                    ]
+                , div
+                    [ css sty.contWeddingHall ]
+                  <|
+                    [ div [ css sty.hallTitle ] [ text "아펠가모 광화문점" ]
+                    , div
+                        [ css sty.contMapButtons ]
+                        [ div [ css sty.contMapButtonLeft ]
+                            [ a
+                                [ css sty.mapButtonLeft
+                                , href "https://m.map.naver.com/map.nhn?pinId=31738014&pinType=site&lat=&lng=&dlevel=&mapMode="
+                                ]
+                                [ text "네이버지도" ]
+                            ]
+                        , div [ css sty.contMapButtonRight ]
+                            [ a
+                                [ css sty.mapButtonRight
+                                , href "https://place.map.kakao.com/m/20000428"
+                                ]
+                                [ text "카카오맵" ]
+                            ]
+                        ]
+                    ]
+                        ++ List.map showHallInfo hallInfo
+                ]
+            , section
+                [ class "snap-child", css sty.contGifs ]
+                [ div
+                    [ css sty.contGif ]
+                    [ div
+                        [ css sty.contGifImg ]
+                        [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
+                    , div
+                        [ css sty.contGifText ]
+                        [ p [ css sty.gifName ] [ text "최수강" ]
+                        , div [ id "sk-typed", css sty.gifDesc ] []
+                        ]
+                    ]
+                , div
+                    [ css sty.contGif ]
+                    [ div
+                        [ css sty.contGifImg ]
+                        [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
+                    , div
+                        [ css sty.contGifText ]
+                        [ p [ css sty.gifName ] [ text "최성필" ]
+                        , div [ id "js-typed", css sty.gifDesc ] []
+                        ]
+                    ]
+                ]
+            , displaySelectedImage model.selectedImage
             ]
-        , displaySelectedImage model.selectedImage
         ]
 
 
@@ -441,12 +529,6 @@ update msg model =
                 Facebook ->
                     ( model, shareLink { url = url, platform = 2 } )
 
-                Twitter ->
-                    ( model, shareLink { url = url, platform = 3 } )
-
-                LinkedIn ->
-                    ( model, shareLink { url = url, platform = 4 } )
-
                 _ ->
                     ( model, Cmd.none )
 
@@ -456,6 +538,9 @@ update msg model =
         AlterFont size ->
             ( { model | fontSize = size }, Cmd.none )
 
+        GotWindowSize wsize ->
+            ( { model | windowSize = wsize }, Cmd.none )
+
 
 main : Program () Model Msg
 main =
@@ -463,5 +548,18 @@ main =
         { init = \flags -> ( initialModel, Cmd.none )
         , view = view >> toUnstyled
         , update = update
-        , subscriptions = \model -> Sub.none
+        , subscriptions = subscriptions
         }
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    resizeWindow GotWindowSize
+
+
+
+{-
+   init : WindowSize -> (Model, Cmd Msg)
+   init flags =
+       ({initialModel | windowSize = flags}, initialCmd)
+-}

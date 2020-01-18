@@ -793,6 +793,113 @@ var _List_sortWith = F2(function(f, xs)
 
 
 
+// MATH
+
+var _Basics_add = F2(function(a, b) { return a + b; });
+var _Basics_sub = F2(function(a, b) { return a - b; });
+var _Basics_mul = F2(function(a, b) { return a * b; });
+var _Basics_fdiv = F2(function(a, b) { return a / b; });
+var _Basics_idiv = F2(function(a, b) { return (a / b) | 0; });
+var _Basics_pow = F2(Math.pow);
+
+var _Basics_remainderBy = F2(function(b, a) { return a % b; });
+
+// https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
+var _Basics_modBy = F2(function(modulus, x)
+{
+	var answer = x % modulus;
+	return modulus === 0
+		? _Debug_crash(11)
+		:
+	((answer > 0 && modulus < 0) || (answer < 0 && modulus > 0))
+		? answer + modulus
+		: answer;
+});
+
+
+// TRIGONOMETRY
+
+var _Basics_pi = Math.PI;
+var _Basics_e = Math.E;
+var _Basics_cos = Math.cos;
+var _Basics_sin = Math.sin;
+var _Basics_tan = Math.tan;
+var _Basics_acos = Math.acos;
+var _Basics_asin = Math.asin;
+var _Basics_atan = Math.atan;
+var _Basics_atan2 = F2(Math.atan2);
+
+
+// MORE MATH
+
+function _Basics_toFloat(x) { return x; }
+function _Basics_truncate(n) { return n | 0; }
+function _Basics_isInfinite(n) { return n === Infinity || n === -Infinity; }
+
+var _Basics_ceiling = Math.ceil;
+var _Basics_floor = Math.floor;
+var _Basics_round = Math.round;
+var _Basics_sqrt = Math.sqrt;
+var _Basics_log = Math.log;
+var _Basics_isNaN = isNaN;
+
+
+// BOOLEANS
+
+function _Basics_not(bool) { return !bool; }
+var _Basics_and = F2(function(a, b) { return a && b; });
+var _Basics_or  = F2(function(a, b) { return a || b; });
+var _Basics_xor = F2(function(a, b) { return a !== b; });
+
+
+
+function _Char_toCode(char)
+{
+	var code = char.charCodeAt(0);
+	if (0xD800 <= code && code <= 0xDBFF)
+	{
+		return (code - 0xD800) * 0x400 + char.charCodeAt(1) - 0xDC00 + 0x10000
+	}
+	return code;
+}
+
+function _Char_fromCode(code)
+{
+	return _Utils_chr(
+		(code < 0 || 0x10FFFF < code)
+			? '\uFFFD'
+			:
+		(code <= 0xFFFF)
+			? String.fromCharCode(code)
+			:
+		(code -= 0x10000,
+			String.fromCharCode(Math.floor(code / 0x400) + 0xD800, code % 0x400 + 0xDC00)
+		)
+	);
+}
+
+function _Char_toUpper(char)
+{
+	return _Utils_chr(char.toUpperCase());
+}
+
+function _Char_toLower(char)
+{
+	return _Utils_chr(char.toLowerCase());
+}
+
+function _Char_toLocaleUpper(char)
+{
+	return _Utils_chr(char.toLocaleUpperCase());
+}
+
+function _Char_toLocaleLower(char)
+{
+	return _Utils_chr(char.toLocaleLowerCase());
+}
+
+
+
 var _String_cons = F2(function(chr, str)
 {
 	return chr + str;
@@ -1102,130 +1209,6 @@ function _String_fromList(chars)
 	return _List_toArray(chars).join('');
 }
 
-
-
-
-// MATH
-
-var _Basics_add = F2(function(a, b) { return a + b; });
-var _Basics_sub = F2(function(a, b) { return a - b; });
-var _Basics_mul = F2(function(a, b) { return a * b; });
-var _Basics_fdiv = F2(function(a, b) { return a / b; });
-var _Basics_idiv = F2(function(a, b) { return (a / b) | 0; });
-var _Basics_pow = F2(Math.pow);
-
-var _Basics_remainderBy = F2(function(b, a) { return a % b; });
-
-// https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
-var _Basics_modBy = F2(function(modulus, x)
-{
-	var answer = x % modulus;
-	return modulus === 0
-		? _Debug_crash(11)
-		:
-	((answer > 0 && modulus < 0) || (answer < 0 && modulus > 0))
-		? answer + modulus
-		: answer;
-});
-
-
-// TRIGONOMETRY
-
-var _Basics_pi = Math.PI;
-var _Basics_e = Math.E;
-var _Basics_cos = Math.cos;
-var _Basics_sin = Math.sin;
-var _Basics_tan = Math.tan;
-var _Basics_acos = Math.acos;
-var _Basics_asin = Math.asin;
-var _Basics_atan = Math.atan;
-var _Basics_atan2 = F2(Math.atan2);
-
-
-// MORE MATH
-
-function _Basics_toFloat(x) { return x; }
-function _Basics_truncate(n) { return n | 0; }
-function _Basics_isInfinite(n) { return n === Infinity || n === -Infinity; }
-
-var _Basics_ceiling = Math.ceil;
-var _Basics_floor = Math.floor;
-var _Basics_round = Math.round;
-var _Basics_sqrt = Math.sqrt;
-var _Basics_log = Math.log;
-var _Basics_isNaN = isNaN;
-
-
-// BOOLEANS
-
-function _Basics_not(bool) { return !bool; }
-var _Basics_and = F2(function(a, b) { return a && b; });
-var _Basics_or  = F2(function(a, b) { return a || b; });
-var _Basics_xor = F2(function(a, b) { return a !== b; });
-
-
-function _Url_percentEncode(string)
-{
-	return encodeURIComponent(string);
-}
-
-function _Url_percentDecode(string)
-{
-	try
-	{
-		return elm$core$Maybe$Just(decodeURIComponent(string));
-	}
-	catch (e)
-	{
-		return elm$core$Maybe$Nothing;
-	}
-}
-
-
-function _Char_toCode(char)
-{
-	var code = char.charCodeAt(0);
-	if (0xD800 <= code && code <= 0xDBFF)
-	{
-		return (code - 0xD800) * 0x400 + char.charCodeAt(1) - 0xDC00 + 0x10000
-	}
-	return code;
-}
-
-function _Char_fromCode(code)
-{
-	return _Utils_chr(
-		(code < 0 || 0x10FFFF < code)
-			? '\uFFFD'
-			:
-		(code <= 0xFFFF)
-			? String.fromCharCode(code)
-			:
-		(code -= 0x10000,
-			String.fromCharCode(Math.floor(code / 0x400) + 0xD800, code % 0x400 + 0xDC00)
-		)
-	);
-}
-
-function _Char_toUpper(char)
-{
-	return _Utils_chr(char.toUpperCase());
-}
-
-function _Char_toLower(char)
-{
-	return _Utils_chr(char.toLowerCase());
-}
-
-function _Char_toLocaleUpper(char)
-{
-	return _Utils_chr(char.toLocaleUpperCase());
-}
-
-function _Char_toLocaleLower(char)
-{
-	return _Utils_chr(char.toLocaleLowerCase());
-}
 
 
 
@@ -1659,6 +1642,23 @@ function _Json_addEntry(func)
 
 var _Json_encodeNull = _Json_wrap(null);
 
+
+function _Url_percentEncode(string)
+{
+	return encodeURIComponent(string);
+}
+
+function _Url_percentDecode(string)
+{
+	try
+	{
+		return elm$core$Maybe$Just(decodeURIComponent(string));
+	}
+	catch (e)
+	{
+		return elm$core$Maybe$Nothing;
+	}
+}
 
 
 // TASKS
@@ -4497,152 +4497,17 @@ var author$project$Main$defaultComments = _List_fromArray(
 	]);
 var author$project$Main$emptyComment = {author: '', content: '', createdAt: ''};
 var elm$core$Basics$False = {$: 'False'};
-var author$project$Main$initialModel = {comments: author$project$Main$defaultComments, fontSize: 1, selectedComment: author$project$Main$emptyComment, selectedImage: '', sideOpen: false, status: author$project$Main$Loading};
-var elm$core$Basics$append = _Utils_append;
-var elm$core$Maybe$Just = function (a) {
-	return {$: 'Just', a: a};
+var author$project$Main$initialModel = {
+	comments: author$project$Main$defaultComments,
+	fontSize: 1,
+	selectedComment: author$project$Main$emptyComment,
+	selectedImage: '',
+	sideOpen: false,
+	status: author$project$Main$Loading,
+	windowSize: {height: 375, width: 812}
 };
-var elm$core$Maybe$Nothing = {$: 'Nothing'};
-var elm$core$String$join = F2(
-	function (sep, chunks) {
-		return A2(
-			_String_join,
-			sep,
-			_List_toArray(chunks));
-	});
-var elm$core$Basics$add = _Basics_add;
-var elm$core$Basics$gt = _Utils_gt;
-var elm$core$List$foldl = F3(
-	function (func, acc, list) {
-		foldl:
-		while (true) {
-			if (!list.b) {
-				return acc;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				var $temp$func = func,
-					$temp$acc = A2(func, x, acc),
-					$temp$list = xs;
-				func = $temp$func;
-				acc = $temp$acc;
-				list = $temp$list;
-				continue foldl;
-			}
-		}
-	});
-var elm$core$List$reverse = function (list) {
-	return A3(elm$core$List$foldl, elm$core$List$cons, _List_Nil, list);
-};
-var elm$core$List$foldrHelper = F4(
-	function (fn, acc, ctr, ls) {
-		if (!ls.b) {
-			return acc;
-		} else {
-			var a = ls.a;
-			var r1 = ls.b;
-			if (!r1.b) {
-				return A2(fn, a, acc);
-			} else {
-				var b = r1.a;
-				var r2 = r1.b;
-				if (!r2.b) {
-					return A2(
-						fn,
-						a,
-						A2(fn, b, acc));
-				} else {
-					var c = r2.a;
-					var r3 = r2.b;
-					if (!r3.b) {
-						return A2(
-							fn,
-							a,
-							A2(
-								fn,
-								b,
-								A2(fn, c, acc)));
-					} else {
-						var d = r3.a;
-						var r4 = r3.b;
-						var res = (ctr > 500) ? A3(
-							elm$core$List$foldl,
-							fn,
-							acc,
-							elm$core$List$reverse(r4)) : A4(elm$core$List$foldrHelper, fn, acc, ctr + 1, r4);
-						return A2(
-							fn,
-							a,
-							A2(
-								fn,
-								b,
-								A2(
-									fn,
-									c,
-									A2(fn, d, res))));
-					}
-				}
-			}
-		}
-	});
-var elm$core$List$foldr = F3(
-	function (fn, acc, ls) {
-		return A4(elm$core$List$foldrHelper, fn, acc, 0, ls);
-	});
-var elm$core$List$map = F2(
-	function (f, xs) {
-		return A3(
-			elm$core$List$foldr,
-			F2(
-				function (x, acc) {
-					return A2(
-						elm$core$List$cons,
-						f(x),
-						acc);
-				}),
-			_List_Nil,
-			xs);
-	});
-var elm$url$Url$Builder$toQueryPair = function (_n0) {
-	var key = _n0.a;
-	var value = _n0.b;
-	return key + ('=' + value);
-};
-var elm$url$Url$Builder$toQuery = function (parameters) {
-	if (!parameters.b) {
-		return '';
-	} else {
-		return '?' + A2(
-			elm$core$String$join,
-			'&',
-			A2(elm$core$List$map, elm$url$Url$Builder$toQueryPair, parameters));
-	}
-};
-var elm$url$Url$Builder$absolute = F2(
-	function (pathSegments, parameters) {
-		return '/' + (A2(elm$core$String$join, '/', pathSegments) + elm$url$Url$Builder$toQuery(parameters));
-	});
-var elm$url$Url$percentEncode = _Url_percentEncode;
-var elm$url$Url$Builder$QueryParameter = F2(
-	function (a, b) {
-		return {$: 'QueryParameter', a: a, b: b};
-	});
-var elm$url$Url$Builder$string = F2(
-	function (key, value) {
-		return A2(
-			elm$url$Url$Builder$QueryParameter,
-			elm$url$Url$percentEncode(key),
-			elm$url$Url$percentEncode(value));
-	});
-var author$project$Main$buildImgLink = function (url) {
-	return 'https://chousemath.github.io' + A2(
-		elm$url$Url$Builder$absolute,
-		_List_fromArray(
-			['wedding-invitation']),
-		_List_fromArray(
-			[
-				A2(elm$url$Url$Builder$string, 'imageURL', url)
-			]));
+var author$project$Main$GotWindowSize = function (a) {
+	return {$: 'GotWindowSize', a: a};
 };
 var elm$core$Array$branchFactor = 32;
 var elm$core$Array$Array_elm_builtin = F4(
@@ -4667,6 +4532,28 @@ var elm$core$Array$SubTree = function (a) {
 	return {$: 'SubTree', a: a};
 };
 var elm$core$Elm$JsArray$initializeFromList = _JsArray_initializeFromList;
+var elm$core$List$foldl = F3(
+	function (func, acc, list) {
+		foldl:
+		while (true) {
+			if (!list.b) {
+				return acc;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				var $temp$func = func,
+					$temp$acc = A2(func, x, acc),
+					$temp$list = xs;
+				func = $temp$func;
+				acc = $temp$acc;
+				list = $temp$list;
+				continue foldl;
+			}
+		}
+	});
+var elm$core$List$reverse = function (list) {
+	return A3(elm$core$List$foldl, elm$core$List$cons, _List_Nil, list);
+};
 var elm$core$Array$compressNodes = F2(
 	function (nodes, acc) {
 		compressNodes:
@@ -4714,11 +4601,13 @@ var elm$core$Array$treeFromBuilder = F2(
 			}
 		}
 	});
+var elm$core$Basics$add = _Basics_add;
 var elm$core$Basics$apL = F2(
 	function (f, x) {
 		return f(x);
 	});
 var elm$core$Basics$floor = _Basics_floor;
+var elm$core$Basics$gt = _Utils_gt;
 var elm$core$Basics$max = F2(
 	function (x, y) {
 		return (_Utils_cmp(x, y) > 0) ? x : y;
@@ -4791,6 +4680,10 @@ var elm$core$Array$initialize = F2(
 			return A5(elm$core$Array$initializeHelp, fn, initialFromIndex, len, _List_Nil, tail);
 		}
 	});
+var elm$core$Maybe$Just = function (a) {
+	return {$: 'Just', a: a};
+};
+var elm$core$Maybe$Nothing = {$: 'Nothing'};
 var elm$core$Result$Err = function (a) {
 	return {$: 'Err', a: a};
 };
@@ -4821,6 +4714,7 @@ var elm$json$Json$Decode$OneOf = function (a) {
 	return {$: 'OneOf', a: a};
 };
 var elm$core$Basics$and = _Basics_and;
+var elm$core$Basics$append = _Utils_append;
 var elm$core$Basics$or = _Basics_or;
 var elm$core$Char$toCode = _Char_toCode;
 var elm$core$Char$isLower = function (_char) {
@@ -4886,6 +4780,13 @@ var elm$core$List$indexedMap = F2(
 	});
 var elm$core$String$all = _String_all;
 var elm$core$String$fromInt = _String_fromNumber;
+var elm$core$String$join = F2(
+	function (sep, chunks) {
+		return A2(
+			_String_join,
+			sep,
+			_List_toArray(chunks));
+	});
 var elm$core$String$uncons = _String_uncons;
 var elm$core$String$split = F2(
 	function (sep, string) {
@@ -5002,6 +4903,137 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 			}
 		}
 	});
+var elm$json$Json$Decode$andThen = _Json_andThen;
+var elm$json$Json$Decode$field = _Json_decodeField;
+var elm$json$Json$Decode$int = _Json_decodeInt;
+var elm$json$Json$Decode$succeed = _Json_succeed;
+var author$project$Main$resizeWindow = _Platform_incomingPort(
+	'resizeWindow',
+	A2(
+		elm$json$Json$Decode$andThen,
+		function (width) {
+			return A2(
+				elm$json$Json$Decode$andThen,
+				function (height) {
+					return elm$json$Json$Decode$succeed(
+						{height: height, width: width});
+				},
+				A2(elm$json$Json$Decode$field, 'height', elm$json$Json$Decode$int));
+		},
+		A2(elm$json$Json$Decode$field, 'width', elm$json$Json$Decode$int)));
+var author$project$Main$subscriptions = function (model) {
+	return author$project$Main$resizeWindow(author$project$Main$GotWindowSize);
+};
+var elm$core$List$foldrHelper = F4(
+	function (fn, acc, ctr, ls) {
+		if (!ls.b) {
+			return acc;
+		} else {
+			var a = ls.a;
+			var r1 = ls.b;
+			if (!r1.b) {
+				return A2(fn, a, acc);
+			} else {
+				var b = r1.a;
+				var r2 = r1.b;
+				if (!r2.b) {
+					return A2(
+						fn,
+						a,
+						A2(fn, b, acc));
+				} else {
+					var c = r2.a;
+					var r3 = r2.b;
+					if (!r3.b) {
+						return A2(
+							fn,
+							a,
+							A2(
+								fn,
+								b,
+								A2(fn, c, acc)));
+					} else {
+						var d = r3.a;
+						var r4 = r3.b;
+						var res = (ctr > 500) ? A3(
+							elm$core$List$foldl,
+							fn,
+							acc,
+							elm$core$List$reverse(r4)) : A4(elm$core$List$foldrHelper, fn, acc, ctr + 1, r4);
+						return A2(
+							fn,
+							a,
+							A2(
+								fn,
+								b,
+								A2(
+									fn,
+									c,
+									A2(fn, d, res))));
+					}
+				}
+			}
+		}
+	});
+var elm$core$List$foldr = F3(
+	function (fn, acc, ls) {
+		return A4(elm$core$List$foldrHelper, fn, acc, 0, ls);
+	});
+var elm$core$List$map = F2(
+	function (f, xs) {
+		return A3(
+			elm$core$List$foldr,
+			F2(
+				function (x, acc) {
+					return A2(
+						elm$core$List$cons,
+						f(x),
+						acc);
+				}),
+			_List_Nil,
+			xs);
+	});
+var elm$url$Url$Builder$toQueryPair = function (_n0) {
+	var key = _n0.a;
+	var value = _n0.b;
+	return key + ('=' + value);
+};
+var elm$url$Url$Builder$toQuery = function (parameters) {
+	if (!parameters.b) {
+		return '';
+	} else {
+		return '?' + A2(
+			elm$core$String$join,
+			'&',
+			A2(elm$core$List$map, elm$url$Url$Builder$toQueryPair, parameters));
+	}
+};
+var elm$url$Url$Builder$absolute = F2(
+	function (pathSegments, parameters) {
+		return '/' + (A2(elm$core$String$join, '/', pathSegments) + elm$url$Url$Builder$toQuery(parameters));
+	});
+var elm$url$Url$percentEncode = _Url_percentEncode;
+var elm$url$Url$Builder$QueryParameter = F2(
+	function (a, b) {
+		return {$: 'QueryParameter', a: a, b: b};
+	});
+var elm$url$Url$Builder$string = F2(
+	function (key, value) {
+		return A2(
+			elm$url$Url$Builder$QueryParameter,
+			elm$url$Url$percentEncode(key),
+			elm$url$Url$percentEncode(value));
+	});
+var author$project$Main$buildImgLink = function (url) {
+	return 'https://chousemath.github.io' + A2(
+		elm$url$Url$Builder$absolute,
+		_List_fromArray(
+			['wedding-invitation']),
+		_List_fromArray(
+			[
+				A2(elm$url$Url$Builder$string, 'imageURL', url)
+			]));
+};
 var elm$json$Json$Encode$int = _Json_wrap;
 var elm$json$Json$Encode$object = function (pairs) {
 	return _Json_wrap(
@@ -5070,16 +5102,6 @@ var author$project$Main$update = F2(
 							model,
 							author$project$Main$shareLink(
 								{platform: 2, url: url}));
-					case 'Twitter':
-						return _Utils_Tuple2(
-							model,
-							author$project$Main$shareLink(
-								{platform: 3, url: url}));
-					case 'LinkedIn':
-						return _Utils_Tuple2(
-							model,
-							author$project$Main$shareLink(
-								{platform: 4, url: url}));
 					default:
 						return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 				}
@@ -5089,12 +5111,19 @@ var author$project$Main$update = F2(
 						model,
 						{sideOpen: !model.sideOpen}),
 					elm$core$Platform$Cmd$none);
-			default:
+			case 'AlterFont':
 				var size = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{fontSize: size}),
+					elm$core$Platform$Cmd$none);
+			default:
+				var wsize = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{windowSize: wsize}),
 					elm$core$Platform$Cmd$none);
 		}
 	});
@@ -5827,6 +5856,7 @@ var rtfeldman$elm_css$Css$prop2 = F3(
 					[argA.value, argB.value])));
 	});
 var rtfeldman$elm_css$Css$margin2 = rtfeldman$elm_css$Css$prop2('margin');
+var rtfeldman$elm_css$Css$margin4 = rtfeldman$elm_css$Css$prop4('margin');
 var rtfeldman$elm_css$Css$marginBottom = rtfeldman$elm_css$Css$prop1('margin-bottom');
 var rtfeldman$elm_css$Css$marginLeft = rtfeldman$elm_css$Css$prop1('margin-left');
 var rtfeldman$elm_css$Css$marginRight = rtfeldman$elm_css$Css$prop1('margin-right');
@@ -5836,10 +5866,11 @@ var rtfeldman$elm_css$Css$Subtraction = {$: 'Subtraction'};
 var rtfeldman$elm_css$Css$minus = rtfeldman$elm_css$Css$Subtraction;
 var rtfeldman$elm_css$Css$noRepeat = {backgroundRepeat: rtfeldman$elm_css$Css$Structure$Compatible, backgroundRepeatShorthand: rtfeldman$elm_css$Css$Structure$Compatible, value: 'no-repeat'};
 var rtfeldman$elm_css$Css$noWrap = {flexDirectionOrWrap: rtfeldman$elm_css$Css$Structure$Compatible, flexWrap: rtfeldman$elm_css$Css$Structure$Compatible, value: 'nowrap', whiteSpace: rtfeldman$elm_css$Css$Structure$Compatible};
+var rtfeldman$elm_css$Css$none = {backgroundImage: rtfeldman$elm_css$Css$Structure$Compatible, blockAxisOverflow: rtfeldman$elm_css$Css$Structure$Compatible, borderStyle: rtfeldman$elm_css$Css$Structure$Compatible, cursor: rtfeldman$elm_css$Css$Structure$Compatible, display: rtfeldman$elm_css$Css$Structure$Compatible, hoverCapability: rtfeldman$elm_css$Css$Structure$Compatible, inlineAxisOverflow: rtfeldman$elm_css$Css$Structure$Compatible, keyframes: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNone: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNoneOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible, listStyleType: rtfeldman$elm_css$Css$Structure$Compatible, listStyleTypeOrPositionOrImage: rtfeldman$elm_css$Css$Structure$Compatible, none: rtfeldman$elm_css$Css$Structure$Compatible, outline: rtfeldman$elm_css$Css$Structure$Compatible, pointerDevice: rtfeldman$elm_css$Css$Structure$Compatible, pointerEvents: rtfeldman$elm_css$Css$Structure$Compatible, resize: rtfeldman$elm_css$Css$Structure$Compatible, scriptingSupport: rtfeldman$elm_css$Css$Structure$Compatible, textDecorationLine: rtfeldman$elm_css$Css$Structure$Compatible, textTransform: rtfeldman$elm_css$Css$Structure$Compatible, touchAction: rtfeldman$elm_css$Css$Structure$Compatible, transform: rtfeldman$elm_css$Css$Structure$Compatible, updateFrequency: rtfeldman$elm_css$Css$Structure$Compatible, value: 'none'};
 var rtfeldman$elm_css$Css$overflow = rtfeldman$elm_css$Css$prop1('overflow');
 var rtfeldman$elm_css$Css$padding = rtfeldman$elm_css$Css$prop1('padding');
+var rtfeldman$elm_css$Css$padding2 = rtfeldman$elm_css$Css$prop2('padding');
 var rtfeldman$elm_css$Css$padding4 = rtfeldman$elm_css$Css$prop4('padding');
-var rtfeldman$elm_css$Css$paddingLeft = rtfeldman$elm_css$Css$prop1('padding-left');
 var rtfeldman$elm_css$Css$paddingTop = rtfeldman$elm_css$Css$prop1('padding-top');
 var rtfeldman$elm_css$Css$PercentageUnits = {$: 'PercentageUnits'};
 var rtfeldman$elm_css$Css$pct = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PercentageUnits, '%');
@@ -5879,6 +5910,7 @@ var rtfeldman$elm_css$Css$textAlign = function (fn) {
 		'text-align',
 		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
 };
+var rtfeldman$elm_css$Css$textDecoration = rtfeldman$elm_css$Css$prop1('text-decoration');
 var rtfeldman$elm_css$Css$textOverflow = rtfeldman$elm_css$Css$prop1('text-overflow');
 var rtfeldman$elm_css$Css$top = rtfeldman$elm_css$Css$prop1('top');
 var rtfeldman$elm_css$Css$url = function (urlValue) {
@@ -5892,6 +5924,15 @@ var rtfeldman$elm_css$Css$whiteSpace = rtfeldman$elm_css$Css$prop1('white-space'
 var rtfeldman$elm_css$Css$width = rtfeldman$elm_css$Css$prop1('width');
 var rtfeldman$elm_css$Css$zIndex = rtfeldman$elm_css$Css$prop1('z-index');
 var author$project$MyStyles$sty = {
+	boundingBox: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$vw(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$vh(100))
+			])),
 	boxOptions: _Utils_ap(
 		author$project$MyStyles$flexStartX,
 		_List_fromArray(
@@ -5949,36 +5990,29 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left)
 			])),
-	contFlower: _List_fromArray(
-		[
-			rtfeldman$elm_css$Css$width(
-			rtfeldman$elm_css$Css$pct(100)),
-			rtfeldman$elm_css$Css$height(
-			rtfeldman$elm_css$Css$vh(100)),
-			rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$relative),
-			rtfeldman$elm_css$Css$textAlign(rtfeldman$elm_css$Css$center),
-			rtfeldman$elm_css$Css$backgroundColor(
-			rtfeldman$elm_css$Css$hex('#729FB2')),
-			rtfeldman$elm_css$Css$backgroundImage(
-			rtfeldman$elm_css$Css$url('./images/bg2.jpg')),
-			rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
-			rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
-		]),
-	contFlowerImage: _List_fromArray(
-		[
-			rtfeldman$elm_css$Css$width(
-			A3(
-				rtfeldman$elm_css$Css$calc,
-				rtfeldman$elm_css$Css$pct(100),
-				rtfeldman$elm_css$Css$minus,
-				rtfeldman$elm_css$Css$px(32)))
-		]),
+	contFlower: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$relative),
+				rtfeldman$elm_css$Css$textAlign(rtfeldman$elm_css$Css$center),
+				rtfeldman$elm_css$Css$backgroundColor(
+				rtfeldman$elm_css$Css$hex('#729FB2')),
+				rtfeldman$elm_css$Css$backgroundImage(
+				rtfeldman$elm_css$Css$url('./images/bg2.jpg')),
+				rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
+				rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
+			])),
 	contFlowerText: _Utils_ap(
 		author$project$MyStyles$flexColX,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Css$width(
-				rtfeldman$elm_css$Css$pct(100))
+				rtfeldman$elm_css$Css$paddingTop(
+				rtfeldman$elm_css$Css$px(32))
 			])),
 	contGallery: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
@@ -5992,7 +6026,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$hex('#000000'))
 			])),
 	contGif: _Utils_ap(
-		author$project$MyStyles$flexRowX,
+		author$project$MyStyles$flexColX,
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$width(
@@ -6022,14 +6056,23 @@ var author$project$MyStyles$sty = {
 		author$project$MyStyles$flexColX,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Css$paddingTop(
-				rtfeldman$elm_css$Css$px(32)),
+				A2(
+				rtfeldman$elm_css$Css$padding2,
+				rtfeldman$elm_css$Css$px(32),
+				rtfeldman$elm_css$Css$px(0)),
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
 				rtfeldman$elm_css$Css$vh(100)),
 				rtfeldman$elm_css$Css$backgroundColor(
 				rtfeldman$elm_css$Css$hex('#ffffff'))
+			])),
+	contHallInfo: _Utils_ap(
+		author$project$MyStyles$flexRowX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$flex(
+				rtfeldman$elm_css$Css$num(1))
 			])),
 	contLoaded: _List_fromArray(
 		[
@@ -6058,8 +6101,37 @@ var author$project$MyStyles$sty = {
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(40)),
+				rtfeldman$elm_css$Css$vh(50)),
 				rtfeldman$elm_css$Css$overflow(rtfeldman$elm_css$Css$hidden)
+			])),
+	contMapButtonLeft: _Utils_ap(
+		author$project$MyStyles$flexStartX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$flex(
+				rtfeldman$elm_css$Css$num(1))
+			])),
+	contMapButtonRight: _Utils_ap(
+		author$project$MyStyles$flexEndX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$flex(
+				rtfeldman$elm_css$Css$num(1))
+			])),
+	contMapButtons: _Utils_ap(
+		author$project$MyStyles$flexRowX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(40)),
+				A4(
+				rtfeldman$elm_css$Css$margin4,
+				rtfeldman$elm_css$Css$px(16),
+				rtfeldman$elm_css$Css$px(0),
+				rtfeldman$elm_css$Css$px(32),
+				rtfeldman$elm_css$Css$px(0))
 			])),
 	contName: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
@@ -6068,7 +6140,9 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$height(
 				rtfeldman$elm_css$Css$px(40)),
 				rtfeldman$elm_css$Css$fontSize(
-				rtfeldman$elm_css$Css$px(36))
+				rtfeldman$elm_css$Css$px(36)),
+				rtfeldman$elm_css$Css$flex(
+				rtfeldman$elm_css$Css$num(1))
 			])),
 	contNameSpacer: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
@@ -6079,20 +6153,16 @@ var author$project$MyStyles$sty = {
 				A2(
 				rtfeldman$elm_css$Css$margin2,
 				rtfeldman$elm_css$Css$px(0),
-				rtfeldman$elm_css$Css$px(16))
+				rtfeldman$elm_css$Css$px(8))
 			])),
 	contNames: _Utils_ap(
 		author$project$MyStyles$flexRowX,
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$width(
-				A3(
-					rtfeldman$elm_css$Css$calc,
-					rtfeldman$elm_css$Css$vw(100),
-					rtfeldman$elm_css$Css$minus,
-					rtfeldman$elm_css$Css$px(64))),
-				rtfeldman$elm_css$Css$paddingLeft(
-				rtfeldman$elm_css$Css$px(32))
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$marginBottom(
+				rtfeldman$elm_css$Css$px(16))
 			])),
 	contOpt: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
@@ -6106,7 +6176,7 @@ var author$project$MyStyles$sty = {
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$width(
-				rtfeldman$elm_css$Css$vw(60)),
+				rtfeldman$elm_css$Css$vw(30)),
 				rtfeldman$elm_css$Css$height(
 				rtfeldman$elm_css$Css$px(70)),
 				rtfeldman$elm_css$Css$position(rtfeldman$elm_css$Css$fixed),
@@ -6262,6 +6332,17 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$height(
 				rtfeldman$elm_css$Css$px(30))
 			])),
+	contWeddingHall: _Utils_ap(
+		author$project$MyStyles$flexColX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$flexGrow(
+				rtfeldman$elm_css$Css$num(1)),
+				A2(
+				rtfeldman$elm_css$Css$padding2,
+				rtfeldman$elm_css$Css$px(8),
+				rtfeldman$elm_css$Css$px(16))
+			])),
 	displayComment: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$width(
@@ -6289,7 +6370,9 @@ var author$project$MyStyles$sty = {
 	gifDesc: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$fontSize(
-			rtfeldman$elm_css$Css$px(18))
+			rtfeldman$elm_css$Css$px(18)),
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$pct(100))
 		]),
 	gifImg: _List_fromArray(
 		[
@@ -6301,6 +6384,39 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$fontSize(
 			rtfeldman$elm_css$Css$px(24))
 		]),
+	hallInfoLeft: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$flex(
+			rtfeldman$elm_css$Css$num(1)),
+			rtfeldman$elm_css$Css$displayFlex,
+			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
+			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$flexStart),
+			rtfeldman$elm_css$Css$fontWeight(rtfeldman$elm_css$Css$bold),
+			rtfeldman$elm_css$Css$fontSize(
+			rtfeldman$elm_css$Css$px(18))
+		]),
+	hallInfoRight: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$flex(
+			rtfeldman$elm_css$Css$num(2)),
+			rtfeldman$elm_css$Css$displayFlex,
+			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
+			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$flexStart),
+			rtfeldman$elm_css$Css$fontSize(
+			rtfeldman$elm_css$Css$px(18))
+		]),
+	hallTitle: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$fontSize(
+				rtfeldman$elm_css$Css$px(20)),
+				rtfeldman$elm_css$Css$fontWeight(rtfeldman$elm_css$Css$bold),
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(40))
+			])),
 	iconClose: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$width(
@@ -6327,6 +6443,25 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$height(
 			rtfeldman$elm_css$Css$px(30))
 		]),
+	lightBg: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$width(
+			A3(
+				rtfeldman$elm_css$Css$calc,
+				rtfeldman$elm_css$Css$vw(100),
+				rtfeldman$elm_css$Css$minus,
+				rtfeldman$elm_css$Css$px(32))),
+			rtfeldman$elm_css$Css$height(
+			A3(
+				rtfeldman$elm_css$Css$calc,
+				rtfeldman$elm_css$Css$vh(100),
+				rtfeldman$elm_css$Css$minus,
+				rtfeldman$elm_css$Css$px(32))),
+			rtfeldman$elm_css$Css$backgroundColor(
+			A4(rtfeldman$elm_css$Css$rgba, 255, 255, 255, 0.25)),
+			rtfeldman$elm_css$Css$borderRadius(
+			rtfeldman$elm_css$Css$px(10))
+		]),
 	map: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$width(
@@ -6334,6 +6469,44 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$height(
 			rtfeldman$elm_css$Css$px(400))
 		]),
+	mapButtonLeft: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(95)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$fontSize(
+				rtfeldman$elm_css$Css$px(20)),
+				rtfeldman$elm_css$Css$fontWeight(rtfeldman$elm_css$Css$bold),
+				rtfeldman$elm_css$Css$color(
+				rtfeldman$elm_css$Css$hex('#ffffff')),
+				rtfeldman$elm_css$Css$backgroundColor(
+				rtfeldman$elm_css$Css$hex('#2CAE00')),
+				rtfeldman$elm_css$Css$borderRadius(
+				rtfeldman$elm_css$Css$px(8)),
+				rtfeldman$elm_css$Css$textDecoration(rtfeldman$elm_css$Css$none)
+			])),
+	mapButtonRight: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(95)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$fontSize(
+				rtfeldman$elm_css$Css$px(20)),
+				rtfeldman$elm_css$Css$fontWeight(rtfeldman$elm_css$Css$bold),
+				rtfeldman$elm_css$Css$color(
+				rtfeldman$elm_css$Css$hex('#000000')),
+				rtfeldman$elm_css$Css$backgroundColor(
+				rtfeldman$elm_css$Css$hex('#F8DC03')),
+				rtfeldman$elm_css$Css$borderRadius(
+				rtfeldman$elm_css$Css$px(8)),
+				rtfeldman$elm_css$Css$textDecoration(rtfeldman$elm_css$Css$none)
+			])),
 	sectionMap: _Utils_ap(
 		author$project$MyStyles$flexColX,
 		_List_fromArray(
@@ -6384,7 +6557,6 @@ var elm$core$Basics$identity = function (x) {
 };
 var elm$json$Json$Decode$map = _Json_map1;
 var elm$json$Json$Decode$map2 = _Json_map2;
-var elm$json$Json$Decode$succeed = _Json_succeed;
 var elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 	switch (handler.$) {
 		case 'Normal':
@@ -8311,14 +8483,10 @@ var author$project$Main$displayOpt = F2(
 	});
 var author$project$Main$Facebook = {$: 'Facebook'};
 var author$project$Main$KakaoStory = {$: 'KakaoStory'};
-var author$project$Main$LinkedIn = {$: 'LinkedIn'};
-var author$project$Main$Twitter = {$: 'Twitter'};
 var author$project$Main$socialPlatforms = _List_fromArray(
 	[
 		{company: author$project$Main$KakaoStory, icon: './images/KakaoStory.png', text: 'kakao story'},
-		{company: author$project$Main$Facebook, icon: './images/Facebook.png', text: 'facebook'},
-		{company: author$project$Main$Twitter, icon: './images/Twitter.png', text: 'twitter'},
-		{company: author$project$Main$LinkedIn, icon: './images/LinkedIn.png', text: 'linkedin'}
+		{company: author$project$Main$Facebook, icon: './images/Facebook.png', text: 'facebook'}
 	]);
 var author$project$Main$displaySelectedImage = function (link) {
 	return (link === '') ? A2(rtfeldman$elm_css$Html$Styled$div, _List_Nil, _List_Nil) : A2(
@@ -8376,6 +8544,13 @@ var author$project$Main$displaySelectedImage = function (link) {
 };
 var author$project$Main$gallery = _List_fromArray(
 	['https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00673_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00514_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00864_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00451_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00948_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00789_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00934_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00806_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00579_Resize.jpg']);
+var author$project$Main$hallInfo = _List_fromArray(
+	[
+		{key: '예식간격', val: '1시간 30분'},
+		{key: '예식시간', val: '오전 11시'},
+		{key: '전화번호', val: '02-730-0230'},
+		{key: '주소', val: '서울특별시 종로구 종로1길 50 (중학동), 더케이트윈타워 A동 LL층 (지하2층)'}
+	]);
 var rtfeldman$elm_css$Html$Styled$h4 = rtfeldman$elm_css$Html$Styled$node('h4');
 var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var rtfeldman$elm_css$VirtualDom$Styled$Unstyled = function (a) {
@@ -8451,23 +8626,9 @@ var author$project$Main$introText = _Utils_ap(
 				]),
 			_List_fromArray(
 				[
-					A2(
-					rtfeldman$elm_css$Html$Styled$div,
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.flexGrowX)
-						]),
-					_List_Nil),
 					author$project$Main$renderName('최성필'),
-					author$project$Main$renderNameSpacer('그리고'),
-					author$project$Main$renderName('최수강'),
-					A2(
-					rtfeldman$elm_css$Html$Styled$div,
-					_List_fromArray(
-						[
-							rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.flexGrowX)
-						]),
-					_List_Nil)
+					author$project$Main$renderNameSpacer('(그리고)'),
+					author$project$Main$renderName('최수강')
 				]))
 		]),
 	A2(
@@ -8583,59 +8744,68 @@ var author$project$Main$renderGallery = function (links) {
 				]))
 		]);
 };
+var author$project$Main$showHallInfo = function (info) {
+	return A2(
+		rtfeldman$elm_css$Html$Styled$div,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contHallInfo)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				rtfeldman$elm_css$Html$Styled$div,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.hallInfoLeft)
+					]),
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$text(info.key)
+					])),
+				A2(
+				rtfeldman$elm_css$Html$Styled$div,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.hallInfoRight)
+					]),
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$text(info.val)
+					]))
+			]));
+};
+var rtfeldman$elm_css$Html$Styled$a = rtfeldman$elm_css$Html$Styled$node('a');
 var rtfeldman$elm_css$Html$Styled$p = rtfeldman$elm_css$Html$Styled$node('p');
 var rtfeldman$elm_css$Html$Styled$section = rtfeldman$elm_css$Html$Styled$node('section');
+var rtfeldman$elm_css$Html$Styled$Attributes$href = function (url) {
+	return A2(rtfeldman$elm_css$Html$Styled$Attributes$stringProperty, 'href', url);
+};
 var rtfeldman$elm_css$Html$Styled$Attributes$id = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('id');
 var author$project$Main$view = function (model) {
 	return A2(
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Html$Styled$Attributes$class('snap-container'),
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMain)
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.boundingBox)
 			]),
 		_List_fromArray(
 			[
 				A2(
-				rtfeldman$elm_css$Html$Styled$section,
+				rtfeldman$elm_css$Html$Styled$div,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contFlower)
+						rtfeldman$elm_css$Html$Styled$Attributes$class('snap-container'),
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMain)
 					]),
 				_List_fromArray(
 					[
 						A2(
-						rtfeldman$elm_css$Html$Styled$div,
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contFlowerText)
-							]),
-						author$project$Main$introText)
-					])),
-				A2(
-				rtfeldman$elm_css$Html$Styled$section,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGallery)
-					]),
-				author$project$Main$renderGallery(author$project$Main$gallery)),
-				A2(
-				rtfeldman$elm_css$Html$Styled$section,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.sectionMap)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						rtfeldman$elm_css$Html$Styled$div,
+						rtfeldman$elm_css$Html$Styled$section,
 						_List_fromArray(
 							[
 								rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMap)
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contFlower)
 							]),
 						_List_fromArray(
 							[
@@ -8643,43 +8813,50 @@ var author$project$Main$view = function (model) {
 								rtfeldman$elm_css$Html$Styled$div,
 								_List_fromArray(
 									[
-										rtfeldman$elm_css$Html$Styled$Attributes$id('map'),
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.map)
-									]),
-								_List_Nil)
-							]))
-					])),
-				A2(
-				rtfeldman$elm_css$Html$Styled$section,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifs)
-					]),
-				_List_fromArray(
-					[
-						A2(
-						rtfeldman$elm_css$Html$Styled$div,
-						_List_fromArray(
-							[
-								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
-							]),
-						_List_fromArray(
-							[
-								A2(
-								rtfeldman$elm_css$Html$Styled$div,
-								_List_fromArray(
-									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.lightBg)
 									]),
 								_List_fromArray(
 									[
 										A2(
-										rtfeldman$elm_css$Html$Styled$img,
+										rtfeldman$elm_css$Html$Styled$div,
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contFlowerText)
+											]),
+										author$project$Main$introText)
+									]))
+							])),
+						A2(
+						rtfeldman$elm_css$Html$Styled$section,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGallery)
+							]),
+						author$project$Main$renderGallery(author$project$Main$gallery)),
+						A2(
+						rtfeldman$elm_css$Html$Styled$section,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.sectionMap)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMap)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$div,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$id('map'),
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.map)
 											]),
 										_List_Nil)
 									])),
@@ -8687,34 +8864,191 @@ var author$project$Main$view = function (model) {
 								rtfeldman$elm_css$Html$Styled$div,
 								_List_fromArray(
 									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifText)
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contWeddingHall)
+									]),
+								_Utils_ap(
+									_List_fromArray(
+										[
+											A2(
+											rtfeldman$elm_css$Html$Styled$div,
+											_List_fromArray(
+												[
+													rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.hallTitle)
+												]),
+											_List_fromArray(
+												[
+													rtfeldman$elm_css$Html$Styled$text('아펠가모 광화문점')
+												])),
+											A2(
+											rtfeldman$elm_css$Html$Styled$div,
+											_List_fromArray(
+												[
+													rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMapButtons)
+												]),
+											_List_fromArray(
+												[
+													A2(
+													rtfeldman$elm_css$Html$Styled$div,
+													_List_fromArray(
+														[
+															rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMapButtonLeft)
+														]),
+													_List_fromArray(
+														[
+															A2(
+															rtfeldman$elm_css$Html$Styled$a,
+															_List_fromArray(
+																[
+																	rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.mapButtonLeft),
+																	rtfeldman$elm_css$Html$Styled$Attributes$href('https://m.map.naver.com/map.nhn?pinId=31738014&pinType=site&lat=&lng=&dlevel=&mapMode=')
+																]),
+															_List_fromArray(
+																[
+																	rtfeldman$elm_css$Html$Styled$text('네이버지도')
+																]))
+														])),
+													A2(
+													rtfeldman$elm_css$Html$Styled$div,
+													_List_fromArray(
+														[
+															rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contMapButtonRight)
+														]),
+													_List_fromArray(
+														[
+															A2(
+															rtfeldman$elm_css$Html$Styled$a,
+															_List_fromArray(
+																[
+																	rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.mapButtonRight),
+																	rtfeldman$elm_css$Html$Styled$Attributes$href('https://place.map.kakao.com/m/20000428')
+																]),
+															_List_fromArray(
+																[
+																	rtfeldman$elm_css$Html$Styled$text('카카오맵')
+																]))
+														]))
+												]))
+										]),
+									A2(elm$core$List$map, author$project$Main$showHallInfo, author$project$Main$hallInfo)))
+							])),
+						A2(
+						rtfeldman$elm_css$Html$Styled$section,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$class('snap-child'),
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifs)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
 									]),
 								_List_fromArray(
 									[
 										A2(
-										rtfeldman$elm_css$Html$Styled$p,
+										rtfeldman$elm_css$Html$Styled$div,
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifName)
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
 											]),
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$text('최수강')
+												A2(
+												rtfeldman$elm_css$Html$Styled$img,
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
+														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
+													]),
+												_List_Nil)
 											])),
 										A2(
-										rtfeldman$elm_css$Html$Styled$p,
+										rtfeldman$elm_css$Html$Styled$div,
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifDesc)
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifText)
 											]),
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$text('ad asd fas asdf asdf fgadfasdf asdf')
+												A2(
+												rtfeldman$elm_css$Html$Styled$p,
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifName)
+													]),
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$text('최수강')
+													])),
+												A2(
+												rtfeldman$elm_css$Html$Styled$div,
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$Attributes$id('sk-typed'),
+														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifDesc)
+													]),
+												_List_Nil)
+											]))
+									])),
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$div,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
+											]),
+										_List_fromArray(
+											[
+												A2(
+												rtfeldman$elm_css$Html$Styled$img,
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
+														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
+													]),
+												_List_Nil)
+											])),
+										A2(
+										rtfeldman$elm_css$Html$Styled$div,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifText)
+											]),
+										_List_fromArray(
+											[
+												A2(
+												rtfeldman$elm_css$Html$Styled$p,
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifName)
+													]),
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$text('최성필')
+													])),
+												A2(
+												rtfeldman$elm_css$Html$Styled$div,
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$Attributes$id('js-typed'),
+														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifDesc)
+													]),
+												_List_Nil)
 											]))
 									]))
-							]))
-					])),
-				author$project$Main$displaySelectedImage(model.selectedImage)
+							])),
+						author$project$Main$displaySelectedImage(model.selectedImage)
+					]))
 			]));
 };
 var elm$browser$Browser$External = function (a) {
@@ -8930,8 +9264,6 @@ var elm$url$Url$fromString = function (str) {
 		A2(elm$core$String$dropLeft, 8, str)) : elm$core$Maybe$Nothing);
 };
 var elm$browser$Browser$element = _Browser_element;
-var elm$core$Platform$Sub$batch = _Platform_batch;
-var elm$core$Platform$Sub$none = elm$core$Platform$Sub$batch(_List_Nil);
 var elm$virtual_dom$VirtualDom$node = function (tag) {
 	return _VirtualDom_node(
 		_VirtualDom_noScript(tag));
@@ -9418,9 +9750,7 @@ var author$project$Main$main = elm$browser$Browser$element(
 		init: function (flags) {
 			return _Utils_Tuple2(author$project$Main$initialModel, elm$core$Platform$Cmd$none);
 		},
-		subscriptions: function (model) {
-			return elm$core$Platform$Sub$none;
-		},
+		subscriptions: author$project$Main$subscriptions,
 		update: author$project$Main$update,
 		view: A2(elm$core$Basics$composeR, author$project$Main$view, rtfeldman$elm_css$Html$Styled$toUnstyled)
 	});

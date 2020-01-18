@@ -24,10 +24,23 @@ flexStartX =
 
 
 sty =
-    { contName = flexCenterX ++ [ height (px 40), fontSize (px 36) ]
+    { contName =
+        flexCenterX
+            ++ [ height (px 40)
+               , fontSize (px 36)
+               , flex (num 1)
+               ]
     , flexGrowX = [ displayFlex, flexGrow (num 1) ]
-    , contNameSpacer = flexCenterX ++ [ fontSize (px 12), margin2 (px 0) (px 16) ]
-    , contNames = flexRowX ++ [ width (calc (vw 100) minus (px 64)), paddingLeft (px 32) ]
+    , contNameSpacer =
+        flexCenterX
+            ++ [ fontSize (px 12)
+               , margin2 (px 0) (px 8)
+               ]
+    , contNames =
+        flexRowX
+            ++ [ width (pct 100)
+               , marginBottom (px 16)
+               ]
     , contSubtitle = flexCenterX ++ [ width (pct 100), fontSize (px 16), height (px 30) ]
     , contComment = flexColX ++ [ marginBottom (px 16), padding4 (px 0) (px 16) (px 0) (px 16) ]
     , commentInner = flexRowX ++ [ marginBottom (px 8) ]
@@ -95,17 +108,26 @@ sty =
         , overflow scroll
         ]
     , contFlower =
-        [ width (pct 100)
-        , height (vh 100)
-        , position relative
-        , textAlign center
-        , backgroundColor (hex "#729FB2")
-        , backgroundImage (url "./images/bg2.jpg")
-        , backgroundPosition center
-        , backgroundRepeat noRepeat
+        flexCenterX
+            ++ [ width (pct 100)
+               , height (vh 100)
+               , position relative
+               , textAlign center
+               , backgroundColor (hex "#729FB2")
+               , backgroundImage (url "./images/bg2.jpg")
+               , backgroundPosition center
+               , backgroundRepeat noRepeat
+               ]
+    , contFlowerText =
+        flexColX
+            ++ [ paddingTop (px 32)
+               ]
+    , lightBg =
+        [ width (calc (vw 100) minus (px 32))
+        , height (calc (vh 100) minus (px 32))
+        , backgroundColor (rgba 255 255 255 0.25)
+        , borderRadius (px 10)
         ]
-    , contFlowerImage = [ width (calc (pct 100) minus (px 32)) ]
-    , contFlowerText = flexColX ++ [ width (pct 100) ]
     , contGallery =
         flexCenterX
             ++ [ width (vw 100)
@@ -114,13 +136,13 @@ sty =
                ]
     , contComments = flexColX ++ [ width (pct 100), float left ]
     , contSelectedComment = [ padding (px 16) ]
-    , contMap = flexCenterX ++ [ height (vh 40), overflow hidden ]
+    , contMap = flexCenterX ++ [ height (vh 50), overflow hidden ]
     , sectionMap = flexColX ++ [ width (vw 100), height (vh 100) ]
     , map = [ width (pct 100), height (px 400) ]
     , contProgress = flexCenterX ++ [ width (vw 100), height (vh 20), backgroundColor (hex "f6eec7") ]
     , contOptions =
         flexStartX
-            ++ [ width (vw 60)
+            ++ [ width (vw 30)
                , height (px 70)
                , position fixed
                , left (px 0)
@@ -159,8 +181,12 @@ sty =
         , borderWidth4 (px 0) (px 0) (px 1) (px 0)
         ]
     , closeSidebar = [ marginLeft (px 16) ]
-    , contGifs = flexColX ++ [ paddingTop (px 32), width (vw 100), height (vh 100), backgroundColor (hex "#ffffff") ]
-    , contGif = flexRowX ++ [ width (pct 100), maxHeight (vh 50) ]
+    , contGifs = flexColX ++ [ padding2 (px 32) (px 0), width (vw 100), height (vh 100), backgroundColor (hex "#ffffff") ]
+    , contGif =
+        flexColX
+            ++ [ width (pct 100)
+               , maxHeight (vh 50)
+               ]
     , contGifImg = flexCenterX ++ [ flex (num 1) ]
     , contGifText =
         [ flex (num 1)
@@ -171,5 +197,77 @@ sty =
         ]
     , gifImg = [ width (vw 50) ]
     , gifName = [ fontSize (px 24) ]
-    , gifDesc = [ fontSize (px 18) ]
+    , gifDesc =
+        [ fontSize (px 18)
+        , width (pct 100)
+        ]
+    , boundingBox =
+        flexCenterX
+            ++ [ width (vw 100)
+               , height (vh 100)
+               ]
+    , contWeddingHall =
+        flexColX
+            ++ [ flexGrow (num 1)
+               , padding2 (px 8) (px 16)
+               ]
+    , contHallInfo = flexRowX ++ [ flex (num 1) ]
+    , hallInfoLeft =
+        [ flex (num 1)
+        , displayFlex
+        , justifyContent flexStart
+        , alignItems flexStart
+        , fontWeight bold
+        , fontSize (px 18)
+        ]
+    , hallInfoRight =
+        [ flex (num 2)
+        , displayFlex
+        , justifyContent flexStart
+        , alignItems flexStart
+        , fontSize (px 18)
+        ]
+    , hallTitle =
+        flexCenterX
+            ++ [ fontSize (px 20)
+               , fontWeight bold
+               , width (pct 100)
+               , height (px 40)
+               ]
+    , contMapButtons =
+        flexRowX
+            ++ [ width (pct 100)
+               , height (px 40)
+               , margin4 (px 16) (px 0) (px 32) (px 0)
+               ]
+    , contMapButtonLeft =
+        flexStartX
+            ++ [ flex (num 1)
+               ]
+    , contMapButtonRight =
+        flexEndX
+            ++ [ flex (num 1)
+               ]
+    , mapButtonLeft =
+        flexCenterX
+            ++ [ width (pct 95)
+               , height (pct 100)
+               , fontSize (px 20)
+               , fontWeight bold
+               , color (hex "#ffffff")
+               , backgroundColor (hex "#2CAE00")
+               , borderRadius (px 8)
+               , textDecoration none
+               ]
+    , mapButtonRight =
+        flexCenterX
+            ++ [ width (pct 95)
+               , height (pct 100)
+               , fontSize (px 20)
+               , fontWeight bold
+               , color (hex "#000000")
+               , backgroundColor (hex "#F8DC03")
+               , borderRadius (px 8)
+               , textDecoration none
+               ]
     }
