@@ -105,7 +105,8 @@ sty =
     , contMain =
         [ width (vw 100)
         , height (vh 100)
-        , overflow scroll
+        , overflowY scroll
+        , overflowX hidden
         ]
     , contFlower =
         flexCenterX
@@ -124,7 +125,7 @@ sty =
                ]
     , lightBg =
         [ width (calc (vw 100) minus (px 40))
-        , height (calc (vh 100) minus (px 80))
+        , height (calc (vh 100) minus (px 100))
         , backgroundColor (rgba 255 255 255 0.25)
         , borderRadius (px 10)
         ]
@@ -216,6 +217,7 @@ sty =
         flexCenterX
             ++ [ width (vw 100)
                , height (vh 100)
+               , overflowX hidden
                ]
     , contWeddingHall =
         flexColX

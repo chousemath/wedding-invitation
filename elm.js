@@ -5870,6 +5870,8 @@ var rtfeldman$elm_css$Css$noRepeat = {backgroundRepeat: rtfeldman$elm_css$Css$St
 var rtfeldman$elm_css$Css$noWrap = {flexDirectionOrWrap: rtfeldman$elm_css$Css$Structure$Compatible, flexWrap: rtfeldman$elm_css$Css$Structure$Compatible, value: 'nowrap', whiteSpace: rtfeldman$elm_css$Css$Structure$Compatible};
 var rtfeldman$elm_css$Css$none = {backgroundImage: rtfeldman$elm_css$Css$Structure$Compatible, blockAxisOverflow: rtfeldman$elm_css$Css$Structure$Compatible, borderStyle: rtfeldman$elm_css$Css$Structure$Compatible, cursor: rtfeldman$elm_css$Css$Structure$Compatible, display: rtfeldman$elm_css$Css$Structure$Compatible, hoverCapability: rtfeldman$elm_css$Css$Structure$Compatible, inlineAxisOverflow: rtfeldman$elm_css$Css$Structure$Compatible, keyframes: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNone: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNoneOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible, listStyleType: rtfeldman$elm_css$Css$Structure$Compatible, listStyleTypeOrPositionOrImage: rtfeldman$elm_css$Css$Structure$Compatible, none: rtfeldman$elm_css$Css$Structure$Compatible, outline: rtfeldman$elm_css$Css$Structure$Compatible, pointerDevice: rtfeldman$elm_css$Css$Structure$Compatible, pointerEvents: rtfeldman$elm_css$Css$Structure$Compatible, resize: rtfeldman$elm_css$Css$Structure$Compatible, scriptingSupport: rtfeldman$elm_css$Css$Structure$Compatible, textDecorationLine: rtfeldman$elm_css$Css$Structure$Compatible, textTransform: rtfeldman$elm_css$Css$Structure$Compatible, touchAction: rtfeldman$elm_css$Css$Structure$Compatible, transform: rtfeldman$elm_css$Css$Structure$Compatible, updateFrequency: rtfeldman$elm_css$Css$Structure$Compatible, value: 'none'};
 var rtfeldman$elm_css$Css$overflow = rtfeldman$elm_css$Css$prop1('overflow');
+var rtfeldman$elm_css$Css$overflowX = rtfeldman$elm_css$Css$prop1('overflow-x');
+var rtfeldman$elm_css$Css$overflowY = rtfeldman$elm_css$Css$prop1('overflow-y');
 var rtfeldman$elm_css$Css$padding = rtfeldman$elm_css$Css$prop1('padding');
 var rtfeldman$elm_css$Css$padding2 = rtfeldman$elm_css$Css$prop2('padding');
 var rtfeldman$elm_css$Css$padding4 = rtfeldman$elm_css$Css$prop4('padding');
@@ -5936,7 +5938,8 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$vh(100))
+				rtfeldman$elm_css$Css$vh(100)),
+				rtfeldman$elm_css$Css$overflowX(rtfeldman$elm_css$Css$hidden)
 			])),
 	boxOptions: _Utils_ap(
 		author$project$MyStyles$flexStartX,
@@ -6091,7 +6094,8 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$vw(100)),
 			rtfeldman$elm_css$Css$height(
 			rtfeldman$elm_css$Css$vh(100)),
-			rtfeldman$elm_css$Css$overflow(rtfeldman$elm_css$Css$scroll)
+			rtfeldman$elm_css$Css$overflowY(rtfeldman$elm_css$Css$scroll),
+			rtfeldman$elm_css$Css$overflowX(rtfeldman$elm_css$Css$hidden)
 		]),
 	contMap: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
@@ -6492,7 +6496,7 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$calc,
 				rtfeldman$elm_css$Css$vh(100),
 				rtfeldman$elm_css$Css$minus,
-				rtfeldman$elm_css$Css$px(80))),
+				rtfeldman$elm_css$Css$px(100))),
 			rtfeldman$elm_css$Css$backgroundColor(
 			A4(rtfeldman$elm_css$Css$rgba, 255, 255, 255, 0.25)),
 			rtfeldman$elm_css$Css$borderRadius(
@@ -8674,7 +8678,7 @@ var author$project$Main$introText = _Utils_ap(
 		elm$core$List$map,
 		author$project$Main$renderSubtitle,
 		_List_fromArray(
-			['- 2020.04.19 SUN AM 11:00 -', '서울특별시 종로구 종로1길 50 (중학동)', '더케이트윈타워 A동 LL층 (지하2층)'])));
+			['- 2020.04.19 SUN AM 11:00 -', '아펠가모 광화문점'])));
 var rtfeldman$elm_css$Html$Styled$li = rtfeldman$elm_css$Html$Styled$node('li');
 var rtfeldman$elm_css$Html$Styled$Attributes$class = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('className');
 var author$project$Main$makeThumbnail = function (link) {
