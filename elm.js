@@ -5845,6 +5845,7 @@ var rtfeldman$elm_css$Css$int = function (val) {
 var rtfeldman$elm_css$Css$left = rtfeldman$elm_css$Css$prop1('left');
 var rtfeldman$elm_css$Css$lighter = {fontWeight: rtfeldman$elm_css$Css$Structure$Compatible, value: 'lighter'};
 var rtfeldman$elm_css$Css$lineHeight = rtfeldman$elm_css$Css$prop1('line-height');
+var rtfeldman$elm_css$Css$margin = rtfeldman$elm_css$Css$prop1('margin');
 var rtfeldman$elm_css$Css$prop2 = F3(
 	function (key, argA, argB) {
 		return A2(
@@ -5874,6 +5875,7 @@ var rtfeldman$elm_css$Css$padding2 = rtfeldman$elm_css$Css$prop2('padding');
 var rtfeldman$elm_css$Css$padding4 = rtfeldman$elm_css$Css$prop4('padding');
 var rtfeldman$elm_css$Css$paddingBottom = rtfeldman$elm_css$Css$prop1('padding-bottom');
 var rtfeldman$elm_css$Css$paddingLeft = rtfeldman$elm_css$Css$prop1('padding-left');
+var rtfeldman$elm_css$Css$paddingRight = rtfeldman$elm_css$Css$prop1('padding-right');
 var rtfeldman$elm_css$Css$paddingTop = rtfeldman$elm_css$Css$prop1('padding-top');
 var rtfeldman$elm_css$Css$PercentageUnits = {$: 'PercentageUnits'};
 var rtfeldman$elm_css$Css$pct = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PercentageUnits, '%');
@@ -6064,8 +6066,10 @@ var author$project$MyStyles$sty = {
 		author$project$MyStyles$flexRowX,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Css$flex(
-				rtfeldman$elm_css$Css$num(1))
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$vw(100)),
+				rtfeldman$elm_css$Css$margin(
+				rtfeldman$elm_css$Css$px(16))
 			])),
 	contLoaded: _List_fromArray(
 		[
@@ -6431,7 +6435,11 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexStart),
 			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$flexStart),
 			rtfeldman$elm_css$Css$fontSize(
-			rtfeldman$elm_css$Css$px(18))
+			rtfeldman$elm_css$Css$px(18)),
+			rtfeldman$elm_css$Css$paddingRight(
+			rtfeldman$elm_css$Css$px(32)),
+			rtfeldman$elm_css$Css$lineHeight(
+			rtfeldman$elm_css$Css$px(30))
 		]),
 	hallTitle: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
@@ -6478,13 +6486,13 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$calc,
 				rtfeldman$elm_css$Css$vw(100),
 				rtfeldman$elm_css$Css$minus,
-				rtfeldman$elm_css$Css$px(32))),
+				rtfeldman$elm_css$Css$px(40))),
 			rtfeldman$elm_css$Css$height(
 			A3(
 				rtfeldman$elm_css$Css$calc,
 				rtfeldman$elm_css$Css$vh(100),
 				rtfeldman$elm_css$Css$minus,
-				rtfeldman$elm_css$Css$px(32))),
+				rtfeldman$elm_css$Css$px(80))),
 			rtfeldman$elm_css$Css$backgroundColor(
 			A4(rtfeldman$elm_css$Css$rgba, 255, 255, 255, 0.25)),
 			rtfeldman$elm_css$Css$borderRadius(

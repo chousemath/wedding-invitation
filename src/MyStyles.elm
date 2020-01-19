@@ -123,8 +123,8 @@ sty =
             ++ [ paddingTop (px 32)
                ]
     , lightBg =
-        [ width (calc (vw 100) minus (px 32))
-        , height (calc (vh 100) minus (px 32))
+        [ width (calc (vw 100) minus (px 40))
+        , height (calc (vh 100) minus (px 80))
         , backgroundColor (rgba 255 255 255 0.25)
         , borderRadius (px 10)
         ]
@@ -222,7 +222,11 @@ sty =
             ++ [ flexGrow (num 1)
                , padding2 (px 8) (px 16)
                ]
-    , contHallInfo = flexRowX ++ [ flex (num 1) ]
+    , contHallInfo =
+        flexRowX
+            ++ [ width (vw 100)
+               , margin (px 16)
+               ]
     , hallInfoLeft =
         [ flex (num 1)
         , displayFlex
@@ -237,6 +241,8 @@ sty =
         , justifyContent flexStart
         , alignItems flexStart
         , fontSize (px 18)
+        , paddingRight (px 32)
+        , lineHeight (px 30)
         ]
     , hallTitle =
         flexCenterX
