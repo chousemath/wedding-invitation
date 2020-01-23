@@ -5998,6 +5998,17 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$float(rtfeldman$elm_css$Css$left)
 			])),
+	contDate: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$pct(100)),
+				rtfeldman$elm_css$Css$fontSize(
+				rtfeldman$elm_css$Css$px(26)),
+				rtfeldman$elm_css$Css$color(
+				rtfeldman$elm_css$Css$hex('#ffffff'))
+			])),
 	contFlower: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
 		_List_fromArray(
@@ -6032,25 +6043,13 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
 	contGif: _Utils_ap(
-		author$project$MyStyles$flexRowX,
-		_List_fromArray(
-			[
-				rtfeldman$elm_css$Css$width(
-				rtfeldman$elm_css$Css$pct(100)),
-				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$px(75)),
-				rtfeldman$elm_css$Css$paddingLeft(
-				rtfeldman$elm_css$Css$vw(20))
-			])),
-	contGifImg: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
 		_List_fromArray(
 			[
-				rtfeldman$elm_css$Css$width(
-				rtfeldman$elm_css$Css$px(75)),
-				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$px(75))
+				rtfeldman$elm_css$Css$flex(
+				rtfeldman$elm_css$Css$num(1))
 			])),
+	contGifImg: author$project$MyStyles$flexCenterX,
 	contGifText: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
 		_List_fromArray(
@@ -6063,7 +6062,9 @@ var author$project$MyStyles$sty = {
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$width(
-				rtfeldman$elm_css$Css$vw(100))
+				rtfeldman$elm_css$Css$vw(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$vh(100))
 			])),
 	contHallInfo: _Utils_ap(
 		author$project$MyStyles$flexRowX,
@@ -6073,6 +6074,13 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$vw(100)),
 				rtfeldman$elm_css$Css$margin(
 				rtfeldman$elm_css$Css$px(16))
+			])),
+	contHeads: _Utils_ap(
+		author$project$MyStyles$flexRowX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$vw(100))
 			])),
 	contLoaded: _List_fromArray(
 		[
@@ -6134,27 +6142,40 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$px(32),
 				rtfeldman$elm_css$Css$px(0))
 			])),
-	contName: _Utils_ap(
-		author$project$MyStyles$flexCenterX,
+	contNameLeft: _Utils_ap(
+		author$project$MyStyles$flexEndX,
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$height(
 				rtfeldman$elm_css$Css$px(40)),
 				rtfeldman$elm_css$Css$fontSize(
-				rtfeldman$elm_css$Css$px(36)),
+				rtfeldman$elm_css$Css$px(24)),
 				rtfeldman$elm_css$Css$flex(
-				rtfeldman$elm_css$Css$num(1))
+				rtfeldman$elm_css$Css$num(1)),
+				rtfeldman$elm_css$Css$paddingRight(
+				rtfeldman$elm_css$Css$px(16))
+			])),
+	contNameRight: _Utils_ap(
+		author$project$MyStyles$flexStartX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$px(40)),
+				rtfeldman$elm_css$Css$fontSize(
+				rtfeldman$elm_css$Css$px(24)),
+				rtfeldman$elm_css$Css$flex(
+				rtfeldman$elm_css$Css$num(1)),
+				rtfeldman$elm_css$Css$paddingLeft(
+				rtfeldman$elm_css$Css$px(16))
 			])),
 	contNameSpacer: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$fontSize(
-				rtfeldman$elm_css$Css$px(12)),
-				A2(
-				rtfeldman$elm_css$Css$margin2,
-				rtfeldman$elm_css$Css$px(0),
-				rtfeldman$elm_css$Css$px(8))
+				rtfeldman$elm_css$Css$px(20)),
+				rtfeldman$elm_css$Css$color(
+				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
 	contNames: _Utils_ap(
 		author$project$MyStyles$flexRowX,
@@ -6163,7 +6184,9 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$marginBottom(
-				rtfeldman$elm_css$Css$px(16))
+				rtfeldman$elm_css$Css$px(16)),
+				rtfeldman$elm_css$Css$color(
+				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
 	contOpt: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
@@ -6329,9 +6352,11 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$pct(100)),
 				rtfeldman$elm_css$Css$fontSize(
-				rtfeldman$elm_css$Css$px(16)),
-				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$px(30))
+				rtfeldman$elm_css$Css$px(55)),
+				rtfeldman$elm_css$Css$marginBottom(
+				rtfeldman$elm_css$Css$px(18)),
+				rtfeldman$elm_css$Css$color(
+				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
 	contWeddingHall: _Utils_ap(
 		author$project$MyStyles$flexColX,
@@ -6393,8 +6418,8 @@ var author$project$MyStyles$sty = {
 		]),
 	gifImg: _List_fromArray(
 		[
-			rtfeldman$elm_css$Css$height(
-			rtfeldman$elm_css$Css$px(75))
+			rtfeldman$elm_css$Css$width(
+			rtfeldman$elm_css$Css$vw(50))
 		]),
 	gifMsg: _List_fromArray(
 		[
@@ -6490,13 +6515,13 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$calc,
 				rtfeldman$elm_css$Css$vw(100),
 				rtfeldman$elm_css$Css$minus,
-				rtfeldman$elm_css$Css$px(40))),
+				rtfeldman$elm_css$Css$px(32))),
 			rtfeldman$elm_css$Css$height(
 			A3(
 				rtfeldman$elm_css$Css$calc,
 				rtfeldman$elm_css$Css$vh(100),
 				rtfeldman$elm_css$Css$minus,
-				rtfeldman$elm_css$Css$px(100))),
+				rtfeldman$elm_css$Css$px(32))),
 			rtfeldman$elm_css$Css$backgroundColor(
 			A4(rtfeldman$elm_css$Css$rgba, 255, 255, 255, 0.25)),
 			rtfeldman$elm_css$Css$borderRadius(
@@ -6557,6 +6582,19 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$vh(100)),
 				rtfeldman$elm_css$Css$paddingBottom(
 				rtfeldman$elm_css$Css$px(50))
+			])),
+	sectionTitle: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Css$width(
+				rtfeldman$elm_css$Css$vw(100)),
+				rtfeldman$elm_css$Css$fontSize(
+				rtfeldman$elm_css$Css$px(40)),
+				A2(
+				rtfeldman$elm_css$Css$margin2,
+				rtfeldman$elm_css$Css$px(32),
+				rtfeldman$elm_css$Css$px(0))
 			])),
 	sideOptText: _List_fromArray(
 		[
@@ -8584,7 +8622,6 @@ var author$project$Main$displaySelectedImage = function (link) {
 					]))
 			]));
 };
-var author$project$Main$flowerImg = 'https://img.icons8.com/office/16/000000/flower.png';
 var author$project$Main$gallery = _List_fromArray(
 	['https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00673_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00514_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00864_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00451_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00948_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00789_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00934_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00806_Resize.jpg', 'https://choi-choi.s3.ap-northeast-2.amazonaws.com/DSC00579_Resize.jpg']);
 var author$project$Main$hallInfo = _List_fromArray(
@@ -8604,24 +8641,6 @@ var rtfeldman$elm_css$VirtualDom$Styled$text = function (str) {
 		elm$virtual_dom$VirtualDom$text(str));
 };
 var rtfeldman$elm_css$Html$Styled$text = rtfeldman$elm_css$VirtualDom$Styled$text;
-var author$project$Main$renderName = function (str) {
-	return A2(
-		rtfeldman$elm_css$Html$Styled$div,
-		_List_fromArray(
-			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contName)
-			]),
-		_List_fromArray(
-			[
-				A2(
-				rtfeldman$elm_css$Html$Styled$h4,
-				_List_Nil,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$text(str)
-					]))
-			]));
-};
 var author$project$Main$renderNameSpacer = function (str) {
 	return A2(
 		rtfeldman$elm_css$Html$Styled$div,
@@ -8640,8 +8659,51 @@ var author$project$Main$renderNameSpacer = function (str) {
 					]))
 			]));
 };
-var author$project$Main$renderSubtitle = function (str) {
-	return A2(
+var author$project$Main$introText = _List_fromArray(
+	[
+		A2(
+		rtfeldman$elm_css$Html$Styled$div,
+		_List_fromArray(
+			[
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contNames)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				rtfeldman$elm_css$Html$Styled$div,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contNameLeft)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						rtfeldman$elm_css$Html$Styled$h4,
+						_List_Nil,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$text('최성필')
+							]))
+					])),
+				author$project$Main$renderNameSpacer('그리고'),
+				A2(
+				rtfeldman$elm_css$Html$Styled$div,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contNameRight)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						rtfeldman$elm_css$Html$Styled$h4,
+						_List_Nil,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$text('최수강')
+							]))
+					]))
+			])),
+		A2(
 		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
 			[
@@ -8654,31 +8716,27 @@ var author$project$Main$renderSubtitle = function (str) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						rtfeldman$elm_css$Html$Styled$text(str)
+						rtfeldman$elm_css$Html$Styled$text('결혼합니다')
 					]))
-			]));
-};
-var author$project$Main$introText = _Utils_ap(
-	_List_fromArray(
-		[
-			A2(
-			rtfeldman$elm_css$Html$Styled$div,
-			_List_fromArray(
-				[
-					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contNames)
-				]),
-			_List_fromArray(
-				[
-					author$project$Main$renderName('최성필'),
-					author$project$Main$renderNameSpacer('(그리고)'),
-					author$project$Main$renderName('최수강')
-				]))
-		]),
-	A2(
-		elm$core$List$map,
-		author$project$Main$renderSubtitle,
+			])),
+		A2(
+		rtfeldman$elm_css$Html$Styled$div,
 		_List_fromArray(
-			['- 2020.04.19 SUN AM 11:00 -', '아펠가모 광화문점'])));
+			[
+				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contDate)
+			]),
+		_List_fromArray(
+			[
+				A2(
+				rtfeldman$elm_css$Html$Styled$h4,
+				_List_Nil,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$text('2020. 4. 19')
+					]))
+			]))
+	]);
+var author$project$Main$flowerImg = 'https://img.icons8.com/office/16/000000/flower.png';
 var rtfeldman$elm_css$Html$Styled$li = rtfeldman$elm_css$Html$Styled$node('li');
 var rtfeldman$elm_css$Html$Styled$Attributes$class = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('className');
 var author$project$Main$makeThumbnail = function (link) {
@@ -8899,133 +8957,15 @@ var author$project$Main$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								author$project$Main$renderGallerySpacer(author$project$Main$flowerImg),
 								A2(
 								rtfeldman$elm_css$Html$Styled$div,
 								_List_fromArray(
 									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifMsg)
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.sectionTitle)
 									]),
 								_List_fromArray(
 									[
-										A2(
-										rtfeldman$elm_css$Html$Styled$p,
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifText)
-											]),
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Html$Styled$text('베이징에서 북한으로 들어가는 모습이 목격돼 관심을 모으고 있습니다. 미국의 NK뉴스는 평양의 소식통들을 인용해 리용호 북한 외무상이 교체됐으며 후임이 누구인지는 파악되지 않았다고 현지시각 18일 보도했습니다.')
-											]))
-									])),
-								A2(
-								rtfeldman$elm_css$Html$Styled$div,
-								_List_fromArray(
-									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
-									]),
-								_List_fromArray(
-									[
-										A2(
-										rtfeldman$elm_css$Html$Styled$div,
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
-											]),
-										_List_fromArray(
-											[
-												A2(
-												rtfeldman$elm_css$Html$Styled$img,
-												_List_fromArray(
-													[
-														rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
-														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
-													]),
-												_List_Nil)
-											])),
-										A2(
-										rtfeldman$elm_css$Html$Styled$div,
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifText)
-											]),
-										_List_fromArray(
-											[
-												A2(
-												rtfeldman$elm_css$Html$Styled$div,
-												_List_fromArray(
-													[
-														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifText)
-													]),
-												_List_fromArray(
-													[
-														A2(
-														rtfeldman$elm_css$Html$Styled$p,
-														_List_fromArray(
-															[
-																rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifName)
-															]),
-														_List_fromArray(
-															[
-																rtfeldman$elm_css$Html$Styled$text('최수강 (신부)')
-															]))
-													]))
-											]))
-									])),
-								A2(
-								rtfeldman$elm_css$Html$Styled$div,
-								_List_fromArray(
-									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
-									]),
-								_List_fromArray(
-									[
-										A2(
-										rtfeldman$elm_css$Html$Styled$div,
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
-											]),
-										_List_fromArray(
-											[
-												A2(
-												rtfeldman$elm_css$Html$Styled$img,
-												_List_fromArray(
-													[
-														rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
-														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
-													]),
-												_List_Nil)
-											])),
-										A2(
-										rtfeldman$elm_css$Html$Styled$div,
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifText)
-											]),
-										_List_fromArray(
-											[
-												A2(
-												rtfeldman$elm_css$Html$Styled$div,
-												_List_fromArray(
-													[
-														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifText)
-													]),
-												_List_fromArray(
-													[
-														A2(
-														rtfeldman$elm_css$Html$Styled$p,
-														_List_fromArray(
-															[
-																rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifName)
-															]),
-														_List_fromArray(
-															[
-																rtfeldman$elm_css$Html$Styled$text('최성필 (신랑)')
-															]))
-													]))
-											]))
+										rtfeldman$elm_css$Html$Styled$text('INVITATION')
 									])),
 								A2(
 								rtfeldman$elm_css$Html$Styled$div,
@@ -9082,6 +9022,143 @@ var author$project$Main$view = function (model) {
 										_List_fromArray(
 											[
 												rtfeldman$elm_css$Html$Styled$text('더케이트윈타워 A동 LL층 (지하2층)')
+											]))
+									])),
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifMsg)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$p,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifText)
+											]),
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$text('더케이트윈타워 A동 LL층 (지하2층)')
+											]))
+									])),
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifMsg)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$p,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifText)
+											]),
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$text('더케이트윈타워 A동 LL층 (지하2층)')
+											]))
+									])),
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifMsg)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$p,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifText)
+											]),
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$text('더케이트윈타워 A동 LL층 (지하2층)')
+											]))
+									])),
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifMsg)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$p,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifText)
+											]),
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$text('더케이트윈타워 A동 LL층 (지하2층)')
+											]))
+									])),
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contHeads)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$div,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
+											]),
+										_List_fromArray(
+											[
+												A2(
+												rtfeldman$elm_css$Html$Styled$div,
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
+													]),
+												_List_fromArray(
+													[
+														A2(
+														rtfeldman$elm_css$Html$Styled$img,
+														_List_fromArray(
+															[
+																rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
+																rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
+															]),
+														_List_Nil)
+													]))
+											])),
+										A2(
+										rtfeldman$elm_css$Html$Styled$div,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
+											]),
+										_List_fromArray(
+											[
+												A2(
+												rtfeldman$elm_css$Html$Styled$div,
+												_List_fromArray(
+													[
+														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
+													]),
+												_List_fromArray(
+													[
+														A2(
+														rtfeldman$elm_css$Html$Styled$img,
+														_List_fromArray(
+															[
+																rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
+																rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
+															]),
+														_List_Nil)
+													]))
 											]))
 									]))
 							])),

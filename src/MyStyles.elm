@@ -24,24 +24,45 @@ flexStartX =
 
 
 sty =
-    { contName =
-        flexCenterX
+    { contNameLeft =
+        flexEndX
             ++ [ height (px 40)
-               , fontSize (px 36)
+               , fontSize (px 24)
                , flex (num 1)
+               , paddingRight (px 16)
+               ]
+    , contNameRight =
+        flexStartX
+            ++ [ height (px 40)
+               , fontSize (px 24)
+               , flex (num 1)
+               , paddingLeft (px 16)
                ]
     , flexGrowX = [ displayFlex, flexGrow (num 1) ]
     , contNameSpacer =
         flexCenterX
-            ++ [ fontSize (px 12)
-               , margin2 (px 0) (px 8)
+            ++ [ fontSize (px 20)
+               , color (hex "#ffffff")
                ]
     , contNames =
         flexRowX
             ++ [ width (pct 100)
                , marginBottom (px 16)
+               , color (hex "#ffffff")
                ]
-    , contSubtitle = flexCenterX ++ [ width (pct 100), fontSize (px 16), height (px 30) ]
+    , contSubtitle =
+        flexCenterX
+            ++ [ width (pct 100)
+               , fontSize (px 55)
+               , marginBottom (px 18)
+               , color (hex "#ffffff")
+               ]
+    , contDate =
+        flexCenterX
+            ++ [ width (pct 100)
+               , fontSize (px 26)
+               , color (hex "#ffffff")
+               ]
     , contComment = flexColX ++ [ marginBottom (px 16), padding4 (px 0) (px 16) (px 0) (px 16) ]
     , commentInner = flexRowX ++ [ marginBottom (px 8) ]
     , flexStart = flexStartX
@@ -124,8 +145,8 @@ sty =
             ++ [ paddingTop (px 32)
                ]
     , lightBg =
-        [ width (calc (vw 100) minus (px 40))
-        , height (calc (vh 100) minus (px 100))
+        [ width (calc (vw 100) minus (px 32))
+        , height (calc (vh 100) minus (px 32))
         , backgroundColor (rgba 255 255 255 0.25)
         , borderRadius (px 10)
         ]
@@ -191,23 +212,28 @@ sty =
     , contGifs =
         flexColX
             ++ [ width (vw 100)
+               , height (vh 100)
+               ]
+    , contHeads =
+        flexRowX
+            ++ [ width (vw 100)
                ]
     , contGif =
-        flexRowX
-            ++ [ width (pct 100)
-               , height (px 75)
-               , paddingLeft (vw 20)
-               ]
-    , contGifImg =
         flexCenterX
-            ++ [ width (px 75)
-               , height (px 75)
+            ++ [ flex (num 1)
                ]
+    , contGifImg = flexCenterX
     , contGifText =
         flexCenterX
             ++ [ color (hex "#000000")
                ]
-    , gifImg = [ height (px 75) ]
+    , sectionTitle =
+        flexCenterX
+            ++ [ width (vw 100)
+               , fontSize (px 40)
+               , margin2 (px 32) (px 0)
+               ]
+    , gifImg = [ width (vw 50) ]
     , gifName = [ fontSize (px 18) ]
     , gifDesc =
         [ fontSize (px 18)

@@ -180,13 +180,6 @@ extractComment com =
     { author = author, content = content, createdAt = createdAt }
 
 
-renderName : String -> Html msg
-renderName str =
-    div
-        [ css sty.contName ]
-        [ h4 [] [ text str ] ]
-
-
 renderNameSpacer : String -> Html msg
 renderNameSpacer str =
     div
@@ -204,16 +197,21 @@ renderSubtitle str =
 introText : List (Html Msg)
 introText =
     [ div [ css sty.contNames ]
-        [ renderName "최성필"
-        , renderNameSpacer "(그리고)"
-        , renderName "최수강"
+        [ div
+            [ css sty.contNameLeft ]
+            [ h4 [] [ text "최성필" ] ]
+        , renderNameSpacer "그리고"
+        , div
+            [ css sty.contNameRight ]
+            [ h4 [] [ text "최수강" ] ]
         ]
+    , div
+        [ css sty.contSubtitle ]
+        [ h4 [] [ text "결혼합니다" ] ]
+    , div
+        [ css sty.contDate ]
+        [ h4 [] [ text "2020. 4. 19" ] ]
     ]
-        ++ List.map
-            renderSubtitle
-            [ "- 2020.04.19 SUN AM 11:00 -"
-            , "아펠가모 광화문점"
-            ]
 
 
 bucket =
@@ -442,31 +440,9 @@ view model =
                 ]
             , section
                 [ class "snap-child", css sty.contGifs ]
-                [ renderGallerySpacer flowerImg
-                , div
-                    [ css sty.gifMsg ]
-                    [ p [ css sty.gifText ] [ text "베이징에서 북한으로 들어가는 모습이 목격돼 관심을 모으고 있습니다. 미국의 NK뉴스는 평양의 소식통들을 인용해 리용호 북한 외무상이 교체됐으며 후임이 누구인지는 파악되지 않았다고 현지시각 18일 보도했습니다." ]
-                    ]
-                , div
-                    [ css sty.contGif ]
-                    [ div
-                        [ css sty.contGifImg ]
-                        [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
-                    , div
-                        [ css sty.contGifText ]
-                        [ div [ css sty.contGifText ] [ p [ css sty.gifName ] [ text "최수강 (신부)" ] ]
-                        ]
-                    ]
-                , div
-                    [ css sty.contGif ]
-                    [ div
-                        [ css sty.contGifImg ]
-                        [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
-                    , div
-                        [ css sty.contGifText ]
-                        [ div [ css sty.contGifText ] [ p [ css sty.gifName ] [ text "최성필 (신랑)" ] ]
-                        ]
-                    ]
+                [ div
+                    [ css sty.sectionTitle ]
+                    [ text "INVITATION" ]
                 , div
                     [ css sty.gifMsg ]
                     [ p [ css sty.gifText ] [ text "2020년 4월 19일 일요일 오전 11시" ]
@@ -478,6 +454,37 @@ view model =
                 , div
                     [ css sty.gifMsg ]
                     [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
+                    ]
+                , div
+                    [ css sty.gifMsg ]
+                    [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
+                    ]
+                , div
+                    [ css sty.gifMsg ]
+                    [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
+                    ]
+                , div
+                    [ css sty.gifMsg ]
+                    [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
+                    ]
+                , div
+                    [ css sty.gifMsg ]
+                    [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
+                    ]
+                , div
+                    [ css sty.contHeads ]
+                    [ div
+                        [ css sty.contGif ]
+                        [ div
+                            [ css sty.contGifImg ]
+                            [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
+                        ]
+                    , div
+                        [ css sty.contGif ]
+                        [ div
+                            [ css sty.contGifImg ]
+                            [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
+                        ]
                     ]
                 ]
             , section
