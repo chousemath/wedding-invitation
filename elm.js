@@ -6082,6 +6082,8 @@ var author$project$MyStyles$sty = {
 			[
 				rtfeldman$elm_css$Css$width(
 				rtfeldman$elm_css$Css$vw(100)),
+				rtfeldman$elm_css$Css$height(
+				rtfeldman$elm_css$Css$vh(100)),
 				rtfeldman$elm_css$Css$backgroundColor(
 				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
@@ -6702,7 +6704,7 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$width(
 			rtfeldman$elm_css$Css$vw(100)),
 			rtfeldman$elm_css$Css$height(
-			rtfeldman$elm_css$Css$vh(50)),
+			rtfeldman$elm_css$Css$vh(60)),
 			rtfeldman$elm_css$Css$backgroundPosition(rtfeldman$elm_css$Css$center),
 			rtfeldman$elm_css$Css$backgroundRepeat(rtfeldman$elm_css$Css$noRepeat)
 		])
@@ -8822,7 +8824,6 @@ var author$project$Main$introText = _List_fromArray(
 					]))
 			]))
 	]);
-var author$project$Main$flowerImg = 'https://img.icons8.com/office/16/000000/flower.png';
 var rtfeldman$elm_css$Html$Styled$li = rtfeldman$elm_css$Html$Styled$node('li');
 var rtfeldman$elm_css$Html$Styled$Attributes$class = rtfeldman$elm_css$Html$Styled$Attributes$stringProperty('className');
 var author$project$Main$makeThumbnail = function (link) {
@@ -8850,25 +8851,6 @@ var author$project$Main$makeThumbnail = function (link) {
 				_List_Nil)
 			]));
 };
-var author$project$Main$renderGallerySpacer = function (imgSrc) {
-	return A2(
-		rtfeldman$elm_css$Html$Styled$div,
-		_List_fromArray(
-			[
-				rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gallerySpacer)
-			]),
-		_List_fromArray(
-			[
-				A2(
-				rtfeldman$elm_css$Html$Styled$img,
-				_List_fromArray(
-					[
-						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gallerySpacerImg),
-						rtfeldman$elm_css$Html$Styled$Attributes$src(imgSrc)
-					]),
-				_List_Nil)
-			]));
-};
 var rtfeldman$elm_css$Html$Styled$button = rtfeldman$elm_css$Html$Styled$node('button');
 var rtfeldman$elm_css$Html$Styled$ul = rtfeldman$elm_css$Html$Styled$node('ul');
 var elm$virtual_dom$VirtualDom$attribute = F2(
@@ -8890,7 +8872,16 @@ var rtfeldman$elm_css$Html$Styled$Attributes$attribute = rtfeldman$elm_css$Virtu
 var author$project$Main$renderGallery = function (links) {
 	return _List_fromArray(
 		[
-			author$project$Main$renderGallerySpacer(author$project$Main$flowerImg),
+			A2(
+			rtfeldman$elm_css$Html$Styled$div,
+			_List_fromArray(
+				[
+					rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.sectionTitle)
+				]),
+			_List_fromArray(
+				[
+					rtfeldman$elm_css$Html$Styled$text('GALLERY')
+				])),
 			A2(
 			rtfeldman$elm_css$Html$Styled$div,
 			_List_fromArray(
@@ -8948,8 +8939,7 @@ var author$project$Main$renderGallery = function (links) {
 									rtfeldman$elm_css$Html$Styled$text('다음')
 								]))
 						]))
-				])),
-			author$project$Main$renderGallerySpacer(author$project$Main$flowerImg)
+				]))
 		]);
 };
 var author$project$Main$showHallInfo = function (info) {

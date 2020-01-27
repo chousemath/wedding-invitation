@@ -81,7 +81,7 @@ sty =
     , textContent = [ fontSize (px 14) ]
     , thumbnail =
         [ width (vw 100)
-        , height (vh 50)
+        , height (vh 60)
         , backgroundPosition center
         , backgroundRepeat noRepeat
         ]
@@ -159,6 +159,7 @@ sty =
     , contGallery =
         flexColX
             ++ [ width (vw 100)
+               , height (vh 100)
                , backgroundColor (hex "#ffffff")
                ]
     , contComments = flexColX ++ [ width (pct 100), float left ]

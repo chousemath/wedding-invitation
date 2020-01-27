@@ -293,7 +293,9 @@ flowerImg =
 
 renderGallery : List String -> List (Html Msg)
 renderGallery links =
-    [ renderGallerySpacer flowerImg
+    [ div
+        [ css sty.sectionTitle ]
+        [ text "GALLERY" ]
     , div
         [ class "glide" ]
         [ div
@@ -314,7 +316,6 @@ renderGallery links =
                 [ text "다음" ]
             ]
         ]
-    , renderGallerySpacer flowerImg
     ]
 
 
