@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'NanumNamuJeongweonRegular';
+    src: url('./fonts/NanumNamuJeongweonRegular.ttf') format('truetype'),
+        url('./fonts/NanumNamuJeongweonRegular.woff2') format('woff2'),
+         url('./fonts/NanumNamuJeongweonRegular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

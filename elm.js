@@ -5134,6 +5134,70 @@ var author$project$Main$SocialSelected = F2(
 	function (a, b) {
 		return {$: 'SocialSelected', a: a, b: b};
 	});
+var rtfeldman$elm_css$Css$Preprocess$AppendProperty = function (a) {
+	return {$: 'AppendProperty', a: a};
+};
+var rtfeldman$elm_css$Css$property = F2(
+	function (key, value) {
+		return rtfeldman$elm_css$Css$Preprocess$AppendProperty(key + (':' + value));
+	});
+var rtfeldman$elm_css$Css$prop1 = F2(
+	function (key, arg) {
+		return A2(rtfeldman$elm_css$Css$property, key, arg.value);
+	});
+var rtfeldman$elm_css$Css$flex = rtfeldman$elm_css$Css$prop1('flex');
+var rtfeldman$elm_css$Css$fontSize = rtfeldman$elm_css$Css$prop1('font-size');
+var rtfeldman$elm_css$Css$height = rtfeldman$elm_css$Css$prop1('height');
+var elm$core$String$fromFloat = _String_fromNumber;
+var rtfeldman$elm_css$Css$UnitlessFloat = {$: 'UnitlessFloat'};
+var rtfeldman$elm_css$Css$Structure$Compatible = {$: 'Compatible'};
+var rtfeldman$elm_css$Css$num = function (val) {
+	return {
+		lengthOrNumber: rtfeldman$elm_css$Css$Structure$Compatible,
+		lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible,
+		number: rtfeldman$elm_css$Css$Structure$Compatible,
+		numberOrInfinite: rtfeldman$elm_css$Css$Structure$Compatible,
+		numericValue: val,
+		unitLabel: '',
+		units: rtfeldman$elm_css$Css$UnitlessFloat,
+		value: elm$core$String$fromFloat(val)
+	};
+};
+var rtfeldman$elm_css$Css$PxUnits = {$: 'PxUnits'};
+var rtfeldman$elm_css$Css$Internal$lengthConverter = F3(
+	function (units, unitLabel, numericValue) {
+		return {
+			absoluteLength: rtfeldman$elm_css$Css$Structure$Compatible,
+			calc: rtfeldman$elm_css$Css$Structure$Compatible,
+			flexBasis: rtfeldman$elm_css$Css$Structure$Compatible,
+			fontSize: rtfeldman$elm_css$Css$Structure$Compatible,
+			length: rtfeldman$elm_css$Css$Structure$Compatible,
+			lengthOrAuto: rtfeldman$elm_css$Css$Structure$Compatible,
+			lengthOrAutoOrCoverOrContain: rtfeldman$elm_css$Css$Structure$Compatible,
+			lengthOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible,
+			lengthOrNone: rtfeldman$elm_css$Css$Structure$Compatible,
+			lengthOrNoneOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible,
+			lengthOrNumber: rtfeldman$elm_css$Css$Structure$Compatible,
+			lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible,
+			numericValue: numericValue,
+			textIndent: rtfeldman$elm_css$Css$Structure$Compatible,
+			unitLabel: unitLabel,
+			units: units,
+			value: _Utils_ap(
+				elm$core$String$fromFloat(numericValue),
+				unitLabel)
+		};
+	});
+var rtfeldman$elm_css$Css$px = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PxUnits, 'px');
+var author$project$MyStyles$contName = _List_fromArray(
+	[
+		rtfeldman$elm_css$Css$height(
+		rtfeldman$elm_css$Css$px(40)),
+		rtfeldman$elm_css$Css$fontSize(
+		rtfeldman$elm_css$Css$px(38)),
+		rtfeldman$elm_css$Css$flex(
+		rtfeldman$elm_css$Css$num(1))
+	]);
 var elm$core$List$head = function (list) {
 	if (list.b) {
 		var x = list.a;
@@ -5152,9 +5216,6 @@ var elm$core$Maybe$withDefault = F2(
 			return _default;
 		}
 	});
-var rtfeldman$elm_css$Css$Preprocess$AppendProperty = function (a) {
-	return {$: 'AppendProperty', a: a};
-};
 var rtfeldman$elm_css$Css$Internal$property = F2(
 	function (key, value) {
 		return rtfeldman$elm_css$Css$Preprocess$AppendProperty(key + (':' + value));
@@ -5219,32 +5280,6 @@ var rtfeldman$elm_css$Css$Internal$getOverloadedProperty = F3(
 		}
 	});
 var rtfeldman$elm_css$Css$Internal$IncompatibleUnits = {$: 'IncompatibleUnits'};
-var elm$core$String$fromFloat = _String_fromNumber;
-var rtfeldman$elm_css$Css$Structure$Compatible = {$: 'Compatible'};
-var rtfeldman$elm_css$Css$Internal$lengthConverter = F3(
-	function (units, unitLabel, numericValue) {
-		return {
-			absoluteLength: rtfeldman$elm_css$Css$Structure$Compatible,
-			calc: rtfeldman$elm_css$Css$Structure$Compatible,
-			flexBasis: rtfeldman$elm_css$Css$Structure$Compatible,
-			fontSize: rtfeldman$elm_css$Css$Structure$Compatible,
-			length: rtfeldman$elm_css$Css$Structure$Compatible,
-			lengthOrAuto: rtfeldman$elm_css$Css$Structure$Compatible,
-			lengthOrAutoOrCoverOrContain: rtfeldman$elm_css$Css$Structure$Compatible,
-			lengthOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible,
-			lengthOrNone: rtfeldman$elm_css$Css$Structure$Compatible,
-			lengthOrNoneOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible,
-			lengthOrNumber: rtfeldman$elm_css$Css$Structure$Compatible,
-			lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible,
-			numericValue: numericValue,
-			textIndent: rtfeldman$elm_css$Css$Structure$Compatible,
-			unitLabel: unitLabel,
-			units: units,
-			value: _Utils_ap(
-				elm$core$String$fromFloat(numericValue),
-				unitLabel)
-		};
-	});
 var rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty = A3(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$Internal$IncompatibleUnits, '', 0);
 var rtfeldman$elm_css$Css$alignItems = function (fn) {
 	return A3(
@@ -5253,14 +5288,6 @@ var rtfeldman$elm_css$Css$alignItems = function (fn) {
 		'align-items',
 		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
 };
-var rtfeldman$elm_css$Css$property = F2(
-	function (key, value) {
-		return rtfeldman$elm_css$Css$Preprocess$AppendProperty(key + (':' + value));
-	});
-var rtfeldman$elm_css$Css$prop1 = F2(
-	function (key, arg) {
-		return A2(rtfeldman$elm_css$Css$property, key, arg.value);
-	});
 var rtfeldman$elm_css$Css$center = rtfeldman$elm_css$Css$prop1('center');
 var rtfeldman$elm_css$Css$displayFlex = A2(rtfeldman$elm_css$Css$property, 'display', 'flex');
 var rtfeldman$elm_css$Css$justifyContent = function (fn) {
@@ -5280,21 +5307,7 @@ var rtfeldman$elm_css$Css$row = {flexDirection: rtfeldman$elm_css$Css$Structure$
 var rtfeldman$elm_css$Css$column = _Utils_update(
 	rtfeldman$elm_css$Css$row,
 	{value: 'column'});
-var rtfeldman$elm_css$Css$flex = rtfeldman$elm_css$Css$prop1('flex');
 var rtfeldman$elm_css$Css$flexDirection = rtfeldman$elm_css$Css$prop1('flex-direction');
-var rtfeldman$elm_css$Css$UnitlessFloat = {$: 'UnitlessFloat'};
-var rtfeldman$elm_css$Css$num = function (val) {
-	return {
-		lengthOrNumber: rtfeldman$elm_css$Css$Structure$Compatible,
-		lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible,
-		number: rtfeldman$elm_css$Css$Structure$Compatible,
-		numberOrInfinite: rtfeldman$elm_css$Css$Structure$Compatible,
-		numericValue: val,
-		unitLabel: '',
-		units: rtfeldman$elm_css$Css$UnitlessFloat,
-		value: elm$core$String$fromFloat(val)
-	};
-};
 var author$project$MyStyles$flexColX = _List_fromArray(
 	[
 		rtfeldman$elm_css$Css$displayFlex,
@@ -5421,12 +5434,39 @@ var rtfeldman$elm_css$Css$float = function (fn) {
 		'float',
 		fn(rtfeldman$elm_css$Css$Internal$lengthForOverloadedProperty));
 };
-var rtfeldman$elm_css$Css$fontSize = rtfeldman$elm_css$Css$prop1('font-size');
+var elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var elm$core$List$isEmpty = function (xs) {
+	if (!xs.b) {
+		return true;
+	} else {
+		return false;
+	}
+};
+var rtfeldman$elm_css$Css$stringsToValue = function (list) {
+	return elm$core$List$isEmpty(list) ? {value: 'none'} : {
+		value: A2(
+			elm$core$String$join,
+			', ',
+			A2(
+				elm$core$List$map,
+				function (s) {
+					return s;
+				},
+				list))
+	};
+};
+var rtfeldman$elm_css$Css$fontFamilies = A2(
+	elm$core$Basics$composeL,
+	rtfeldman$elm_css$Css$prop1('font-family'),
+	rtfeldman$elm_css$Css$stringsToValue);
 var rtfeldman$elm_css$Css$fontWeight = function (_n0) {
 	var value = _n0.value;
 	return A2(rtfeldman$elm_css$Css$property, 'font-weight', value);
 };
-var rtfeldman$elm_css$Css$height = rtfeldman$elm_css$Css$prop1('height');
 var elm$core$String$foldr = _String_foldr;
 var elm$core$String$toList = function (string) {
 	return A3(elm$core$String$foldr, elm$core$List$cons, _List_Nil, string);
@@ -5882,8 +5922,6 @@ var rtfeldman$elm_css$Css$paddingTop = rtfeldman$elm_css$Css$prop1('padding-top'
 var rtfeldman$elm_css$Css$PercentageUnits = {$: 'PercentageUnits'};
 var rtfeldman$elm_css$Css$pct = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PercentageUnits, '%');
 var rtfeldman$elm_css$Css$position = rtfeldman$elm_css$Css$prop1('position');
-var rtfeldman$elm_css$Css$PxUnits = {$: 'PxUnits'};
-var rtfeldman$elm_css$Css$px = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$PxUnits, 'px');
 var rtfeldman$elm_css$Css$relative = {position: rtfeldman$elm_css$Css$Structure$Compatible, value: 'relative'};
 var rtfeldman$elm_css$Css$rgba = F4(
 	function (r, g, b, alpha) {
@@ -6049,6 +6087,15 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$flex(
 				rtfeldman$elm_css$Css$num(1))
 			])),
+	contGifDate: _Utils_ap(
+		author$project$MyStyles$flexCenterX,
+		_List_fromArray(
+			[
+				A2(
+				rtfeldman$elm_css$Css$margin2,
+				rtfeldman$elm_css$Css$px(32),
+				rtfeldman$elm_css$Css$px(0))
+			])),
 	contGifImg: author$project$MyStyles$flexCenterX,
 	contGifText: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
@@ -6080,8 +6127,18 @@ var author$project$MyStyles$sty = {
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$width(
-				rtfeldman$elm_css$Css$vw(100))
+				rtfeldman$elm_css$Css$vw(100)),
+				rtfeldman$elm_css$Css$backgroundColor(
+				rtfeldman$elm_css$Css$hex('#ffff00'))
 			])),
+	contHeadsOuter: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$displayFlex,
+			rtfeldman$elm_css$Css$flexGrow(
+			rtfeldman$elm_css$Css$num(1)),
+			rtfeldman$elm_css$Css$justifyContent(rtfeldman$elm_css$Css$flexEnd),
+			rtfeldman$elm_css$Css$alignItems(rtfeldman$elm_css$Css$flexEnd)
+		]),
 	contLoaded: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$width(
@@ -6144,36 +6201,28 @@ var author$project$MyStyles$sty = {
 			])),
 	contNameLeft: _Utils_ap(
 		author$project$MyStyles$flexEndX,
-		_List_fromArray(
-			[
-				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$px(40)),
-				rtfeldman$elm_css$Css$fontSize(
-				rtfeldman$elm_css$Css$px(24)),
-				rtfeldman$elm_css$Css$flex(
-				rtfeldman$elm_css$Css$num(1)),
-				rtfeldman$elm_css$Css$paddingRight(
-				rtfeldman$elm_css$Css$px(16))
-			])),
+		_Utils_ap(
+			author$project$MyStyles$contName,
+			_List_fromArray(
+				[
+					rtfeldman$elm_css$Css$paddingRight(
+					rtfeldman$elm_css$Css$px(16))
+				]))),
 	contNameRight: _Utils_ap(
 		author$project$MyStyles$flexStartX,
-		_List_fromArray(
-			[
-				rtfeldman$elm_css$Css$height(
-				rtfeldman$elm_css$Css$px(40)),
-				rtfeldman$elm_css$Css$fontSize(
-				rtfeldman$elm_css$Css$px(24)),
-				rtfeldman$elm_css$Css$flex(
-				rtfeldman$elm_css$Css$num(1)),
-				rtfeldman$elm_css$Css$paddingLeft(
-				rtfeldman$elm_css$Css$px(16))
-			])),
+		_Utils_ap(
+			author$project$MyStyles$contName,
+			_List_fromArray(
+				[
+					rtfeldman$elm_css$Css$paddingLeft(
+					rtfeldman$elm_css$Css$px(16))
+				]))),
 	contNameSpacer: _Utils_ap(
 		author$project$MyStyles$flexCenterX,
 		_List_fromArray(
 			[
 				rtfeldman$elm_css$Css$fontSize(
-				rtfeldman$elm_css$Css$px(20)),
+				rtfeldman$elm_css$Css$px(28)),
 				rtfeldman$elm_css$Css$color(
 				rtfeldman$elm_css$Css$hex('#ffffff'))
 			])),
@@ -6443,7 +6492,12 @@ var author$project$MyStyles$sty = {
 	gifText: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$fontSize(
-			rtfeldman$elm_css$Css$px(18))
+			rtfeldman$elm_css$Css$px(17))
+		]),
+	gifTextDate: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$fontSize(
+			rtfeldman$elm_css$Css$px(36))
 		]),
 	hallInfoLeft: _List_fromArray(
 		[
@@ -6572,6 +6626,12 @@ var author$project$MyStyles$sty = {
 				rtfeldman$elm_css$Css$px(8)),
 				rtfeldman$elm_css$Css$textDecoration(rtfeldman$elm_css$Css$none)
 			])),
+	nameText: _List_fromArray(
+		[
+			rtfeldman$elm_css$Css$fontFamilies(
+			_List_fromArray(
+				['NanumNamuJeongweonRegular', 'Arial', 'sans-serif']))
+		]),
 	sectionMap: _Utils_ap(
 		author$project$MyStyles$flexColX,
 		_List_fromArray(
@@ -6734,13 +6794,6 @@ var Skinney$murmur3$Murmur3$hashString = F2(
 				A4(Skinney$murmur3$Murmur3$HashData, 0, seed, 0, 0),
 				str));
 	});
-var elm$core$List$isEmpty = function (xs) {
-	if (!xs.b) {
-		return true;
-	} else {
-		return false;
-	}
-};
 var elm$core$List$singleton = function (value) {
 	return _List_fromArray(
 		[value]);
@@ -7996,11 +8049,6 @@ var elm$core$Dict$insert = F3(
 			return x;
 		}
 	});
-var elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
-	});
 var elm$core$List$any = F2(
 	function (isOkay, list) {
 		any:
@@ -8652,7 +8700,10 @@ var author$project$Main$renderNameSpacer = function (str) {
 			[
 				A2(
 				rtfeldman$elm_css$Html$Styled$h4,
-				_List_Nil,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.nameText)
+					]),
 				_List_fromArray(
 					[
 						rtfeldman$elm_css$Html$Styled$text(str)
@@ -8679,7 +8730,10 @@ var author$project$Main$introText = _List_fromArray(
 					[
 						A2(
 						rtfeldman$elm_css$Html$Styled$h4,
-						_List_Nil,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.nameText)
+							]),
 						_List_fromArray(
 							[
 								rtfeldman$elm_css$Html$Styled$text('최성필')
@@ -8696,7 +8750,10 @@ var author$project$Main$introText = _List_fromArray(
 					[
 						A2(
 						rtfeldman$elm_css$Html$Styled$h4,
-						_List_Nil,
+						_List_fromArray(
+							[
+								rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.nameText)
+							]),
 						_List_fromArray(
 							[
 								rtfeldman$elm_css$Html$Styled$text('최수강')
@@ -8713,7 +8770,10 @@ var author$project$Main$introText = _List_fromArray(
 			[
 				A2(
 				rtfeldman$elm_css$Html$Styled$h4,
-				_List_Nil,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.nameText)
+					]),
 				_List_fromArray(
 					[
 						rtfeldman$elm_css$Html$Styled$text('결혼합니다')
@@ -8729,7 +8789,10 @@ var author$project$Main$introText = _List_fromArray(
 			[
 				A2(
 				rtfeldman$elm_css$Html$Styled$h4,
-				_List_Nil,
+				_List_fromArray(
+					[
+						rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.nameText)
+					]),
 				_List_fromArray(
 					[
 						rtfeldman$elm_css$Html$Styled$text('2020. 4. 19')
@@ -8983,7 +9046,7 @@ var author$project$Main$view = function (model) {
 											]),
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$text('2020년 4월 19일 일요일 오전 11시')
+												rtfeldman$elm_css$Html$Styled$text('서로의 믿음으로 다져온 인연을')
 											]))
 									])),
 								A2(
@@ -9002,7 +9065,7 @@ var author$project$Main$view = function (model) {
 											]),
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$text('서울특별시 종로구 종로1길 50 (중학동),')
+												rtfeldman$elm_css$Html$Styled$text('이제 함께 한 곳을 바라보며 걸어갈 수 있는')
 											]))
 									])),
 								A2(
@@ -9021,7 +9084,7 @@ var author$project$Main$view = function (model) {
 											]),
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$text('더케이트윈타워 A동 LL층 (지하2층)')
+												rtfeldman$elm_css$Html$Styled$text('큰 사랑으로 결실을 맺고자 합니다.')
 											]))
 									])),
 								A2(
@@ -9040,7 +9103,7 @@ var author$project$Main$view = function (model) {
 											]),
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$text('더케이트윈타워 A동 LL층 (지하2층)')
+												rtfeldman$elm_css$Html$Styled$text('저희 두 사람의 인연을')
 											]))
 									])),
 								A2(
@@ -9059,7 +9122,7 @@ var author$project$Main$view = function (model) {
 											]),
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$text('더케이트윈타워 A동 LL층 (지하2층)')
+												rtfeldman$elm_css$Html$Styled$text('사랑의 이름으로 지켜나갈 수 있도록')
 											]))
 									])),
 								A2(
@@ -9078,7 +9141,7 @@ var author$project$Main$view = function (model) {
 											]),
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$text('더케이트윈타워 A동 LL층 (지하2층)')
+												rtfeldman$elm_css$Html$Styled$text('자리에 오셔서 축복해 주시면')
 											]))
 									])),
 								A2(
@@ -9097,14 +9160,33 @@ var author$project$Main$view = function (model) {
 											]),
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$text('더케이트윈타워 A동 LL층 (지하2층)')
+												rtfeldman$elm_css$Html$Styled$text('감사하겠습니다.')
 											]))
 									])),
 								A2(
 								rtfeldman$elm_css$Html$Styled$div,
 								_List_fromArray(
 									[
-										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contHeads)
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifDate)
+									]),
+								_List_fromArray(
+									[
+										A2(
+										rtfeldman$elm_css$Html$Styled$p,
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifTextDate)
+											]),
+										_List_fromArray(
+											[
+												rtfeldman$elm_css$Html$Styled$text('2020. 4. 19 ')
+											]))
+									])),
+								A2(
+								rtfeldman$elm_css$Html$Styled$div,
+								_List_fromArray(
+									[
+										rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contHeadsOuter)
 									]),
 								_List_fromArray(
 									[
@@ -9112,7 +9194,7 @@ var author$project$Main$view = function (model) {
 										rtfeldman$elm_css$Html$Styled$div,
 										_List_fromArray(
 											[
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
+												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contHeads)
 											]),
 										_List_fromArray(
 											[
@@ -9120,44 +9202,53 @@ var author$project$Main$view = function (model) {
 												rtfeldman$elm_css$Html$Styled$div,
 												_List_fromArray(
 													[
-														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
+														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
 													]),
 												_List_fromArray(
 													[
 														A2(
-														rtfeldman$elm_css$Html$Styled$img,
+														rtfeldman$elm_css$Html$Styled$div,
 														_List_fromArray(
 															[
-																rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
-																rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
+																rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
 															]),
-														_List_Nil)
-													]))
-											])),
-										A2(
-										rtfeldman$elm_css$Html$Styled$div,
-										_List_fromArray(
-											[
-												rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
-											]),
-										_List_fromArray(
-											[
+														_List_fromArray(
+															[
+																A2(
+																rtfeldman$elm_css$Html$Styled$img,
+																_List_fromArray(
+																	[
+																		rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
+																		rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
+																	]),
+																_List_Nil)
+															]))
+													])),
 												A2(
 												rtfeldman$elm_css$Html$Styled$div,
 												_List_fromArray(
 													[
-														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
+														rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGif)
 													]),
 												_List_fromArray(
 													[
 														A2(
-														rtfeldman$elm_css$Html$Styled$img,
+														rtfeldman$elm_css$Html$Styled$div,
 														_List_fromArray(
 															[
-																rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
-																rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
+																rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.contGifImg)
 															]),
-														_List_Nil)
+														_List_fromArray(
+															[
+																A2(
+																rtfeldman$elm_css$Html$Styled$img,
+																_List_fromArray(
+																	[
+																		rtfeldman$elm_css$Html$Styled$Attributes$src('./images/sk.gif'),
+																		rtfeldman$elm_css$Html$Styled$Attributes$css(author$project$MyStyles$sty.gifImg)
+																	]),
+																_List_Nil)
+															]))
 													]))
 											]))
 									]))

@@ -23,25 +23,28 @@ flexStartX =
     [ displayFlex, flex (num 1), justifyContent flexStart, alignItems center ]
 
 
+contName =
+    [ height (px 40)
+    , fontSize (px 38)
+    , flex (num 1)
+    ]
+
+
 sty =
     { contNameLeft =
         flexEndX
-            ++ [ height (px 40)
-               , fontSize (px 24)
-               , flex (num 1)
-               , paddingRight (px 16)
+            ++ contName
+            ++ [ paddingRight (px 16)
                ]
     , contNameRight =
         flexStartX
-            ++ [ height (px 40)
-               , fontSize (px 24)
-               , flex (num 1)
-               , paddingLeft (px 16)
+            ++ contName
+            ++ [ paddingLeft (px 16)
                ]
     , flexGrowX = [ displayFlex, flexGrow (num 1) ]
     , contNameSpacer =
         flexCenterX
-            ++ [ fontSize (px 20)
+            ++ [ fontSize (px 28)
                , color (hex "#ffffff")
                ]
     , contNames =
@@ -144,6 +147,9 @@ sty =
         flexColX
             ++ [ paddingTop (px 32)
                ]
+    , nameText =
+        [ fontFamilies [ "NanumNamuJeongweonRegular", "Arial", "sans-serif" ]
+        ]
     , lightBg =
         [ width (calc (vw 100) minus (px 32))
         , height (calc (vh 100) minus (px 32))
@@ -214,9 +220,16 @@ sty =
             ++ [ width (vw 100)
                , height (vh 100)
                ]
+    , contHeadsOuter =
+        [ displayFlex
+        , flexGrow (num 1)
+        , justifyContent flexEnd
+        , alignItems flexEnd
+        ]
     , contHeads =
         flexRowX
             ++ [ width (vw 100)
+               , backgroundColor (hex "#ffff00")
                ]
     , contGif =
         flexCenterX
@@ -328,6 +341,12 @@ sty =
         , paddingLeft (px 32)
         ]
     , gifText =
-        [ fontSize (px 18)
+        [ fontSize (px 17)
+        ]
+    , contGifDate =
+        flexCenterX
+            ++ [ margin2 (px 32) (px 0) ]
+    , gifTextDate =
+        [ fontSize (px 36)
         ]
     }

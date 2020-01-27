@@ -184,7 +184,7 @@ renderNameSpacer : String -> Html msg
 renderNameSpacer str =
     div
         [ css sty.contNameSpacer ]
-        [ h4 [] [ text str ] ]
+        [ h4 [ css sty.nameText ] [ text str ] ]
 
 
 renderSubtitle : String -> Html msg
@@ -199,18 +199,18 @@ introText =
     [ div [ css sty.contNames ]
         [ div
             [ css sty.contNameLeft ]
-            [ h4 [] [ text "최성필" ] ]
+            [ h4 [ css sty.nameText ] [ text "최성필" ] ]
         , renderNameSpacer "그리고"
         , div
             [ css sty.contNameRight ]
-            [ h4 [] [ text "최수강" ] ]
+            [ h4 [ css sty.nameText ] [ text "최수강" ] ]
         ]
     , div
         [ css sty.contSubtitle ]
-        [ h4 [] [ text "결혼합니다" ] ]
+        [ h4 [ css sty.nameText ] [ text "결혼합니다" ] ]
     , div
         [ css sty.contDate ]
-        [ h4 [] [ text "2020. 4. 19" ] ]
+        [ h4 [ css sty.nameText ] [ text "2020. 4. 19" ] ]
     ]
 
 
@@ -445,45 +445,51 @@ view model =
                     [ text "INVITATION" ]
                 , div
                     [ css sty.gifMsg ]
-                    [ p [ css sty.gifText ] [ text "2020년 4월 19일 일요일 오전 11시" ]
+                    [ p [ css sty.gifText ] [ text "서로의 믿음으로 다져온 인연을" ]
                     ]
                 , div
                     [ css sty.gifMsg ]
-                    [ p [ css sty.gifText ] [ text "서울특별시 종로구 종로1길 50 (중학동)," ]
+                    [ p [ css sty.gifText ] [ text "이제 함께 한 곳을 바라보며 걸어갈 수 있는" ]
                     ]
                 , div
                     [ css sty.gifMsg ]
-                    [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
+                    [ p [ css sty.gifText ] [ text "큰 사랑으로 결실을 맺고자 합니다." ]
                     ]
                 , div
                     [ css sty.gifMsg ]
-                    [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
+                    [ p [ css sty.gifText ] [ text "저희 두 사람의 인연을" ]
                     ]
                 , div
                     [ css sty.gifMsg ]
-                    [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
+                    [ p [ css sty.gifText ] [ text "사랑의 이름으로 지켜나갈 수 있도록" ]
                     ]
                 , div
                     [ css sty.gifMsg ]
-                    [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
+                    [ p [ css sty.gifText ] [ text "자리에 오셔서 축복해 주시면" ]
                     ]
                 , div
                     [ css sty.gifMsg ]
-                    [ p [ css sty.gifText ] [ text "더케이트윈타워 A동 LL층 (지하2층)" ]
+                    [ p [ css sty.gifText ] [ text "감사하겠습니다." ]
                     ]
                 , div
-                    [ css sty.contHeads ]
+                    [ css sty.contGifDate ]
+                    [ p [ css sty.gifTextDate ] [ text "2020. 4. 19 " ]
+                    ]
+                , div [ css sty.contHeadsOuter ]
                     [ div
-                        [ css sty.contGif ]
+                        [ css sty.contHeads ]
                         [ div
-                            [ css sty.contGifImg ]
-                            [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
-                        ]
-                    , div
-                        [ css sty.contGif ]
-                        [ div
-                            [ css sty.contGifImg ]
-                            [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
+                            [ css sty.contGif ]
+                            [ div
+                                [ css sty.contGifImg ]
+                                [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
+                            ]
+                        , div
+                            [ css sty.contGif ]
+                            [ div
+                                [ css sty.contGifImg ]
+                                [ img [ src "./images/sk.gif", css sty.gifImg ] [] ]
+                            ]
                         ]
                     ]
                 ]
