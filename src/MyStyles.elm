@@ -245,6 +245,10 @@ sty =
             ++ [ width (vw 100)
                , fontSize (px 40)
                , margin2 (px 32) (px 0)
+               , fontFamilies [ "JabjaiHeavy", "Georgia", "serif" ]
+               , fontStyle normal
+               , letterSpacing (em 0.15)
+               , color (hex "#486C7C")
                ]
     , gifImg = [ width (vw 50) ]
     , gifName = [ fontSize (px 18) ]
@@ -339,14 +343,19 @@ sty =
         , textAlign center
         , lineHeight (px 36)
         , paddingLeft (px 32)
+        , marginBottom (px 12)
         ]
     , gifText =
-        [ fontSize (px 17)
+        [ fontSize (px 22)
+        , letterSpacing (em 0.05)
+        , fontFamilies [ "NanumNamuSeongShilChaeRegular", "Georgia", "serif" ]
         ]
     , contGifDate =
         flexCenterX
-            ++ [ margin2 (px 32) (px 0) ]
+            ++ [ marginTop (px 50) ]
     , gifTextDate =
-        [ fontSize (px 36)
+        [ fontSize (px 50)
+        , color (hex "#67909D")
+        , fontFamilies [ "JabjaiLight", "Georgia", "serif" ]
         ]
     }

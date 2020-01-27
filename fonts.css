@@ -1,8 +1,35 @@
 @font-face {
     font-family: 'NanumNamuJeongweonRegular';
     src: url('./fonts/NanumNamuJeongweonRegular.ttf') format('truetype'),
-        url('./fonts/NanumNamuJeongweonRegular.woff2') format('woff2'),
+         url('./fonts/NanumNamuJeongweonRegular.woff2') format('woff2'),
          url('./fonts/NanumNamuJeongweonRegular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NanumNamuSeongShilChaeRegular';
+    src: url('./fonts/NanumNamuSeongShilChaeRegular.ttf') format('truetype'),
+         url('./fonts/NanumNamuSeongShilChaeRegular.woff2') format('woff2'),
+         url('./fonts/NanumNamuSeongShilChaeRegular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JabjaiHeavy';
+    src: url('./fonts/JabjaiHeavy.ttf') format('truetype'),
+         url('./fonts/JabjaiHeavy.woff2') format('woff2'),
+         url('./fonts/JabjaiHeavy.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JabjaiLight';
+    src: url('./fonts/JabjaiLight.ttf') format('truetype'),
+         url('./fonts/JabjaiLight.woff2') format('woff2'),
+         url('./fonts/JabjaiLight.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }

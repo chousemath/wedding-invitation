@@ -5425,6 +5425,8 @@ var rtfeldman$elm_css$Css$color = function (c) {
 	return A2(rtfeldman$elm_css$Css$property, 'color', c.value);
 };
 var rtfeldman$elm_css$Css$ellipsis = {textOverflow: rtfeldman$elm_css$Css$Structure$Compatible, value: 'ellipsis'};
+var rtfeldman$elm_css$Css$EmUnits = {$: 'EmUnits'};
+var rtfeldman$elm_css$Css$em = A2(rtfeldman$elm_css$Css$Internal$lengthConverter, rtfeldman$elm_css$Css$EmUnits, 'em');
 var rtfeldman$elm_css$Css$fixed = {backgroundAttachment: rtfeldman$elm_css$Css$Structure$Compatible, position: rtfeldman$elm_css$Css$Structure$Compatible, tableLayout: rtfeldman$elm_css$Css$Structure$Compatible, value: 'fixed'};
 var rtfeldman$elm_css$Css$flexGrow = rtfeldman$elm_css$Css$prop1('flex-grow');
 var rtfeldman$elm_css$Css$float = function (fn) {
@@ -5463,6 +5465,7 @@ var rtfeldman$elm_css$Css$fontFamilies = A2(
 	elm$core$Basics$composeL,
 	rtfeldman$elm_css$Css$prop1('font-family'),
 	rtfeldman$elm_css$Css$stringsToValue);
+var rtfeldman$elm_css$Css$fontStyle = rtfeldman$elm_css$Css$prop1('font-style');
 var rtfeldman$elm_css$Css$fontWeight = function (_n0) {
 	var value = _n0.value;
 	return A2(rtfeldman$elm_css$Css$property, 'font-weight', value);
@@ -5883,6 +5886,7 @@ var rtfeldman$elm_css$Css$int = function (val) {
 	};
 };
 var rtfeldman$elm_css$Css$left = rtfeldman$elm_css$Css$prop1('left');
+var rtfeldman$elm_css$Css$letterSpacing = rtfeldman$elm_css$Css$prop1('letter-spacing');
 var rtfeldman$elm_css$Css$lighter = {fontWeight: rtfeldman$elm_css$Css$Structure$Compatible, value: 'lighter'};
 var rtfeldman$elm_css$Css$lineHeight = rtfeldman$elm_css$Css$prop1('line-height');
 var rtfeldman$elm_css$Css$margin = rtfeldman$elm_css$Css$prop1('margin');
@@ -5909,6 +5913,7 @@ var rtfeldman$elm_css$Css$minus = rtfeldman$elm_css$Css$Subtraction;
 var rtfeldman$elm_css$Css$noRepeat = {backgroundRepeat: rtfeldman$elm_css$Css$Structure$Compatible, backgroundRepeatShorthand: rtfeldman$elm_css$Css$Structure$Compatible, value: 'no-repeat'};
 var rtfeldman$elm_css$Css$noWrap = {flexDirectionOrWrap: rtfeldman$elm_css$Css$Structure$Compatible, flexWrap: rtfeldman$elm_css$Css$Structure$Compatible, value: 'nowrap', whiteSpace: rtfeldman$elm_css$Css$Structure$Compatible};
 var rtfeldman$elm_css$Css$none = {backgroundImage: rtfeldman$elm_css$Css$Structure$Compatible, blockAxisOverflow: rtfeldman$elm_css$Css$Structure$Compatible, borderStyle: rtfeldman$elm_css$Css$Structure$Compatible, cursor: rtfeldman$elm_css$Css$Structure$Compatible, display: rtfeldman$elm_css$Css$Structure$Compatible, hoverCapability: rtfeldman$elm_css$Css$Structure$Compatible, inlineAxisOverflow: rtfeldman$elm_css$Css$Structure$Compatible, keyframes: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNone: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNoneOrMinMaxDimension: rtfeldman$elm_css$Css$Structure$Compatible, lengthOrNumberOrAutoOrNoneOrContent: rtfeldman$elm_css$Css$Structure$Compatible, listStyleType: rtfeldman$elm_css$Css$Structure$Compatible, listStyleTypeOrPositionOrImage: rtfeldman$elm_css$Css$Structure$Compatible, none: rtfeldman$elm_css$Css$Structure$Compatible, outline: rtfeldman$elm_css$Css$Structure$Compatible, pointerDevice: rtfeldman$elm_css$Css$Structure$Compatible, pointerEvents: rtfeldman$elm_css$Css$Structure$Compatible, resize: rtfeldman$elm_css$Css$Structure$Compatible, scriptingSupport: rtfeldman$elm_css$Css$Structure$Compatible, textDecorationLine: rtfeldman$elm_css$Css$Structure$Compatible, textTransform: rtfeldman$elm_css$Css$Structure$Compatible, touchAction: rtfeldman$elm_css$Css$Structure$Compatible, transform: rtfeldman$elm_css$Css$Structure$Compatible, updateFrequency: rtfeldman$elm_css$Css$Structure$Compatible, value: 'none'};
+var rtfeldman$elm_css$Css$normal = {featureTagValue: rtfeldman$elm_css$Css$Structure$Compatible, fontStyle: rtfeldman$elm_css$Css$Structure$Compatible, fontWeight: rtfeldman$elm_css$Css$Structure$Compatible, overflowWrap: rtfeldman$elm_css$Css$Structure$Compatible, value: 'normal', whiteSpace: rtfeldman$elm_css$Css$Structure$Compatible};
 var rtfeldman$elm_css$Css$overflow = rtfeldman$elm_css$Css$prop1('overflow');
 var rtfeldman$elm_css$Css$overflowX = rtfeldman$elm_css$Css$prop1('overflow-x');
 var rtfeldman$elm_css$Css$overflowY = rtfeldman$elm_css$Css$prop1('overflow-y');
@@ -6091,10 +6096,8 @@ var author$project$MyStyles$sty = {
 		author$project$MyStyles$flexCenterX,
 		_List_fromArray(
 			[
-				A2(
-				rtfeldman$elm_css$Css$margin2,
-				rtfeldman$elm_css$Css$px(32),
-				rtfeldman$elm_css$Css$px(0))
+				rtfeldman$elm_css$Css$marginTop(
+				rtfeldman$elm_css$Css$px(50))
 			])),
 	contGifImg: author$project$MyStyles$flexCenterX,
 	contGifText: _Utils_ap(
@@ -6482,7 +6485,9 @@ var author$project$MyStyles$sty = {
 			rtfeldman$elm_css$Css$lineHeight(
 			rtfeldman$elm_css$Css$px(36)),
 			rtfeldman$elm_css$Css$paddingLeft(
-			rtfeldman$elm_css$Css$px(32))
+			rtfeldman$elm_css$Css$px(32)),
+			rtfeldman$elm_css$Css$marginBottom(
+			rtfeldman$elm_css$Css$px(12))
 		]),
 	gifName: _List_fromArray(
 		[
@@ -6492,12 +6497,22 @@ var author$project$MyStyles$sty = {
 	gifText: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$fontSize(
-			rtfeldman$elm_css$Css$px(17))
+			rtfeldman$elm_css$Css$px(22)),
+			rtfeldman$elm_css$Css$letterSpacing(
+			rtfeldman$elm_css$Css$em(5.0e-2)),
+			rtfeldman$elm_css$Css$fontFamilies(
+			_List_fromArray(
+				['NanumNamuSeongShilChaeRegular', 'Georgia', 'serif']))
 		]),
 	gifTextDate: _List_fromArray(
 		[
 			rtfeldman$elm_css$Css$fontSize(
-			rtfeldman$elm_css$Css$px(36))
+			rtfeldman$elm_css$Css$px(50)),
+			rtfeldman$elm_css$Css$color(
+			rtfeldman$elm_css$Css$hex('#67909D')),
+			rtfeldman$elm_css$Css$fontFamilies(
+			_List_fromArray(
+				['JabjaiLight', 'Georgia', 'serif']))
 		]),
 	hallInfoLeft: _List_fromArray(
 		[
@@ -6654,7 +6669,15 @@ var author$project$MyStyles$sty = {
 				A2(
 				rtfeldman$elm_css$Css$margin2,
 				rtfeldman$elm_css$Css$px(32),
-				rtfeldman$elm_css$Css$px(0))
+				rtfeldman$elm_css$Css$px(0)),
+				rtfeldman$elm_css$Css$fontFamilies(
+				_List_fromArray(
+					['JabjaiHeavy', 'Georgia', 'serif'])),
+				rtfeldman$elm_css$Css$fontStyle(rtfeldman$elm_css$Css$normal),
+				rtfeldman$elm_css$Css$letterSpacing(
+				rtfeldman$elm_css$Css$em(0.15)),
+				rtfeldman$elm_css$Css$color(
+				rtfeldman$elm_css$Css$hex('#486C7C'))
 			])),
 	sideOptText: _List_fromArray(
 		[
